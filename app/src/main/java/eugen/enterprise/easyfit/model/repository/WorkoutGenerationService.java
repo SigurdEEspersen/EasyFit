@@ -65,12 +65,15 @@ public class WorkoutGenerationService {
             if (workoutSplit == EWorkoutSplit.FullBody) {
                 setsPrMuscleGroup = 4;
                 avgSecondsPrSet = 150;
+                numberOfExercises = ThreadLocalRandom.current().nextInt(1,2);
             } else if (workoutSplit == EWorkoutSplit.TwoSplit) {
                 setsPrMuscleGroup = 6;
                 avgSecondsPrSet = 180;
+                numberOfExercises = ThreadLocalRandom.current().nextInt(2,3);
             } else if (workoutSplit == EWorkoutSplit.ThreeSplit) {
-                setsPrMuscleGroup = 10;
+                setsPrMuscleGroup = 9;
                 avgSecondsPrSet = 180;
+                numberOfExercises = 3;
             }
         } else if (workoutDuration == EWorkoutDuration.OneHalfHour) {
             if (workoutSplit == EWorkoutSplit.FullBody) {
@@ -84,12 +87,13 @@ public class WorkoutGenerationService {
             } else if (workoutSplit == EWorkoutSplit.ThreeSplit) {
                 setsPrMuscleGroup = 12;
                 avgSecondsPrSet = 210;
-                numberOfExercises = ThreadLocalRandom.current().nextInt(2,3);
+                numberOfExercises = ThreadLocalRandom.current().nextInt(3,4);
             }
         } else if (workoutDuration == EWorkoutDuration.TwoHours) {
             if (workoutSplit == EWorkoutSplit.FullBody) {
                 setsPrMuscleGroup = 6;
                 avgSecondsPrSet = 180;
+                numberOfExercises = ThreadLocalRandom.current().nextInt(2,3);
             } else if (workoutSplit == EWorkoutSplit.TwoSplit) {
                 setsPrMuscleGroup = 10;
                 avgSecondsPrSet = 240;
@@ -198,17 +202,17 @@ public class WorkoutGenerationService {
         exercises.add(chest2);
 
         Exercise chest3 = new Exercise();
-        chest3.setName("Flyes");
+        chest3.setName("Dumbbell Flyes");
         chest3.setMuscleGroup(EMuscleGroup.Chest);
-        chest3.setDurationSeconds(60);
+        chest3.setDurationSeconds(45);
         chest3.setPauseDurationSeconds(90);
         chest3.setExerciseType(EExerciseType.Isolation);
         exercises.add(chest3);
 
         Exercise chest4 = new Exercise();
-        chest4.setName("Cable Cross-over");
+        chest4.setName("Cable Crossover");
         chest4.setMuscleGroup(EMuscleGroup.Chest);
-        chest4.setDurationSeconds(60);
+        chest4.setDurationSeconds(45);
         chest4.setPauseDurationSeconds(90);
         chest4.setExerciseType(EExerciseType.Isolation);
         exercises.add(chest4);
@@ -230,13 +234,60 @@ public class WorkoutGenerationService {
         exercises.add(chest6);
 
         Exercise chest7 = new Exercise();
-        chest7.setName("Incline Dumbbell");
+        chest7.setName("Incline Dumbbell Flyes");
         chest7.setMuscleGroup(EMuscleGroup.Chest);
-        chest7.setDurationSeconds(60);
+        chest7.setDurationSeconds(45);
         chest7.setPauseDurationSeconds(150);
         chest7.setExerciseType(EExerciseType.Compound);
         exercises.add(chest7);
 
+        Exercise chest8 = new Exercise();
+        chest8.setName("Low-Cable Crossover");
+        chest8.setMuscleGroup(EMuscleGroup.Chest);
+        chest8.setDurationSeconds(45);
+        chest8.setPauseDurationSeconds(90);
+        chest8.setExerciseType(EExerciseType.Isolation);
+        exercises.add(chest8);
+
+        Exercise chest9 = new Exercise();
+        chest9.setName("Hex Press");
+        chest9.setMuscleGroup(EMuscleGroup.Chest);
+        chest9.setDurationSeconds(45);
+        chest9.setPauseDurationSeconds(90);
+        chest9.setExerciseType(EExerciseType.Isolation);
+        exercises.add(chest9);
+
+        Exercise chest10 = new Exercise();
+        chest10.setName("Flat Bench Dumbbell Press");
+        chest10.setMuscleGroup(EMuscleGroup.Chest);
+        chest10.setDurationSeconds(60);
+        chest10.setPauseDurationSeconds(150);
+        chest10.setExerciseType(EExerciseType.Compound);
+        exercises.add(chest10);
+
+        Exercise chest11 = new Exercise();
+        chest11.setName("Machine Decline Press");
+        chest11.setMuscleGroup(EMuscleGroup.Chest);
+        chest11.setDurationSeconds(45);
+        chest11.setPauseDurationSeconds(90);
+        chest11.setExerciseType(EExerciseType.Isolation);
+        exercises.add(chest11);
+
+        Exercise chest12 = new Exercise();
+        chest12.setName("Incline Bench Cable Flyes");
+        chest12.setMuscleGroup(EMuscleGroup.Chest);
+        chest12.setDurationSeconds(45);
+        chest12.setPauseDurationSeconds(90);
+        chest12.setExerciseType(EExerciseType.Isolation);
+        exercises.add(chest12);
+
+        Exercise chest13 = new Exercise();
+        chest13.setName("Machine Flyes");
+        chest13.setMuscleGroup(EMuscleGroup.Chest);
+        chest13.setDurationSeconds(45);
+        chest13.setPauseDurationSeconds(90);
+        chest13.setExerciseType(EExerciseType.Isolation);
+        exercises.add(chest13);
 
         //--- TRICEPS ---\\
         Exercise triceps1 = new Exercise();
@@ -247,6 +298,86 @@ public class WorkoutGenerationService {
         triceps1.setExerciseType(EExerciseType.Isolation);
         exercises.add(triceps1);
 
+        Exercise triceps2 = new Exercise();
+        triceps2.setName("Rope Triceps Pressdown");
+        triceps2.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps2.setDurationSeconds(45);
+        triceps2.setPauseDurationSeconds(90);
+        triceps2.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps2);
+
+        Exercise triceps3 = new Exercise();
+        triceps3.setName("Triceps Dips");
+        triceps3.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps3.setDurationSeconds(45);
+        triceps3.setPauseDurationSeconds(90);
+        triceps3.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps3);
+
+        Exercise triceps4 = new Exercise();
+        triceps4.setName("Isolated Triceps Extensions");
+        triceps4.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps4.setDurationSeconds(90);
+        triceps4.setPauseDurationSeconds(90);
+        triceps4.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps4);
+
+        Exercise triceps5 = new Exercise();
+        triceps1.setName("Underhand Triceps Pressdown");
+        triceps1.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps1.setDurationSeconds(45);
+        triceps1.setPauseDurationSeconds(90);
+        triceps1.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps1);
+
+        Exercise triceps6 = new Exercise();
+        triceps1.setName("Kickbacks");
+        triceps1.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps1.setDurationSeconds(45);
+        triceps1.setPauseDurationSeconds(90);
+        triceps1.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps1);
+
+        Exercise triceps7 = new Exercise();
+        triceps7.setName("Bar Triceps Pressdown");
+        triceps7.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps7.setDurationSeconds(45);
+        triceps7.setPauseDurationSeconds(90);
+        triceps7.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps7);
+
+        Exercise triceps8 = new Exercise();
+        triceps8.setName("Close Grip Bench Press");
+        triceps8.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps8.setDurationSeconds(45);
+        triceps8.setPauseDurationSeconds(90);
+        triceps8.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps8);
+
+        Exercise triceps9 = new Exercise();
+        triceps9.setName("Seated Overhead Dumbbell Extensions");
+        triceps9.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps9.setDurationSeconds(45);
+        triceps9.setPauseDurationSeconds(90);
+        triceps9.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps9);
+
+        Exercise triceps10 = new Exercise();
+        triceps10.setName("Lying Dumbbell Triceps Extensions");
+        triceps10.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps10.setDurationSeconds(45);
+        triceps10.setPauseDurationSeconds(90);
+        triceps10.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps10);
+
+        Exercise triceps11 = new Exercise();
+        triceps11.setName("Tate Press");
+        triceps11.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps11.setDurationSeconds(60);
+        triceps11.setPauseDurationSeconds(90);
+        triceps11.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps11);
+
         //--- Shoulder ---\\
         Exercise shoulder1 = new Exercise();
         shoulder1.setName("Shoulder Press");
@@ -256,7 +387,77 @@ public class WorkoutGenerationService {
         shoulder1.setExerciseType(EExerciseType.Compound);
         exercises.add(shoulder1);
 
+        Exercise shoulder2 = new Exercise();
+        shoulder2.setName("Barebell Overhead Press");
+        shoulder2.setMuscleGroup(EMuscleGroup.Shoulders);
+        shoulder2.setDurationSeconds(45);
+        shoulder2.setPauseDurationSeconds(90);
+        shoulder2.setExerciseType(EExerciseType.Compound);
+        exercises.add(shoulder2);
 
+        Exercise shoulder3 = new Exercise();
+        shoulder3.setName("Standing Dumbbell Fly");
+        shoulder3.setMuscleGroup(EMuscleGroup.Shoulders);
+        shoulder3.setDurationSeconds(45);
+        shoulder3.setPauseDurationSeconds(90);
+        shoulder3.setExerciseType(EExerciseType.Compound);
+        exercises.add(shoulder3);
+
+        Exercise shoulder4 = new Exercise();
+        shoulder4.setName("Face Pull");
+        shoulder4.setMuscleGroup(EMuscleGroup.Shoulders);
+        shoulder4.setDurationSeconds(45);
+        shoulder4.setPauseDurationSeconds(90);
+        shoulder4.setExerciseType(EExerciseType.Compound);
+        exercises.add(shoulder4);
+
+        Exercise shoulder5 = new Exercise();
+        shoulder5.setName("High Pulls");
+        shoulder5.setMuscleGroup(EMuscleGroup.Shoulders);
+        shoulder5.setDurationSeconds(45);
+        shoulder5.setPauseDurationSeconds(90);
+        shoulder5.setExerciseType(EExerciseType.Compound);
+        exercises.add(shoulder5);
+
+        Exercise shoulder6 = new Exercise();
+        shoulder6.setName("Incline Trap Raise");
+        shoulder6.setMuscleGroup(EMuscleGroup.Shoulders);
+        shoulder6.setDurationSeconds(45);
+        shoulder6.setPauseDurationSeconds(90);
+        shoulder6.setExerciseType(EExerciseType.Compound);
+        exercises.add(shoulder6);
+
+        Exercise shoulder7 = new Exercise();
+        shoulder7.setName("Machine Shoulder Press");
+        shoulder7.setMuscleGroup(EMuscleGroup.Shoulders);
+        shoulder7.setDurationSeconds(45);
+        shoulder7.setPauseDurationSeconds(120);
+        shoulder7.setExerciseType(EExerciseType.Compound);
+        exercises.add(shoulder7);
+
+        Exercise shoulder8 = new Exercise();
+        shoulder8.setName("Bend-Over Reverse Fly");
+        shoulder8.setMuscleGroup(EMuscleGroup.Shoulders);
+        shoulder8.setDurationSeconds(45);
+        shoulder8.setPauseDurationSeconds(120);
+        shoulder8.setExerciseType(EExerciseType.Compound);
+        exercises.add(shoulder8);
+
+        Exercise shoulder9 = new Exercise();
+        shoulder9.setName("Arnold Press");
+        shoulder9.setMuscleGroup(EMuscleGroup.Shoulders);
+        shoulder9.setDurationSeconds(45);
+        shoulder9.setPauseDurationSeconds(90);
+        shoulder9.setExerciseType(EExerciseType.Compound);
+        exercises.add(shoulder9);
+
+        Exercise shoulder10 = new Exercise();
+        shoulder10.setName("Lateral Raise");
+        shoulder10.setMuscleGroup(EMuscleGroup.Shoulders);
+        shoulder10.setDurationSeconds(45);
+        shoulder10.setPauseDurationSeconds(90);
+        shoulder10.setExerciseType(EExerciseType.Compound);
+        exercises.add(shoulder10);
 
 //TODO - Add more
 
