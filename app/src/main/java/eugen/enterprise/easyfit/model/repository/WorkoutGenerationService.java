@@ -389,20 +389,20 @@ public class WorkoutGenerationService {
         exercises.add(triceps4);
 
         Exercise triceps5 = new Exercise();
-        triceps1.setName("Underhand Triceps Pressdown");
-        triceps1.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps1.setDurationSeconds(45);
-        triceps1.setPauseDurationSeconds(90);
-        triceps1.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps1);
+        triceps5.setName("Underhand Triceps Pressdown");
+        triceps5.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps5.setDurationSeconds(45);
+        triceps5.setPauseDurationSeconds(90);
+        triceps5.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps5);
 
         Exercise triceps6 = new Exercise();
-        triceps1.setName("Kickbacks");
-        triceps1.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps1.setDurationSeconds(45);
-        triceps1.setPauseDurationSeconds(90);
-        triceps1.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps1);
+        triceps6.setName("Kickbacks");
+        triceps6.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps6.setDurationSeconds(45);
+        triceps6.setPauseDurationSeconds(90);
+        triceps6.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps6);
 
         Exercise triceps7 = new Exercise();
         triceps7.setName("Bar Triceps Pressdown");
@@ -421,7 +421,7 @@ public class WorkoutGenerationService {
         exercises.add(triceps8);
 
         Exercise triceps9 = new Exercise();
-        triceps9.setName("Seated Overhead Dumbbell Extensions");
+        triceps9.setName("Overhead Dumbbell Extensions");
         triceps9.setMuscleGroup(EMuscleGroup.Triceps);
         triceps9.setDurationSeconds(45);
         triceps9.setPauseDurationSeconds(90);
@@ -429,20 +429,12 @@ public class WorkoutGenerationService {
         exercises.add(triceps9);
 
         Exercise triceps10 = new Exercise();
-        triceps10.setName("Lying Dumbbell Triceps Extensions");
+        triceps10.setName("Tate Press");
         triceps10.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps10.setDurationSeconds(45);
+        triceps10.setDurationSeconds(60);
         triceps10.setPauseDurationSeconds(90);
         triceps10.setExerciseType(EExerciseType.Isolation);
         exercises.add(triceps10);
-
-        Exercise triceps11 = new Exercise();
-        triceps11.setName("Tate Press");
-        triceps11.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps11.setDurationSeconds(60);
-        triceps11.setPauseDurationSeconds(90);
-        triceps11.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps11);
 
         //--- Shoulder ---\\
         Exercise shoulder1 = new Exercise();
