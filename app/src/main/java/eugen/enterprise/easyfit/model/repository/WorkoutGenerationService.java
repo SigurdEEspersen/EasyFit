@@ -31,9 +31,9 @@ public class WorkoutGenerationService {
                 muscleGroupsWithExercises.add(getMuscleGroupWithExercises(c, eMuscleGroup));
             }
 
-            generateWorkout(workoutSplit, workoutDuration, muscleGroupsWithExercises, workoutExtras);
+            List<MuscleGroup> workout = generateWorkout(workoutSplit, workoutDuration, muscleGroupsWithExercises, workoutExtras);
 
-            callback.onResponse("test");
+            callback.onResponse(workout);
         };
 
         Thread thread = new Thread(runnable);
@@ -56,7 +56,7 @@ public class WorkoutGenerationService {
         return muscleGroup;
     }
 
-    private void generateWorkout(EWorkoutSplit workoutSplit, EWorkoutDuration workoutDuration, List<MuscleGroup> muscleGroupsWithExercises, EWorkoutExtras workoutExtras) {
+    private List<MuscleGroup> generateWorkout(EWorkoutSplit workoutSplit, EWorkoutDuration workoutDuration, List<MuscleGroup> muscleGroupsWithExercises, EWorkoutExtras workoutExtras) {
         int setsPrMuscleGroup = 0;
         int avgSecondsPrSet = 0;
         int numberOfExercises = 0;
@@ -65,12 +65,15 @@ public class WorkoutGenerationService {
             if (workoutSplit == EWorkoutSplit.FullBody) {
                 setsPrMuscleGroup = 4;
                 avgSecondsPrSet = 150;
+                numberOfExercises = ThreadLocalRandom.current().nextInt(1, 2);
             } else if (workoutSplit == EWorkoutSplit.TwoSplit) {
                 setsPrMuscleGroup = 6;
                 avgSecondsPrSet = 180;
+                numberOfExercises = ThreadLocalRandom.current().nextInt(2, 3);
             } else if (workoutSplit == EWorkoutSplit.ThreeSplit) {
-                setsPrMuscleGroup = 10;
+                setsPrMuscleGroup = 9;
                 avgSecondsPrSet = 180;
+                numberOfExercises = 3;
             }
         } else if (workoutDuration == EWorkoutDuration.OneHalfHour) {
             if (workoutSplit == EWorkoutSplit.FullBody) {
@@ -84,24 +87,91 @@ public class WorkoutGenerationService {
             } else if (workoutSplit == EWorkoutSplit.ThreeSplit) {
                 setsPrMuscleGroup = 12;
                 avgSecondsPrSet = 210;
-                numberOfExercises = ThreadLocalRandom.current().nextInt(2,3);
+                numberOfExercises = ThreadLocalRandom.current().nextInt(3, 4);
             }
         } else if (workoutDuration == EWorkoutDuration.TwoHours) {
             if (workoutSplit == EWorkoutSplit.FullBody) {
                 setsPrMuscleGroup = 6;
                 avgSecondsPrSet = 180;
+                numberOfExercises = ThreadLocalRandom.current().nextInt(2, 3);
             } else if (workoutSplit == EWorkoutSplit.TwoSplit) {
-                setsPrMuscleGroup = 10;
-                avgSecondsPrSet = 240;
+                setsPrMuscleGroup = 12;
+                avgSecondsPrSet = 200;
+                numberOfExercises = ThreadLocalRandom.current().nextInt(3, 4);
             } else if (workoutSplit == EWorkoutSplit.ThreeSplit) {
                 setsPrMuscleGroup = 15;
                 avgSecondsPrSet = 240;
+                int ThreeOrFive = ThreadLocalRandom.current().nextInt(0, 1);
+                if (ThreeOrFive == 0) {
+                    numberOfExercises = 3;
+                } else {
+                    numberOfExercises = 5;
+                }
             }
         }
 
+        int setsPrExercise = setsPrMuscleGroup / numberOfExercises;
+        int totalSecondsPrMuscleGroup = avgSecondsPrSet * setsPrMuscleGroup;
+
+        List<MuscleGroup> generatedWorkout = new ArrayList<>();
+
+        Random random = new Random();
         for (MuscleGroup loadedMuscleGroup : muscleGroupsWithExercises) {
-            loadedMuscleGroup.getExercises();
+            List<Exercise> compoundExercises = new ArrayList<>();
+            List<Exercise> isolationExercises = new ArrayList<>();
+
+            for (Exercise exercise : loadedMuscleGroup.getExercises()) {
+                if (exercise.getExerciseType().equals(EExerciseType.Compound)) {
+                    compoundExercises.add(exercise);
+                } else if (exercise.getExerciseType().equals(EExerciseType.Isolation)) {
+                    isolationExercises.add(exercise);
+                }
+            }
+
+            List<Exercise> finalExercises = new ArrayList<>();
+            if (numberOfExercises == 1) {
+                int index = random.nextInt(loadedMuscleGroup.getExercises().size());
+                Exercise ex = loadedMuscleGroup.getExercises().get(index);
+                finalExercises.add(ex); // Check for duration
+            } else if (numberOfExercises == 2) {
+                int indexCompound = random.nextInt(compoundExercises.size());
+                compoundExercises.get(indexCompound);
+                int indexIsolation = random.nextInt(compoundExercises.size());
+                isolationExercises.get(indexIsolation);
+            } else if (numberOfExercises == 3) {
+                int indexCompound = random.nextInt(compoundExercises.size());
+                compoundExercises.get(indexCompound);
+                int indexIsolation = random.nextInt(compoundExercises.size());
+                isolationExercises.get(indexIsolation);
+                int index = random.nextInt(loadedMuscleGroup.getExercises().size());
+                loadedMuscleGroup.getExercises().get(index); //Skal være forskellig fra compound/isolation exercise
+            } else if (numberOfExercises == 4) {
+                int indexCompound = random.nextInt(compoundExercises.size());
+                compoundExercises.get(indexCompound);
+                indexCompound = random.nextInt(compoundExercises.size());
+                compoundExercises.get(indexCompound);
+                int indexIsolation = random.nextInt(compoundExercises.size());
+                isolationExercises.get(indexIsolation);
+                indexIsolation = random.nextInt(compoundExercises.size());
+                isolationExercises.get(indexIsolation);
+            } else if (numberOfExercises == 5) {
+                int indexCompound = random.nextInt(compoundExercises.size());
+                compoundExercises.get(indexCompound);
+                indexCompound = random.nextInt(compoundExercises.size());
+                compoundExercises.get(indexCompound);
+                int indexIsolation = random.nextInt(compoundExercises.size());
+                isolationExercises.get(indexIsolation);
+                indexIsolation = random.nextInt(compoundExercises.size());
+                isolationExercises.get(indexIsolation);
+                int index = random.nextInt(loadedMuscleGroup.getExercises().size());
+                loadedMuscleGroup.getExercises().get(index); //Skal være forskellig fra compound/isolation exercise
+            }
+
+            loadedMuscleGroup.setExercises(finalExercises);
+            generatedWorkout.add(loadedMuscleGroup);
         }
+
+        return generatedWorkout;
     }
 
     private void VerifyDatabaseData(Context c) {
@@ -255,7 +325,6 @@ public class WorkoutGenerationService {
         shoulder1.setPauseDurationSeconds(120);
         shoulder1.setExerciseType(EExerciseType.Compound);
         exercises.add(shoulder1);
-
 
 
 //TODO - Add more
