@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_blue"
+    tools:context=".view.fragments.PlanFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/layout_workoutSplit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp">
+
+                <TextView
+                    android:id="@+id/txt_workoutSplit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/bebas_neue_regular"
+                    android:text="Workout Split"
+                    android:textColor="@color/tron_blue"
+                    android:textSize="42dp" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_below="@id/txt_workoutSplit"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="10dp"
+                    android:columnCount="3">
+
+                    <Button
+                        android:id="@+id/btn_splitFullBody"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="Full Body"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_split2Split"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="2-Split"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_split3Split"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_column="2"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="3-Split"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+                </GridLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_workoutDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_workoutSplit"
+                android:layout_marginTop="25dp">
+
+                <TextView
+                    android:id="@+id/txt_workoutDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/bebas_neue_regular"
+                    android:text="Workout Duration"
+                    android:textColor="@color/tron_blue"
+                    android:textSize="42dp" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_below="@id/txt_workoutDuration"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="10dp"
+                    android:columnCount="3">
+
+                    <Button
+                        android:id="@+id/btn_duration1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="1 Hour"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_duration2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="1.5 Hours"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_duration3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_column="2"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="2 Hours"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+                </GridLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_muscleGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_workoutDuration"
+                android:layout_marginTop="25dp">
+
+                <TextView
+                    android:id="@+id/txt_workoutGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/bebas_neue_regular"
+                    android:text="Muscle Groups"
+                    android:textColor="@color/tron_blue"
+                    android:textSize="42dp" />
+
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_workoutGroup"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="10dp"
+                    android:columnCount="4"
+                    android:rowCount="2">
+
+                    <Button
+                        android:id="@+id/btn_muscleGroupChest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="Chest"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_muscleGroupShoulders"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="0"
+                        android:layout_column="1"
+                        android:layout_margin="5dp"
+                        android:layout_toEndOf="@id/btn_muscleGroupLegs"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="Shoulders"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_muscleGroupBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="0"
+                        android:layout_column="2"
+                        android:layout_below="@id/btn_muscleGroupChest"
+                        android:layout_margin="5dp"
+                        android:layout_toEndOf="@id/btn_muscleGroupTriceps"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="Back"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_muscleGroupLegs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="0"
+                        android:layout_column="3"
+                        android:layout_margin="5dp"
+                        android:layout_toEndOf="@id/btn_muscleGroupChest"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="Legs"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_muscleGroupTriceps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:layout_below="@id/btn_muscleGroupChest"
+                        android:layout_margin="5dp"
+                        android:layout_toEndOf="@id/btn_muscleGroupBiceps"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="Triceps"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_muscleGroupBiceps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="1"
+                        android:layout_below="@id/btn_muscleGroupChest"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="Biceps"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+                </GridLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_workoutExtras"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_muscleGroup"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="50dp">
+
+                <TextView
+                    android:id="@+id/txt_workoutExtras"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/bebas_neue_regular"
+                    android:text="Workout Extras"
+                    android:textColor="@color/tron_blue"
+                    android:textSize="42dp" />
+
+                <LinearLayout
+                    android:id="@+id/layout_extrasSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_workoutExtras">
+
+                    <Switch
+                        android:id="@+id/switch_prePostWorkout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="5dp"
+                        android:checked="true"
+                        android:switchMinWidth="56dp"
+                        android:textColor="@color/white"
+                        android:textOff="Pre-Workout"
+                        android:textOn="Post-Workout"
+                        android:thumbTint="@color/tron_blue"
+                        android:trackTint="@color/tron_blue" />
+
+                    <SeekBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="5dp"
+                        android:max="30"
+                        android:min="10"
+                        android:minWidth="100dp"
+                        android:progress="5"
+                        android:progressBackgroundTint="@color/tron_blue"
+                        android:progressTint="@color/tron_blue"
+                        android:thumbTint="@color/tron_blue" />
+
+                </LinearLayout>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_extrasSettings"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="10dp"
+                    android:columnCount="4"
+                    android:rowCount="2">
+
+                    <Button
+                        android:id="@+id/btn_extrasAbs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="Abs"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_extrasRunning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="0"
+                        android:layout_column="1"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="Running"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_extrasBiking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="0"
+                        android:layout_column="2"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="Biking"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_extrasStairs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="0"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="Stairs"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_extrasRowing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="@font/rubik"
+                        android:text="Rowing"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                </GridLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btn_generateWorkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/btn_primary"
+            android:fontFamily="@font/bebas_neue_regular"
+            android:text="Let's do it!"
+            android:textColor="@color/dark_blue"
+            android:textSize="24dp" />
+    </LinearLayout>
+</RelativeLayout>

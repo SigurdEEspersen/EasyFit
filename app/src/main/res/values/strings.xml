@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">EasyFit</string>
+    <string name="title_plan">Plan</string>
+    <string name="title_workout">Workout</string>
+    <string name="title_macro">Macros</string>
+    <string name="title_recipe">Recipes</string>
+</resources>

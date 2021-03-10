@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_plan"
+        android:icon="@drawable/icon_plan"
+        android:title="@string/title_plan" />
+
+    <item
+        android:id="@+id/navigation_workout"
+        android:icon="@drawable/icon_workout"
+        android:title="@string/title_workout" />
+
+    <item
+        android:id="@+id/navigation_macro"
+        android:icon="@drawable/icon_macro"
+        android:title="@string/title_macro" />
+
+    <item
+        android:id="@+id/navigation_recipe"
+        android:icon="@drawable/icon_recipe"
+        android:title="@string/title_recipe" />
+
+</menu>

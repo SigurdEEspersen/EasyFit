@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_plan">
+
+    <fragment
+        android:id="@+id/navigation_plan"
+        android:name="eugen.enterprise.easyfit.view.fragments.PlanFragment"
+        android:label="@string/title_plan"
+        tools:layout="@layout/fragment_plan" />
+
+    <fragment
+        android:id="@+id/navigation_workout"
+        android:name="eugen.enterprise.easyfit.view.fragments.WorkoutFragment"
+        android:label="@string/title_workout"
+        tools:layout="@layout/fragment_workout" />
+
+    <fragment
+        android:id="@+id/navigation_macro"
+        android:name="eugen.enterprise.easyfit.view.fragments.MacroFragment"
+        android:label="@string/title_macro"
+        tools:layout="@layout/fragment_macro" />
+
+    <fragment
+        android:id="@+id/navigation_recipe"
+        android:name="eugen.enterprise.easyfit.view.fragments.RecipeFragment"
+        android:label="@string/title_recipe"
+        tools:layout="@layout/fragment_recipe" />
+</navigation>
