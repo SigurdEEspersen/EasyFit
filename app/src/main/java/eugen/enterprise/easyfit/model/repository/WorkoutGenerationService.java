@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import eugen.enterprise.easyfit.acquaintance.enums.EExerciseType;
@@ -65,15 +66,17 @@ public class WorkoutGenerationService {
         int avgSecondsPrSet = 0;
         int numberOfExercises = 0;
 
+        Random random = new Random();
+
         if (workoutDuration == EWorkoutDuration.OneHour) {
             if (workoutSplit == EWorkoutSplit.FullBody) {
                 setsPrMuscleGroup = 4;
                 avgSecondsPrSet = 150;
-                numberOfExercises = ThreadLocalRandom.current().nextInt(1, 2);
+                numberOfExercises = randomInt(random, 1, 2);
             } else if (workoutSplit == EWorkoutSplit.TwoSplit) {
                 setsPrMuscleGroup = 6;
                 avgSecondsPrSet = 180;
-                numberOfExercises = ThreadLocalRandom.current().nextInt(2, 3);
+                numberOfExercises = randomInt(random, 2, 3);
             } else if (workoutSplit == EWorkoutSplit.ThreeSplit) {
                 setsPrMuscleGroup = 9;
                 avgSecondsPrSet = 180;
@@ -83,7 +86,7 @@ public class WorkoutGenerationService {
             if (workoutSplit == EWorkoutSplit.FullBody) {
                 setsPrMuscleGroup = 6;
                 avgSecondsPrSet = 150;
-                numberOfExercises = ThreadLocalRandom.current().nextInt(2, 3);
+                numberOfExercises = randomInt(random, 2, 3);
             } else if (workoutSplit == EWorkoutSplit.TwoSplit) {
                 setsPrMuscleGroup = 9;
                 avgSecondsPrSet = 210;
@@ -91,21 +94,21 @@ public class WorkoutGenerationService {
             } else if (workoutSplit == EWorkoutSplit.ThreeSplit) {
                 setsPrMuscleGroup = 12;
                 avgSecondsPrSet = 210;
-                numberOfExercises = ThreadLocalRandom.current().nextInt(3, 4);
+                numberOfExercises = randomInt(random, 3, 4);
             }
         } else if (workoutDuration == EWorkoutDuration.TwoHours) {
             if (workoutSplit == EWorkoutSplit.FullBody) {
                 setsPrMuscleGroup = 6;
                 avgSecondsPrSet = 180;
-                numberOfExercises = ThreadLocalRandom.current().nextInt(2, 3);
+                numberOfExercises = randomInt(random, 2, 3);
             } else if (workoutSplit == EWorkoutSplit.TwoSplit) {
                 setsPrMuscleGroup = 12;
                 avgSecondsPrSet = 200;
-                numberOfExercises = ThreadLocalRandom.current().nextInt(3, 4);
+                numberOfExercises = randomInt(random, 3, 4);
             } else if (workoutSplit == EWorkoutSplit.ThreeSplit) {
                 setsPrMuscleGroup = 15;
                 avgSecondsPrSet = 240;
-                int ThreeOrFive = ThreadLocalRandom.current().nextInt(0, 1);
+                int ThreeOrFive = randomInt(random, 0, 1);
                 if (ThreeOrFive == 0) {
                     numberOfExercises = 3;
                 } else {
@@ -118,7 +121,8 @@ public class WorkoutGenerationService {
         int totalSecondsPrMuscleGroup = avgSecondsPrSet * setsPrMuscleGroup;
         EWorkoutLoad workoutLoad;
 
-        int workLoadSelection = ThreadLocalRandom.current().nextInt(0, 2);
+
+        int workLoadSelection = randomInt(random, 0, 2);
         if (workLoadSelection == 0) {
             workoutLoad = EWorkoutLoad.Regular;
         } else if (workLoadSelection == 1) {
@@ -134,9 +138,9 @@ public class WorkoutGenerationService {
             List<Exercise> isolationExercises = new ArrayList<>();
 
             for (Exercise exercise : loadedMuscleGroup.getExercises()) {
-                if (exercise.getExerciseType().equals(EExerciseType.Compound)) {
+                if (exercise.getExerciseType().equals(EExerciseType.Compound.name())) {
                     compoundExercises.add(exercise);
-                } else if (exercise.getExerciseType().equals(EExerciseType.Isolation)) {
+                } else if (exercise.getExerciseType().equals(EExerciseType.Isolation.name())) {
                     isolationExercises.add(exercise);
                 }
             }
@@ -326,6 +330,11 @@ public class WorkoutGenerationService {
                 break;
         }
         return exercise;
+    }
+
+    public static int randomInt(Random random, int min, int max) {
+        int randomNum = random.nextInt((max - min) + 1) + min;
+        return randomNum;
     }
 
     private void VerifyDatabaseData(Context c) {
