@@ -625,11 +625,91 @@ public class WorkoutGenerationService {
     }
 
     private static void addBackExercises(List<Exercise> exercises) {
+        Exercise back1 = new Exercise();
+        back1.setName("Deadlifts");
+        back1.setMuscleGroup(EMuscleGroup.Back);
+        back1.setDurationSeconds(120);
+        back1.setPauseDurationSeconds(90);
+        back1.setExerciseType(EExerciseType.Compound);
+        exercises.add(back1);
+
+        Exercise back2 = new Exercise();
+        back2.setName("Wide Grip Pull Ups");
+        back2.setMuscleGroup(EMuscleGroup.Back);
+        back2.setDurationSeconds(60);
+        back2.setPauseDurationSeconds(90);
+        back2.setExerciseType(EExerciseType.Compound);
+        exercises.add(back2);
+
+        Exercise back3 = new Exercise();
+        back3.setName("Machine Row");
+        back3.setMuscleGroup(EMuscleGroup.Back);
+        back3.setDurationSeconds(60);
+        back3.setPauseDurationSeconds(90);
+        back3.setExerciseType(EExerciseType.Compound);
+        exercises.add(back3);
+
+        Exercise back4 = new Exercise();
+        back4.setName("Close Grip Pull ups");
+        back4.setMuscleGroup(EMuscleGroup.Back);
+        back4.setDurationSeconds(60);
+        back4.setPauseDurationSeconds(90);
+        back4.setExerciseType(EExerciseType.Compound);
+        exercises.add(back4);
+
+        Exercise back5 = new Exercise();
+        back5.setName("Dumbbell Rows");
+        back5.setMuscleGroup(EMuscleGroup.Back);
+        back5.setDurationSeconds(45);
+        back5.setPauseDurationSeconds(90);
+        back5.setExerciseType(EExerciseType.Compound);
+        exercises.add(back5);
+
+        Exercise back6 = new Exercise();
+        back6.setName("Hyper Extensions");
+        back6.setMuscleGroup(EMuscleGroup.Back);
+        back6.setDurationSeconds(60);
+        back6.setPauseDurationSeconds(90);
+        back6.setExerciseType(EExerciseType.Compound);
+        exercises.add(back6);
+
+        Exercise back7 = new Exercise();
+        back7.setName("Cable Row");
+        back7.setMuscleGroup(EMuscleGroup.Back);
+        back7.setDurationSeconds(60);
+        back7.setPauseDurationSeconds(90);
+        back7.setExerciseType(EExerciseType.Compound);
+        exercises.add(back7);
+
+        Exercise back8 = new Exercise();
+        back8.setName("T-Bar Row");
+        back8.setMuscleGroup(EMuscleGroup.Back);
+        back8.setDurationSeconds(120);
+        back8.setPauseDurationSeconds(90);
+        back8.setExerciseType(EExerciseType.Compound);
+        exercises.add(back8);
+
+        Exercise back9 = new Exercise();
+        back9.setName("Pullovers");
+        back9.setMuscleGroup(EMuscleGroup.Back);
+        back9.setDurationSeconds(45);
+        back9.setPauseDurationSeconds(90);
+        back9.setExerciseType(EExerciseType.Isolation);
+        exercises.add(back9);
+
+        Exercise back10 = new Exercise();
+        back10.setName("Lat Pulldown");
+        back10.setMuscleGroup(EMuscleGroup.Back);
+        back10.setDurationSeconds(60);
+        back10.setPauseDurationSeconds(90);
+        back10.setExerciseType(EExerciseType.Isolation);
+        exercises.add(back10);
+
 
     }
 
     private static void addLegExercises(List<Exercise> exercises) {
-
+        
     }
 
     private static void addTricepsExercises(List<Exercise> exercises) {
