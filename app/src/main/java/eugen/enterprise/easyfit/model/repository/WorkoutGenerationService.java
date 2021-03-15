@@ -118,7 +118,6 @@ public class WorkoutGenerationService {
         }
 
         int setsPrExercise = setsPrMuscleGroup / numberOfExercises;
-        int totalSecondsPrMuscleGroup = avgSecondsPrSet * setsPrMuscleGroup;
         EWorkoutLoad workoutLoad;
 
 
@@ -132,8 +131,10 @@ public class WorkoutGenerationService {
         }
 
         List<IMuscleGroup> generatedWorkout = new ArrayList<>();
-        int durationBuffer = 30;
+        int durationBuffer = 0; //Set to 0 for now. Can increase if needed
         for (MuscleGroup loadedMuscleGroup : muscleGroupsWithExercises) {
+            int totalSecondsPrMuscleGroup = avgSecondsPrSet * setsPrMuscleGroup;
+
             List<Exercise> compoundExercises = new ArrayList<>();
             List<Exercise> isolationExercises = new ArrayList<>();
 
@@ -151,7 +152,7 @@ public class WorkoutGenerationService {
 
                 for (Exercise randomExercise : loadedMuscleGroup.getExercises()) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
-                    if (exerciseTotalSeconds < avgSecondsPrSet + durationBuffer) {
+                    if (exerciseTotalSeconds <= avgSecondsPrSet + durationBuffer) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         break;
                     }
@@ -162,7 +163,7 @@ public class WorkoutGenerationService {
 
                 for (Exercise randomExercise : compoundExercises) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
-                    if (exerciseTotalSeconds < avgSecondsPrSet + durationBuffer) {
+                    if (exerciseTotalSeconds <= avgSecondsPrSet + durationBuffer) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
                         break;
@@ -172,7 +173,7 @@ public class WorkoutGenerationService {
                 for (Exercise randomExercise : isolationExercises) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
                     int avgSecondsWithBuffer = (totalSecondsPrMuscleGroup / setsPrExercise) + durationBuffer;
-                    if (exerciseTotalSeconds < avgSecondsWithBuffer) {
+                    if (exerciseTotalSeconds <= avgSecondsWithBuffer) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         break;
                     }
@@ -184,7 +185,7 @@ public class WorkoutGenerationService {
 
                 for (Exercise randomExercise : compoundExercises) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
-                    if (exerciseTotalSeconds < avgSecondsPrSet + durationBuffer) {
+                    if (exerciseTotalSeconds <= avgSecondsPrSet + durationBuffer) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
                         break;
@@ -194,7 +195,7 @@ public class WorkoutGenerationService {
                 for (Exercise randomExercise : isolationExercises) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
                     int avgSecondsWithBuffer = ((totalSecondsPrMuscleGroup / 2) / setsPrExercise) + durationBuffer;
-                    if (exerciseTotalSeconds < avgSecondsWithBuffer) {
+                    if (exerciseTotalSeconds <= avgSecondsWithBuffer) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
                         break;
@@ -204,7 +205,7 @@ public class WorkoutGenerationService {
                 for (Exercise randomExercise : loadedMuscleGroup.getExercises()) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
                     int avgSecondsWithBuffer = (totalSecondsPrMuscleGroup / setsPrExercise) + durationBuffer;
-                    if (exerciseTotalSeconds < avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
+                    if (exerciseTotalSeconds <= avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         break;
                     }
@@ -215,7 +216,7 @@ public class WorkoutGenerationService {
 
                 for (Exercise randomExercise : compoundExercises) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
-                    if (exerciseTotalSeconds < avgSecondsPrSet + durationBuffer) {
+                    if (exerciseTotalSeconds <= avgSecondsPrSet + durationBuffer) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
                         break;
@@ -225,7 +226,7 @@ public class WorkoutGenerationService {
                 for (Exercise randomExercise : isolationExercises) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
                     int avgSecondsWithBuffer = ((totalSecondsPrMuscleGroup / 3) / setsPrExercise) + durationBuffer;
-                    if (exerciseTotalSeconds < avgSecondsWithBuffer) {
+                    if (exerciseTotalSeconds <= avgSecondsWithBuffer) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
                         break;
@@ -235,7 +236,7 @@ public class WorkoutGenerationService {
                 for (Exercise randomExercise : compoundExercises) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
                     int avgSecondsWithBuffer = ((totalSecondsPrMuscleGroup / 2) / setsPrExercise) + durationBuffer;
-                    if (exerciseTotalSeconds < avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
+                    if (exerciseTotalSeconds <= avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
                         break;
@@ -245,7 +246,7 @@ public class WorkoutGenerationService {
                 for (Exercise randomExercise : isolationExercises) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
                     int avgSecondsWithBuffer = (totalSecondsPrMuscleGroup / setsPrExercise) + durationBuffer;
-                    if (exerciseTotalSeconds < avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
+                    if (exerciseTotalSeconds <= avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         break;
                     }
@@ -257,7 +258,7 @@ public class WorkoutGenerationService {
 
                 for (Exercise randomExercise : compoundExercises) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
-                    if (exerciseTotalSeconds < avgSecondsPrSet + durationBuffer) {
+                    if (exerciseTotalSeconds <= avgSecondsPrSet + durationBuffer) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
                         break;
@@ -267,7 +268,7 @@ public class WorkoutGenerationService {
                 for (Exercise randomExercise : isolationExercises) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
                     int avgSecondsWithBuffer = ((totalSecondsPrMuscleGroup / 4) / setsPrExercise) + durationBuffer;
-                    if (exerciseTotalSeconds < avgSecondsWithBuffer) {
+                    if (exerciseTotalSeconds <= avgSecondsWithBuffer) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
                         break;
@@ -277,7 +278,7 @@ public class WorkoutGenerationService {
                 for (Exercise randomExercise : compoundExercises) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
                     int avgSecondsWithBuffer = ((totalSecondsPrMuscleGroup / 3) / setsPrExercise) + durationBuffer;
-                    if (exerciseTotalSeconds < avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
+                    if (exerciseTotalSeconds <= avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
                         break;
@@ -287,7 +288,7 @@ public class WorkoutGenerationService {
                 for (Exercise randomExercise : isolationExercises) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
                     int avgSecondsWithBuffer = ((totalSecondsPrMuscleGroup / 2) / setsPrExercise) + durationBuffer;
-                    if (exerciseTotalSeconds < avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
+                    if (exerciseTotalSeconds <= avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
                         break;
@@ -297,7 +298,7 @@ public class WorkoutGenerationService {
                 for (Exercise randomExercise : loadedMuscleGroup.getExercises()) {
                     int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
                     int avgSecondsWithBuffer = (totalSecondsPrMuscleGroup / setsPrExercise) + durationBuffer;
-                    if (exerciseTotalSeconds < avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
+                    if (exerciseTotalSeconds <= avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
                         finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
                         break;
                     }
