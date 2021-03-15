@@ -473,7 +473,7 @@ public class WorkoutGenerationService {
         chest7.setMuscleGroup(EMuscleGroup.Chest);
         chest7.setDurationSeconds(45);
         chest7.setPauseDurationSeconds(150);
-        chest7.setExerciseType(EExerciseType.Compound);
+        chest7.setExerciseType(EExerciseType.Isolation);
         exercises.add(chest7);
 
         Exercise chest8 = new Exercise();
@@ -523,6 +523,14 @@ public class WorkoutGenerationService {
         chest13.setPauseDurationSeconds(90);
         chest13.setExerciseType(EExerciseType.Isolation);
         exercises.add(chest13);
+
+        Exercise chest14 = new Exercise();
+        chest14.setName("Decline Dumbbell Bench Press");
+        chest14.setMuscleGroup(EMuscleGroup.Chest);
+        chest14.setDurationSeconds(60);
+        chest14.setPauseDurationSeconds(150);
+        chest14.setExerciseType(EExerciseType.Compound);
+        exercises.add(chest14);
     }
 
     private static void addShoulderExercises(List<Exercise> exercises) {
@@ -547,13 +555,13 @@ public class WorkoutGenerationService {
         shoulder3.setMuscleGroup(EMuscleGroup.Shoulders);
         shoulder3.setDurationSeconds(45);
         shoulder3.setPauseDurationSeconds(90);
-        shoulder3.setExerciseType(EExerciseType.Compound);
+        shoulder3.setExerciseType(EExerciseType.Isolation);
         exercises.add(shoulder3);
 
         Exercise shoulder4 = new Exercise();
         shoulder4.setName("Face Pulls");
         shoulder4.setMuscleGroup(EMuscleGroup.Shoulders);
-        shoulder4.setDurationSeconds(45);
+        shoulder4.setDurationSeconds(60);
         shoulder4.setPauseDurationSeconds(90);
         shoulder4.setExerciseType(EExerciseType.Compound);
         exercises.add(shoulder4);
@@ -561,9 +569,9 @@ public class WorkoutGenerationService {
         Exercise shoulder5 = new Exercise();
         shoulder5.setName("High Pulls");
         shoulder5.setMuscleGroup(EMuscleGroup.Shoulders);
-        shoulder5.setDurationSeconds(45);
+        shoulder5.setDurationSeconds(60);
         shoulder5.setPauseDurationSeconds(90);
-        shoulder5.setExerciseType(EExerciseType.Compound);
+        shoulder5.setExerciseType(EExerciseType.Isolation);
         exercises.add(shoulder5);
 
         Exercise shoulder6 = new Exercise();
@@ -571,13 +579,13 @@ public class WorkoutGenerationService {
         shoulder6.setMuscleGroup(EMuscleGroup.Shoulders);
         shoulder6.setDurationSeconds(45);
         shoulder6.setPauseDurationSeconds(90);
-        shoulder6.setExerciseType(EExerciseType.Compound);
+        shoulder6.setExerciseType(EExerciseType.Isolation);
         exercises.add(shoulder6);
 
         Exercise shoulder7 = new Exercise();
         shoulder7.setName("Machine Shoulder Press");
         shoulder7.setMuscleGroup(EMuscleGroup.Shoulders);
-        shoulder7.setDurationSeconds(45);
+        shoulder7.setDurationSeconds(60);
         shoulder7.setPauseDurationSeconds(120);
         shoulder7.setExerciseType(EExerciseType.Compound);
         exercises.add(shoulder7);
@@ -587,13 +595,13 @@ public class WorkoutGenerationService {
         shoulder8.setMuscleGroup(EMuscleGroup.Shoulders);
         shoulder8.setDurationSeconds(45);
         shoulder8.setPauseDurationSeconds(120);
-        shoulder8.setExerciseType(EExerciseType.Compound);
+        shoulder8.setExerciseType(EExerciseType.Isolation);
         exercises.add(shoulder8);
 
         Exercise shoulder9 = new Exercise();
         shoulder9.setName("Arnold Press");
         shoulder9.setMuscleGroup(EMuscleGroup.Shoulders);
-        shoulder9.setDurationSeconds(45);
+        shoulder9.setDurationSeconds(60);
         shoulder9.setPauseDurationSeconds(90);
         shoulder9.setExerciseType(EExerciseType.Compound);
         exercises.add(shoulder9);
@@ -603,7 +611,7 @@ public class WorkoutGenerationService {
         shoulder10.setMuscleGroup(EMuscleGroup.Shoulders);
         shoulder10.setDurationSeconds(45);
         shoulder10.setPauseDurationSeconds(90);
-        shoulder10.setExerciseType(EExerciseType.Compound);
+        shoulder10.setExerciseType(EExerciseType.Isolation);
         exercises.add(shoulder10);
     }
 
@@ -621,7 +629,7 @@ public class WorkoutGenerationService {
         triceps1.setMuscleGroup(EMuscleGroup.Triceps);
         triceps1.setDurationSeconds(60);
         triceps1.setPauseDurationSeconds(90);
-        triceps1.setExerciseType(EExerciseType.Isolation);
+        triceps1.setExerciseType(EExerciseType.Compound);
         exercises.add(triceps1);
 
         Exercise triceps2 = new Exercise();
@@ -635,9 +643,9 @@ public class WorkoutGenerationService {
         Exercise triceps3 = new Exercise();
         triceps3.setName("Triceps Dips");
         triceps3.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps3.setDurationSeconds(45);
+        triceps3.setDurationSeconds(60);
         triceps3.setPauseDurationSeconds(90);
-        triceps3.setExerciseType(EExerciseType.Isolation);
+        triceps3.setExerciseType(EExerciseType.Compound);
         exercises.add(triceps3);
 
         Exercise triceps4 = new Exercise();
@@ -675,9 +683,9 @@ public class WorkoutGenerationService {
         Exercise triceps8 = new Exercise();
         triceps8.setName("Close Grip Bench Press");
         triceps8.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps8.setDurationSeconds(45);
+        triceps8.setDurationSeconds(60);
         triceps8.setPauseDurationSeconds(90);
-        triceps8.setExerciseType(EExerciseType.Isolation);
+        triceps8.setExerciseType(EExerciseType.Compound);
         exercises.add(triceps8);
 
         Exercise triceps9 = new Exercise();
@@ -691,7 +699,7 @@ public class WorkoutGenerationService {
         Exercise triceps10 = new Exercise();
         triceps10.setName("Tate Press");
         triceps10.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps10.setDurationSeconds(60);
+        triceps10.setDurationSeconds(45);
         triceps10.setPauseDurationSeconds(90);
         triceps10.setExerciseType(EExerciseType.Isolation);
         exercises.add(triceps10);
