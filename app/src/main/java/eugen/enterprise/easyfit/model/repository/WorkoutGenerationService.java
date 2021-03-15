@@ -3,16 +3,20 @@ package eugen.enterprise.easyfit.model.repository;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import eugen.enterprise.easyfit.acquaintance.enums.EExerciseType;
+import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutLoad;
+import eugen.enterprise.easyfit.acquaintance.helpers.Workout;
 import eugen.enterprise.easyfit.acquaintance.interfaces.Callback;
 import eugen.enterprise.easyfit.acquaintance.enums.EMuscleGroup;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutDuration;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutExtras;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutSplit;
+import eugen.enterprise.easyfit.acquaintance.interfaces.IExercise;
+import eugen.enterprise.easyfit.acquaintance.interfaces.IMuscleGroup;
 import eugen.enterprise.easyfit.model.DatabaseAccess;
 import eugen.enterprise.easyfit.model.data_objects.Exercise;
 import eugen.enterprise.easyfit.model.data_objects.ExerciseDao;
@@ -31,7 +35,7 @@ public class WorkoutGenerationService {
                 muscleGroupsWithExercises.add(getMuscleGroupWithExercises(c, eMuscleGroup));
             }
 
-            List<MuscleGroup> workout = generateWorkout(workoutSplit, workoutDuration, muscleGroupsWithExercises, workoutExtras);
+            Workout workout = generateWorkout(workoutSplit, workoutDuration, muscleGroupsWithExercises, workoutExtras);
 
             callback.onResponse(workout);
         };
@@ -56,7 +60,7 @@ public class WorkoutGenerationService {
         return muscleGroup;
     }
 
-    private List<MuscleGroup> generateWorkout(EWorkoutSplit workoutSplit, EWorkoutDuration workoutDuration, List<MuscleGroup> muscleGroupsWithExercises, EWorkoutExtras workoutExtras) {
+    private Workout generateWorkout(EWorkoutSplit workoutSplit, EWorkoutDuration workoutDuration, List<MuscleGroup> muscleGroupsWithExercises, EWorkoutExtras workoutExtras) {
         int setsPrMuscleGroup = 0;
         int avgSecondsPrSet = 0;
         int numberOfExercises = 0;
@@ -112,10 +116,19 @@ public class WorkoutGenerationService {
 
         int setsPrExercise = setsPrMuscleGroup / numberOfExercises;
         int totalSecondsPrMuscleGroup = avgSecondsPrSet * setsPrMuscleGroup;
+        EWorkoutLoad workoutLoad;
 
-        List<MuscleGroup> generatedWorkout = new ArrayList<>();
+        int workLoadSelection = ThreadLocalRandom.current().nextInt(0, 2);
+        if (workLoadSelection == 0) {
+            workoutLoad = EWorkoutLoad.Regular;
+        } else if (workLoadSelection == 1) {
+            workoutLoad = EWorkoutLoad.Medium;
+        } else {
+            workoutLoad = EWorkoutLoad.Heavy;
+        }
 
-        Random random = new Random();
+        List<IMuscleGroup> generatedWorkout = new ArrayList<>();
+        int durationBuffer = 30;
         for (MuscleGroup loadedMuscleGroup : muscleGroupsWithExercises) {
             List<Exercise> compoundExercises = new ArrayList<>();
             List<Exercise> isolationExercises = new ArrayList<>();
@@ -130,48 +143,189 @@ public class WorkoutGenerationService {
 
             List<Exercise> finalExercises = new ArrayList<>();
             if (numberOfExercises == 1) {
-                int index = random.nextInt(loadedMuscleGroup.getExercises().size());
-                Exercise ex = loadedMuscleGroup.getExercises().get(index);
-                finalExercises.add(ex); // Check for duration
+                Collections.shuffle(loadedMuscleGroup.getExercises());
+
+                for (Exercise randomExercise : loadedMuscleGroup.getExercises()) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    if (exerciseTotalSeconds < avgSecondsPrSet + durationBuffer) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        break;
+                    }
+                }
             } else if (numberOfExercises == 2) {
-                int indexCompound = random.nextInt(compoundExercises.size());
-                compoundExercises.get(indexCompound);
-                int indexIsolation = random.nextInt(compoundExercises.size());
-                isolationExercises.get(indexIsolation);
+                Collections.shuffle(compoundExercises);
+                Collections.shuffle(isolationExercises);
+
+                for (Exercise randomExercise : compoundExercises) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    if (exerciseTotalSeconds < avgSecondsPrSet + durationBuffer) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
+                        break;
+                    }
+                }
+
+                for (Exercise randomExercise : isolationExercises) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    int avgSecondsWithBuffer = (totalSecondsPrMuscleGroup / setsPrExercise) + durationBuffer;
+                    if (exerciseTotalSeconds < avgSecondsWithBuffer) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        break;
+                    }
+                }
             } else if (numberOfExercises == 3) {
-                int indexCompound = random.nextInt(compoundExercises.size());
-                compoundExercises.get(indexCompound);
-                int indexIsolation = random.nextInt(compoundExercises.size());
-                isolationExercises.get(indexIsolation);
-                int index = random.nextInt(loadedMuscleGroup.getExercises().size());
-                loadedMuscleGroup.getExercises().get(index); //Skal være forskellig fra compound/isolation exercise
+                Collections.shuffle(compoundExercises);
+                Collections.shuffle(isolationExercises);
+                Collections.shuffle(loadedMuscleGroup.getExercises());
+
+                for (Exercise randomExercise : compoundExercises) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    if (exerciseTotalSeconds < avgSecondsPrSet + durationBuffer) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
+                        break;
+                    }
+                }
+
+                for (Exercise randomExercise : isolationExercises) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    int avgSecondsWithBuffer = ((totalSecondsPrMuscleGroup / 2) / setsPrExercise) + durationBuffer;
+                    if (exerciseTotalSeconds < avgSecondsWithBuffer) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
+                        break;
+                    }
+                }
+
+                for (Exercise randomExercise : loadedMuscleGroup.getExercises()) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    int avgSecondsWithBuffer = (totalSecondsPrMuscleGroup / setsPrExercise) + durationBuffer;
+                    if (exerciseTotalSeconds < avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        break;
+                    }
+                }
             } else if (numberOfExercises == 4) {
-                int indexCompound = random.nextInt(compoundExercises.size());
-                compoundExercises.get(indexCompound);
-                indexCompound = random.nextInt(compoundExercises.size());
-                compoundExercises.get(indexCompound);
-                int indexIsolation = random.nextInt(compoundExercises.size());
-                isolationExercises.get(indexIsolation);
-                indexIsolation = random.nextInt(compoundExercises.size());
-                isolationExercises.get(indexIsolation);
+                Collections.shuffle(compoundExercises);
+                Collections.shuffle(isolationExercises);
+
+                for (Exercise randomExercise : compoundExercises) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    if (exerciseTotalSeconds < avgSecondsPrSet + durationBuffer) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
+                        break;
+                    }
+                }
+
+                for (Exercise randomExercise : isolationExercises) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    int avgSecondsWithBuffer = ((totalSecondsPrMuscleGroup / 3) / setsPrExercise) + durationBuffer;
+                    if (exerciseTotalSeconds < avgSecondsWithBuffer) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
+                        break;
+                    }
+                }
+
+                for (Exercise randomExercise : compoundExercises) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    int avgSecondsWithBuffer = ((totalSecondsPrMuscleGroup / 2) / setsPrExercise) + durationBuffer;
+                    if (exerciseTotalSeconds < avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
+                        break;
+                    }
+                }
+
+                for (Exercise randomExercise : isolationExercises) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    int avgSecondsWithBuffer = (totalSecondsPrMuscleGroup / setsPrExercise) + durationBuffer;
+                    if (exerciseTotalSeconds < avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        break;
+                    }
+                }
             } else if (numberOfExercises == 5) {
-                int indexCompound = random.nextInt(compoundExercises.size());
-                compoundExercises.get(indexCompound);
-                indexCompound = random.nextInt(compoundExercises.size());
-                compoundExercises.get(indexCompound);
-                int indexIsolation = random.nextInt(compoundExercises.size());
-                isolationExercises.get(indexIsolation);
-                indexIsolation = random.nextInt(compoundExercises.size());
-                isolationExercises.get(indexIsolation);
-                int index = random.nextInt(loadedMuscleGroup.getExercises().size());
-                loadedMuscleGroup.getExercises().get(index); //Skal være forskellig fra compound/isolation exercise
+                Collections.shuffle(compoundExercises);
+                Collections.shuffle(isolationExercises);
+                Collections.shuffle(loadedMuscleGroup.getExercises());
+
+                for (Exercise randomExercise : compoundExercises) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    if (exerciseTotalSeconds < avgSecondsPrSet + durationBuffer) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
+                        break;
+                    }
+                }
+
+                for (Exercise randomExercise : isolationExercises) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    int avgSecondsWithBuffer = ((totalSecondsPrMuscleGroup / 4) / setsPrExercise) + durationBuffer;
+                    if (exerciseTotalSeconds < avgSecondsWithBuffer) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
+                        break;
+                    }
+                }
+
+                for (Exercise randomExercise : compoundExercises) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    int avgSecondsWithBuffer = ((totalSecondsPrMuscleGroup / 3) / setsPrExercise) + durationBuffer;
+                    if (exerciseTotalSeconds < avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
+                        break;
+                    }
+                }
+
+                for (Exercise randomExercise : isolationExercises) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    int avgSecondsWithBuffer = ((totalSecondsPrMuscleGroup / 2) / setsPrExercise) + durationBuffer;
+                    if (exerciseTotalSeconds < avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        totalSecondsPrMuscleGroup = totalSecondsPrMuscleGroup - (exerciseTotalSeconds * setsPrExercise);
+                        break;
+                    }
+                }
+
+                for (Exercise randomExercise : loadedMuscleGroup.getExercises()) {
+                    int exerciseTotalSeconds = randomExercise.getDurationSeconds() + randomExercise.getPauseDurationSeconds();
+                    int avgSecondsWithBuffer = (totalSecondsPrMuscleGroup / setsPrExercise) + durationBuffer;
+                    if (exerciseTotalSeconds < avgSecondsWithBuffer && !finalExercises.contains(randomExercise)) {
+                        finalExercises.add(adjustPauseDuration(workoutLoad, randomExercise));
+                        break;
+                    }
+                }
             }
 
             loadedMuscleGroup.setExercises(finalExercises);
             generatedWorkout.add(loadedMuscleGroup);
         }
 
-        return generatedWorkout;
+        Workout workout = new Workout();
+        workout.setMuscleGroups(generatedWorkout);
+        workout.setWorkoutLoad(workoutLoad);
+        workout.setSetsPrExercise(setsPrExercise);
+        return workout;
+    }
+
+    private Exercise adjustPauseDuration(EWorkoutLoad workLoad, Exercise exercise) {
+        int adjustedPause;
+        switch (workLoad) {
+            case Regular:
+                break;
+            case Medium:
+                adjustedPause = exercise.getPauseDurationSeconds() + (Math.round(exercise.getDurationSeconds() / 4));
+                exercise.setPauseDurationSeconds(adjustedPause);
+                break;
+            case Heavy:
+                adjustedPause = exercise.getPauseDurationSeconds() + (Math.round(exercise.getDurationSeconds() / 2));
+                exercise.setPauseDurationSeconds(adjustedPause);
+                break;
+        }
+        return exercise;
     }
 
     private void VerifyDatabaseData(Context c) {
@@ -250,7 +404,22 @@ public class WorkoutGenerationService {
     private static Exercise[] exercises() {
         List<Exercise> exercises = new ArrayList<>();
 
-        //--- CHEST ---\\
+        addChestExercises(exercises);
+        addShoulderExercises(exercises);
+        addBackExercises(exercises);
+        addLegExercises(exercises);
+        addTricepsExercises(exercises);
+        addBicepsExercises(exercises);
+
+        Exercise[] exerciseArray = new Exercise[exercises.size()];
+        for (int i = 0; i < exercises.size(); i++) {
+            exerciseArray[i] = exercises.get(i);
+        }
+
+        return exerciseArray;
+    }
+
+    private static void addChestExercises(List<Exercise> exercises) {
         Exercise chest1 = new Exercise();
         chest1.setName("Bench Press");
         chest1.setMuscleGroup(EMuscleGroup.Chest);
@@ -324,7 +493,7 @@ public class WorkoutGenerationService {
         exercises.add(chest9);
 
         Exercise chest10 = new Exercise();
-        chest10.setName("Flat Bench Dumbbell Press");
+        chest10.setName("Dumbbell Bench Press");
         chest10.setMuscleGroup(EMuscleGroup.Chest);
         chest10.setDurationSeconds(60);
         chest10.setPauseDurationSeconds(150);
@@ -354,89 +523,9 @@ public class WorkoutGenerationService {
         chest13.setPauseDurationSeconds(90);
         chest13.setExerciseType(EExerciseType.Isolation);
         exercises.add(chest13);
+    }
 
-        //--- TRICEPS ---\\
-        Exercise triceps1 = new Exercise();
-        triceps1.setName("Skull Crushers");
-        triceps1.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps1.setDurationSeconds(60);
-        triceps1.setPauseDurationSeconds(90);
-        triceps1.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps1);
-
-        Exercise triceps2 = new Exercise();
-        triceps2.setName("Rope Triceps Pressdown");
-        triceps2.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps2.setDurationSeconds(45);
-        triceps2.setPauseDurationSeconds(90);
-        triceps2.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps2);
-
-        Exercise triceps3 = new Exercise();
-        triceps3.setName("Triceps Dips");
-        triceps3.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps3.setDurationSeconds(45);
-        triceps3.setPauseDurationSeconds(90);
-        triceps3.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps3);
-
-        Exercise triceps4 = new Exercise();
-        triceps4.setName("Isolated Triceps Extensions");
-        triceps4.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps4.setDurationSeconds(90);
-        triceps4.setPauseDurationSeconds(90);
-        triceps4.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps4);
-
-        Exercise triceps5 = new Exercise();
-        triceps5.setName("Underhand Triceps Pressdown");
-        triceps5.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps5.setDurationSeconds(45);
-        triceps5.setPauseDurationSeconds(90);
-        triceps5.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps5);
-
-        Exercise triceps6 = new Exercise();
-        triceps6.setName("Kickbacks");
-        triceps6.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps6.setDurationSeconds(45);
-        triceps6.setPauseDurationSeconds(90);
-        triceps6.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps6);
-
-        Exercise triceps7 = new Exercise();
-        triceps7.setName("Bar Triceps Pressdown");
-        triceps7.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps7.setDurationSeconds(45);
-        triceps7.setPauseDurationSeconds(90);
-        triceps7.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps7);
-
-        Exercise triceps8 = new Exercise();
-        triceps8.setName("Close Grip Bench Press");
-        triceps8.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps8.setDurationSeconds(45);
-        triceps8.setPauseDurationSeconds(90);
-        triceps8.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps8);
-
-        Exercise triceps9 = new Exercise();
-        triceps9.setName("Overhead Dumbbell Extensions");
-        triceps9.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps9.setDurationSeconds(45);
-        triceps9.setPauseDurationSeconds(90);
-        triceps9.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps9);
-
-        Exercise triceps10 = new Exercise();
-        triceps10.setName("Tate Press");
-        triceps10.setMuscleGroup(EMuscleGroup.Triceps);
-        triceps10.setDurationSeconds(60);
-        triceps10.setPauseDurationSeconds(90);
-        triceps10.setExerciseType(EExerciseType.Isolation);
-        exercises.add(triceps10);
-
-        //--- Shoulder ---\\
+    private static void addShoulderExercises(List<Exercise> exercises) {
         Exercise shoulder1 = new Exercise();
         shoulder1.setName("Shoulder Press");
         shoulder1.setMuscleGroup(EMuscleGroup.Shoulders);
@@ -446,7 +535,7 @@ public class WorkoutGenerationService {
         exercises.add(shoulder1);
 
         Exercise shoulder2 = new Exercise();
-        shoulder2.setName("Barebell Overhead Press");
+        shoulder2.setName("Barbell Overhead Press");
         shoulder2.setMuscleGroup(EMuscleGroup.Shoulders);
         shoulder2.setDurationSeconds(45);
         shoulder2.setPauseDurationSeconds(90);
@@ -462,7 +551,7 @@ public class WorkoutGenerationService {
         exercises.add(shoulder3);
 
         Exercise shoulder4 = new Exercise();
-        shoulder4.setName("Face Pull");
+        shoulder4.setName("Face Pulls");
         shoulder4.setMuscleGroup(EMuscleGroup.Shoulders);
         shoulder4.setDurationSeconds(45);
         shoulder4.setPauseDurationSeconds(90);
@@ -516,14 +605,99 @@ public class WorkoutGenerationService {
         shoulder10.setPauseDurationSeconds(90);
         shoulder10.setExerciseType(EExerciseType.Compound);
         exercises.add(shoulder10);
+    }
 
-//TODO - Add more
+    private static void addBackExercises(List<Exercise> exercises) {
 
-        Exercise[] exerciseArray = new Exercise[exercises.size()];
-        for (int i = 0; i < exercises.size(); i++) {
-            exerciseArray[i] = exercises.get(i);
-        }
+    }
 
-        return exerciseArray;
+    private static void addLegExercises(List<Exercise> exercises) {
+
+    }
+
+    private static void addTricepsExercises(List<Exercise> exercises) {
+        Exercise triceps1 = new Exercise();
+        triceps1.setName("Skull Crushers");
+        triceps1.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps1.setDurationSeconds(60);
+        triceps1.setPauseDurationSeconds(90);
+        triceps1.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps1);
+
+        Exercise triceps2 = new Exercise();
+        triceps2.setName("Rope Triceps Pressdown");
+        triceps2.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps2.setDurationSeconds(45);
+        triceps2.setPauseDurationSeconds(90);
+        triceps2.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps2);
+
+        Exercise triceps3 = new Exercise();
+        triceps3.setName("Triceps Dips");
+        triceps3.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps3.setDurationSeconds(45);
+        triceps3.setPauseDurationSeconds(90);
+        triceps3.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps3);
+
+        Exercise triceps4 = new Exercise();
+        triceps4.setName("Isolated Triceps Extensions");
+        triceps4.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps4.setDurationSeconds(90);
+        triceps4.setPauseDurationSeconds(90);
+        triceps4.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps4);
+
+        Exercise triceps5 = new Exercise();
+        triceps5.setName("Underhand Triceps Pressdown");
+        triceps5.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps5.setDurationSeconds(45);
+        triceps5.setPauseDurationSeconds(90);
+        triceps5.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps5);
+
+        Exercise triceps6 = new Exercise();
+        triceps6.setName("Tricep Kickbacks");
+        triceps6.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps6.setDurationSeconds(45);
+        triceps6.setPauseDurationSeconds(90);
+        triceps6.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps6);
+
+        Exercise triceps7 = new Exercise();
+        triceps7.setName("Bar Triceps Pressdown");
+        triceps7.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps7.setDurationSeconds(45);
+        triceps7.setPauseDurationSeconds(90);
+        triceps7.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps7);
+
+        Exercise triceps8 = new Exercise();
+        triceps8.setName("Close Grip Bench Press");
+        triceps8.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps8.setDurationSeconds(45);
+        triceps8.setPauseDurationSeconds(90);
+        triceps8.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps8);
+
+        Exercise triceps9 = new Exercise();
+        triceps9.setName("Overhead Dumbbell Extensions");
+        triceps9.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps9.setDurationSeconds(45);
+        triceps9.setPauseDurationSeconds(90);
+        triceps9.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps9);
+
+        Exercise triceps10 = new Exercise();
+        triceps10.setName("Tate Press");
+        triceps10.setMuscleGroup(EMuscleGroup.Triceps);
+        triceps10.setDurationSeconds(60);
+        triceps10.setPauseDurationSeconds(90);
+        triceps10.setExerciseType(EExerciseType.Isolation);
+        exercises.add(triceps10);
+    }
+
+    private static void addBicepsExercises(List<Exercise> exercises) {
+
     }
 }
