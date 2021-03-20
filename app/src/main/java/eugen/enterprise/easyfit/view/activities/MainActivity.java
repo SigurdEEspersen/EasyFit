@@ -1,7 +1,9 @@
 package eugen.enterprise.easyfit.view.activities;
 
 import android.os.Bundle;
+import android.view.View;
 
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,4 +31,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    public void swapTab(View view, int id, Bundle bundle) {
+        if (bundle != null) {
+            Navigation.findNavController(view).navigate(id, bundle);
+        } else {
+            Navigation.findNavController(view).navigate(id);
+        }
+    }
 }

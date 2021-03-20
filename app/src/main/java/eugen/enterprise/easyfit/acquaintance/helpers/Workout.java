@@ -1,11 +1,12 @@
 package eugen.enterprise.easyfit.acquaintance.helpers;
 
+import java.io.Serializable;
 import java.util.List;
 
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutLoad;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IMuscleGroup;
 
-public class Workout {
+public class Workout implements Serializable {
     List<IMuscleGroup> muscleGroups;
     EWorkoutLoad workoutLoad;
     int setsPrExercise;

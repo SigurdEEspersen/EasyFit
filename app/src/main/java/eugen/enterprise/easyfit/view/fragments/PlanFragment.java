@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ import eugen.enterprise.easyfit.acquaintance.enums.EMuscleGroup;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutDuration;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutExtras;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutSplit;
+import eugen.enterprise.easyfit.acquaintance.helpers.Workout;
+import eugen.enterprise.easyfit.view.activities.MainActivity;
 import eugen.enterprise.easyfit.viewmodel.PlanViewModel;
 
 public class PlanFragment extends Fragment {
@@ -180,11 +183,20 @@ public class PlanFragment extends Fragment {
                 }
             } else {
                 if (muscleGroupAmountSelected != muscleGroupAmountMax) {
-                    Toast.makeText(getContext(), "Select at least " + muscleGroupAmountMax + " muscle groups", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Select " + muscleGroupAmountMax + " muscle groups", Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
             planViewModel.createWorkout(selectedSplit, selectedDuration, selectedMuscleGroups, selectedExtras, getContext());
+        });
+
+        planViewModel.getWorkout().observe(requireActivity(), new Observer<Workout>() {
+            @Override
+            public void onChanged(Workout workout) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("workout", workout);
+                ((MainActivity)getActivity()).swapTab(getView(), R.id.navigation_workout, bundle);
+            }
         });
     }
 

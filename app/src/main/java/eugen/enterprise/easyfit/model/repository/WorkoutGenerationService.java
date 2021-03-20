@@ -705,8 +705,6 @@ public class WorkoutGenerationService {
         back10.setPauseDurationSeconds(90);
         back10.setExerciseType(EExerciseType.Isolation);
         exercises.add(back10);
-
-
     }
 
     private static void addLegExercises(List<Exercise> exercises) {
