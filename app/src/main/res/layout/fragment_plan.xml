@@ -340,7 +340,7 @@
                         android:layout_margin="5dp"
                         android:background="@drawable/btn_border"
                         android:fontFamily="@font/rubik"
-                        android:text="Abs"
+                        android:text="Core"
                         android:textAllCaps="false"
                         android:textColor="@color/white" />
 

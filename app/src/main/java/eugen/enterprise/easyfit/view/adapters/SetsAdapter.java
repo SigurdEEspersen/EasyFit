@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +35,8 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
     static class ViewHolder {
         TextView txt_workout_exercise_set;
         Button btn_startPause;
+        RelativeLayout btn_set_data;
+        RelativeLayout layout_set_result_data;
     }
 
     @Override
@@ -58,12 +62,15 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
             viewHolder = new ViewHolder();
             viewHolder.txt_workout_exercise_set = row.findViewById(R.id.txt_workout_exercise_set);
             viewHolder.btn_startPause = row.findViewById(R.id.btn_startPause);
+            viewHolder.btn_set_data = row.findViewById(R.id.btn_set_data);
+            viewHolder.layout_set_result_data = row.findViewById(R.id.layout_set_result_data);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) row.getTag();
         }
         final IExercise exercise = getItem(position);
         viewHolder.txt_workout_exercise_set.setText("#" + (position + 1) + " set");
+        viewHolder.btn_startPause.setText("Pause " + exercise.getPauseDurationSeconds() + "s");
 
         viewHolder.btn_startPause.setOnClickListener(v -> {
             viewHolder.btn_startPause.setTextSize(24);
@@ -86,6 +93,14 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
                 }
             });
             thread.start();
+        });
+
+        viewHolder.btn_set_data.setOnClickListener(v -> {
+            if (viewHolder.layout_set_result_data.getVisibility() == View.GONE) {
+                viewHolder.layout_set_result_data.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.layout_set_result_data.setVisibility(View.GONE);
+            }
         });
 
         return row;

@@ -102,6 +102,7 @@
                     android:cacheColorHint="@android:color/transparent"
                     android:divider="@null"
                     android:listSelector="@android:color/transparent"
+                    android:nestedScrollingEnabled="true"
                     android:scrollbars="none" />
             </RelativeLayout>
         </RelativeLayout>
