@@ -44,6 +44,7 @@ public class WorkoutFragment extends Fragment {
             btn_planWorkout.setVisibility(View.GONE);
             Workout workout = (Workout) b.getSerializable("workout");
             WorkoutAdapter adapter = new WorkoutAdapter(requireContext(), R.layout.workout_card);
+            adapter.injectData(requireContext(), getActivity(), workout);
             for (IMuscleGroup muscleGroup : workout.getMuscleGroups()) {
                 adapter.add(muscleGroup);
             }

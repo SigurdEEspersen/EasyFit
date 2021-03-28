@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,15 +24,14 @@ import eugen.enterprise.easyfit.R;
 import eugen.enterprise.easyfit.acquaintance.helpers.Common;
 import eugen.enterprise.easyfit.acquaintance.helpers.Workout;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IExercise;
-import eugen.enterprise.easyfit.acquaintance.interfaces.IMuscleGroup;
 
-public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
-    private List<IMuscleGroup> muscleGroups = new ArrayList<>();
+public class ExercisesAdapter extends ArrayAdapter<IExercise> {
+    private List<IExercise> exercises = new ArrayList<>();
     private Context context;
     private Workout workout;
     private Activity activity;
 
-    public WorkoutAdapter(@NonNull Context context, int resource) {
+    public ExercisesAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
 
@@ -44,24 +42,25 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
     }
 
     static class ViewHolder {
-        TextView txt_workout_muscleGroup;
+        TextView txt_workout_exercise;
+        TextView txt_workout_exercise_info;
         ImageButton img_expander;
-        LinearLayout btn_expandExercises;
-        RelativeLayout layout_exercises;
+        RelativeLayout btn_expandSets;
+        RelativeLayout layout_sets;
         CardView cardView;
-        ListView exercisesList;
+        ListView workout_list_sets;
     }
 
     @Override
-    public void add(IMuscleGroup muscleGroup) {
-        muscleGroups.add(muscleGroup);
-        super.add(muscleGroup);
+    public void add(IExercise exercise) {
+        exercises.add(exercise);
+        super.add(exercise);
         notifyDataSetChanged();
     }
 
     @Override
-    public IMuscleGroup getItem(int index) {
-        return this.muscleGroups.get(index);
+    public IExercise getItem(int index) {
+        return this.exercises.get(index);
     }
 
     @NonNull
@@ -71,42 +70,57 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
         ViewHolder viewHolder;
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.workout_card, parent, false);
+            row = inflater.inflate(R.layout.exercise_card, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.txt_workout_muscleGroup = row.findViewById(R.id.txt_workout_muscleGroup);
-            viewHolder.cardView = row.findViewById(R.id.workout_baseCard);
+            viewHolder.txt_workout_exercise = row.findViewById(R.id.txt_workout_exercise);
+            viewHolder.txt_workout_exercise_info = row.findViewById(R.id.txt_workout_exercise_info);
+            viewHolder.cardView = row.findViewById(R.id.workout_baseCard_exercise);
             viewHolder.img_expander = row.findViewById(R.id.img_expander);
-            viewHolder.layout_exercises = row.findViewById(R.id.layout_exercises);
-            viewHolder.btn_expandExercises = row.findViewById(R.id.btn_expandExercises);
-            viewHolder.exercisesList = row.findViewById(R.id.workout_list_exercises);
+            viewHolder.layout_sets = row.findViewById(R.id.layout_sets);
+            viewHolder.btn_expandSets = row.findViewById(R.id.btn_expandSets);
+            viewHolder.workout_list_sets = row.findViewById(R.id.workout_list_sets);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) row.getTag();
         }
-        final IMuscleGroup muscleGroup = getItem(position);
-        viewHolder.txt_workout_muscleGroup.setText(muscleGroup.getName());
+        final IExercise exercise = getItem(position);
+        viewHolder.txt_workout_exercise.setText(exercise.getName());
 
-        viewHolder.btn_expandExercises.setOnClickListener(v -> {
-            if (viewHolder.layout_exercises.getVisibility() == View.GONE) {
+        String workoutLoad = "";
+        switch (workout.getWorkoutLoad()) {
+            case Regular:
+                workoutLoad = "10-12 reps";
+                break;
+            case Medium:
+                workoutLoad = "8 reps";
+                break;
+            case Heavy:
+                workoutLoad = "4-6 reps";
+                break;
+        }
+        viewHolder.txt_workout_exercise_info.setText(workout.getSetsPrExercise() + " sets of " + workoutLoad);
+
+        viewHolder.btn_expandSets.setOnClickListener(v -> {
+            if (viewHolder.layout_sets.getVisibility() == View.GONE) {
                 TransitionManager.beginDelayedTransition(viewHolder.cardView,
                         new AutoTransition());
-                viewHolder.layout_exercises.setVisibility(View.VISIBLE);
+                viewHolder.layout_sets.setVisibility(View.VISIBLE);
                 viewHolder.img_expander.setImageResource(R.drawable.ic_baseline_expand_less_24);
-            } else if (viewHolder.layout_exercises.getVisibility() == View.VISIBLE) {
+            } else if (viewHolder.layout_sets.getVisibility() == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(viewHolder.cardView,
                         new AutoTransition());
-                viewHolder.layout_exercises.setVisibility(View.GONE);
+                viewHolder.layout_sets.setVisibility(View.GONE);
                 viewHolder.img_expander.setImageResource(R.drawable.ic_baseline_expand_more_24);
             }
         });
 
-        ExercisesAdapter adapter = new ExercisesAdapter(context, R.layout.exercise_card);
-        adapter.injectData(context, activity, workout);
-        for (IExercise exercise : muscleGroup.getExercises()) {
+        SetsAdapter adapter = new SetsAdapter(context, R.layout.exercise_card);
+        adapter.injectData(activity);
+        for (int i = 0; i < workout.getSetsPrExercise(); i++) {
             adapter.add(exercise);
         }
-        viewHolder.exercisesList.setAdapter(adapter);
-        Common.updateListViewHeight(viewHolder.exercisesList);
+        viewHolder.workout_list_sets.setAdapter(adapter);
+        Common.updateListViewHeight(viewHolder.workout_list_sets);
 
         return row;
     }

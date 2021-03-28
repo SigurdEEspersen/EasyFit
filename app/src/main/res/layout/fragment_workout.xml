@@ -21,9 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:paddingHorizontal="25dp"
         android:background="@drawable/btn_primary"
         android:fontFamily="@font/bebas_neue_regular"
+        android:paddingHorizontal="25dp"
         android:text="Plan Workout"
         android:textColor="@color/dark_blue"
         android:textSize="24dp" />

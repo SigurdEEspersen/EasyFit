@@ -2,23 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/workout_baseCard"
+        android:id="@+id/workout_baseCard_exercise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:cardBackgroundColor="#FF324158"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp">
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"
+        app:cardBackgroundColor="@color/dark_blue">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:id="@+id/workout_card"
+                android:id="@+id/workout_card_exercise"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -26,28 +25,43 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="25dp">
+                    android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/layout_exerciseName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Muscle Group:"
-                        android:textColor="@color/white"
-                        android:textSize="18dp" />
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="5dp">
 
-                    <TextView
-                        android:id="@+id/txt_workout_muscleGroup"
+                        <TextView
+                            android:id="@+id/txt_workout_exercise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="Name"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Name"
-                        android:textColor="@color/tron_blue"
-                        android:textSize="18dp" />
+                        android:layout_below="@id/layout_exerciseName"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="5dp">
+
+                        <TextView
+                            android:id="@+id/txt_workout_exercise_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="Info"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/btn_expandExercises"
+                <RelativeLayout
+                    android:id="@+id/btn_expandSets"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -56,37 +70,38 @@
                     android:paddingVertical="25dp">
 
                     <TextView
+                        android:id="@+id/txt_sets"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Exercises"
-                        android:textColor="@color/white"
-                        android:textSize="18dp" />
+                        android:layout_centerVertical="true"
+                        android:text="Sets"
+                        android:textColor="@color/white" />
 
                     <ImageButton
                         android:id="@+id/img_expander"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/txt_sets"
                         android:background="@android:color/transparent"
                         android:src="@drawable/ic_baseline_expand_more_24" />
-                </LinearLayout>
+                </RelativeLayout>
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/layout_exercises"
+                android:id="@+id/layout_sets"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/workout_card"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/workout_card_exercise"
+                android:layout_marginBottom="10dp"
                 android:visibility="gone">
 
                 <ListView
-                    android:id="@+id/workout_list_exercises"
+                    android:id="@+id/workout_list_sets"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
                     android:cacheColorHint="@android:color/transparent"
                     android:divider="@null"
                     android:listSelector="@android:color/transparent"
-                    android:nestedScrollingEnabled="true"
                     android:scrollbars="none" />
             </RelativeLayout>
         </RelativeLayout>
