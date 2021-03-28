@@ -24,8 +24,8 @@
         tools:layout="@layout/fragment_macro" />
 
     <fragment
-        android:id="@+id/navigation_recipe"
-        android:name="eugen.enterprise.easyfit.view.fragments.RecipeFragment"
-        android:label="@string/title_recipe"
-        tools:layout="@layout/fragment_recipe" />
+        android:id="@+id/navigation_health"
+        android:name="eugen.enterprise.easyfit.view.fragments.HealthFragment"
+        android:label="@string/title_health"
+        tools:layout="@layout/fragment_health" />
 </navigation>

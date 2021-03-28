@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class RecipeViewModel extends ViewModel {
+public class HealthViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public RecipeViewModel() {
+    public HealthViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is recipe fragment");
+        mText.setValue("This is the health fragment");
     }
 
     public LiveData<String> getText() {

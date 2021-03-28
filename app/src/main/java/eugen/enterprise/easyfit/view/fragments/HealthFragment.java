@@ -13,19 +13,19 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import eugen.enterprise.easyfit.R;
-import eugen.enterprise.easyfit.viewmodel.RecipeViewModel;
+import eugen.enterprise.easyfit.viewmodel.HealthViewModel;
 
-public class RecipeFragment extends Fragment {
+public class HealthFragment extends Fragment {
 
-    private RecipeViewModel recipeViewModel;
+    private HealthViewModel healthViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        recipeViewModel =
-                new ViewModelProvider(this).get(RecipeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_recipe, container, false);
-        final TextView textView = root.findViewById(R.id.text_recipe);
-        recipeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        healthViewModel =
+                new ViewModelProvider(this).get(HealthViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_health, container, false);
+        final TextView textView = root.findViewById(R.id.text_health);
+        healthViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

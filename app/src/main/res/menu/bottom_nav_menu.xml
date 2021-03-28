@@ -17,8 +17,8 @@
         android:title="@string/title_macro" />
 
     <item
-        android:id="@+id/navigation_recipe"
-        android:icon="@drawable/icon_recipe"
-        android:title="@string/title_recipe" />
+        android:id="@+id/navigation_health"
+        android:icon="@drawable/icon_leaf"
+        android:title="@string/title_health" />
 
 </menu>

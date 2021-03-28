@@ -257,8 +257,18 @@ public class PlanFragment extends Fragment {
     }
 
     private void toggleMuscleGroup(EMuscleGroup muscleGroup, boolean toggled) {
+        if (muscleGroupAmountMax == 0) {
+            Toast.makeText(getContext(), "Select workout split", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Button button = muscleGroupButton.get(muscleGroup);
         if (toggled) {
+            if (selectedSplit == EWorkoutSplit.FullBody && muscleGroupAmountSelected < 6) {
+                Toast.makeText(getContext(), "Minimum of 5 muscle groups when training full body", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             button.setBackgroundResource(R.drawable.btn_border);
             selectedMuscleGroups.remove(muscleGroup);
             muscleGroupAmountSelected--;
@@ -269,7 +279,7 @@ public class PlanFragment extends Fragment {
                 selectedMuscleGroups.add(muscleGroup);
                 muscleGroupAmountSelected++;
                 toggledMuscleGroups.replace(muscleGroup, true);
-                updateRecommendedMuscleGroups(muscleGroup);
+                updateRecommendedMuscleGroups();
             }
         }
 
@@ -281,12 +291,12 @@ public class PlanFragment extends Fragment {
     }
 
     private void updateMuscleGroupAlpha(Boolean allVisible) {
-        for (Map.Entry pair : toggledMuscleGroups.entrySet()) {
+        for (Map.Entry<EMuscleGroup, Boolean> pair : toggledMuscleGroups.entrySet()) {
             Button muscleGroup = muscleGroupButton.get(pair.getKey());
             if (allVisible) {
                 muscleGroup.setAlpha(1);
             } else {
-                if ((Boolean) pair.getValue() == false) {
+                if (pair.getValue() == false) {
                     muscleGroup.setAlpha(0.5f);
                 } else {
                     muscleGroup.setAlpha(1);
@@ -295,118 +305,38 @@ public class PlanFragment extends Fragment {
         }
     }
 
-    private void updateRecommendedMuscleGroups(EMuscleGroup muscleGroup) {
-        switch (muscleGroup) {
-            case Chest:
-                if (!toggledMuscleGroups.get(EMuscleGroup.Shoulders)) {
-                    btn_muscleGroupShoulders.setBackgroundResource(R.drawable.btn_border);
+    private void updateRecommendedMuscleGroups() {
+        for (Map.Entry<EMuscleGroup, Boolean> pair : toggledMuscleGroups.entrySet()) {
+            if (pair.getValue()) {
+                switch (pair.getKey()) {
+                    case Chest:
+                    case Shoulders:
+                        if (!toggledMuscleGroups.get(EMuscleGroup.Triceps)) {
+                            btn_muscleGroupTriceps.setBackgroundResource(R.drawable.btn_border_recommended);
+                        }
+                        break;
+                    case Back:
+                        if (!toggledMuscleGroups.get(EMuscleGroup.Biceps)) {
+                            btn_muscleGroupBiceps.setBackgroundResource(R.drawable.btn_border_recommended);
+                        }
+                        break;
+                    case Legs:
+                        break;
+                    case Triceps:
+                        if (!toggledMuscleGroups.get(EMuscleGroup.Chest)) {
+                            btn_muscleGroupChest.setBackgroundResource(R.drawable.btn_border_recommended);
+                        }
+                        if (!toggledMuscleGroups.get(EMuscleGroup.Shoulders)) {
+                            btn_muscleGroupShoulders.setBackgroundResource(R.drawable.btn_border_recommended);
+                        }
+                        break;
+                    case Biceps:
+                        if (!toggledMuscleGroups.get(EMuscleGroup.Back)) {
+                            btn_muscleGroupBack.setBackgroundResource(R.drawable.btn_border_recommended);
+                        }
+                        break;
                 }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Back)) {
-                    btn_muscleGroupBack.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Legs)) {
-                    btn_muscleGroupLegs.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Biceps)) {
-                    btn_muscleGroupBiceps.setBackgroundResource(R.drawable.btn_border);
-                }
-
-                if (!toggledMuscleGroups.get(EMuscleGroup.Triceps)) {
-                    btn_muscleGroupTriceps.setBackgroundResource(R.drawable.btn_border_recommended);
-                }
-                break;
-            case Shoulders:
-                if (!toggledMuscleGroups.get(EMuscleGroup.Chest)) {
-                    btn_muscleGroupChest.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Back)) {
-                    btn_muscleGroupBack.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Legs)) {
-                    btn_muscleGroupLegs.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Biceps)) {
-                    btn_muscleGroupBiceps.setBackgroundResource(R.drawable.btn_border);
-                }
-
-                if (!toggledMuscleGroups.get(EMuscleGroup.Triceps)) {
-                    btn_muscleGroupTriceps.setBackgroundResource(R.drawable.btn_border_recommended);
-                }
-                break;
-            case Back:
-                if (!toggledMuscleGroups.get(EMuscleGroup.Shoulders)) {
-                    btn_muscleGroupShoulders.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Chest)) {
-                    btn_muscleGroupChest.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Legs)) {
-                    btn_muscleGroupLegs.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Triceps)) {
-                    btn_muscleGroupTriceps.setBackgroundResource(R.drawable.btn_border);
-                }
-
-                if (!toggledMuscleGroups.get(EMuscleGroup.Biceps)) {
-                    btn_muscleGroupBiceps.setBackgroundResource(R.drawable.btn_border_recommended);
-                }
-                break;
-            case Legs:
-                if (!toggledMuscleGroups.get(EMuscleGroup.Chest)) {
-                    btn_muscleGroupChest.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Shoulders)) {
-                    btn_muscleGroupShoulders.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Back)) {
-                    btn_muscleGroupBack.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Legs)) {
-                    btn_muscleGroupLegs.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Triceps)) {
-                    btn_muscleGroupTriceps.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Biceps)) {
-                    btn_muscleGroupBiceps.setBackgroundResource(R.drawable.btn_border);
-                }
-                break;
-            case Triceps:
-                if (!toggledMuscleGroups.get(EMuscleGroup.Back)) {
-                    btn_muscleGroupBack.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Legs)) {
-                    btn_muscleGroupLegs.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Biceps)) {
-                    btn_muscleGroupBiceps.setBackgroundResource(R.drawable.btn_border);
-                }
-
-                if (!toggledMuscleGroups.get(EMuscleGroup.Chest)) {
-                    btn_muscleGroupChest.setBackgroundResource(R.drawable.btn_border_recommended);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Shoulders)) {
-                    btn_muscleGroupShoulders.setBackgroundResource(R.drawable.btn_border_recommended);
-                }
-                break;
-            case Biceps:
-                if (!toggledMuscleGroups.get(EMuscleGroup.Shoulders)) {
-                    btn_muscleGroupShoulders.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Chest)) {
-                    btn_muscleGroupChest.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Legs)) {
-                    btn_muscleGroupLegs.setBackgroundResource(R.drawable.btn_border);
-                }
-                if (!toggledMuscleGroups.get(EMuscleGroup.Triceps)) {
-                    btn_muscleGroupTriceps.setBackgroundResource(R.drawable.btn_border);
-                }
-
-                if (!toggledMuscleGroups.get(EMuscleGroup.Back)) {
-                    btn_muscleGroupBack.setBackgroundResource(R.drawable.btn_border_recommended);
-                }
-                break;
+            }
         }
     }
 }
