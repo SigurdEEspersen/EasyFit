@@ -30,15 +30,17 @@ public class ExercisesAdapter extends ArrayAdapter<IExercise> {
     private Context context;
     private Workout workout;
     private Activity activity;
+    private ListView parentList;
 
     public ExercisesAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
 
-    public void injectData(Context context, Activity activity, Workout workout) {
+    public void injectData(Context context, Activity activity, Workout workout, ListView parentList) {
         this.context = context;
         this.activity = activity;
         this.workout = workout;
+        this.parentList = parentList;
     }
 
     static class ViewHolder {
@@ -106,16 +108,18 @@ public class ExercisesAdapter extends ArrayAdapter<IExercise> {
                         new AutoTransition());
                 viewHolder.layout_sets.setVisibility(View.VISIBLE);
                 viewHolder.img_expander.setImageResource(R.drawable.ic_baseline_expand_less_24);
+                Common.updateParentListView(parentList, viewHolder.workout_list_sets, true);
             } else if (viewHolder.layout_sets.getVisibility() == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(viewHolder.cardView,
                         new AutoTransition());
                 viewHolder.layout_sets.setVisibility(View.GONE);
                 viewHolder.img_expander.setImageResource(R.drawable.ic_baseline_expand_more_24);
+                Common.updateParentListView(parentList, viewHolder.workout_list_sets, false);
             }
         });
 
         SetsAdapter adapter = new SetsAdapter(context, R.layout.exercise_card);
-        adapter.injectData(activity);
+        adapter.injectData(activity, parentList, viewHolder.workout_list_sets);
         for (int i = 0; i < workout.getSetsPrExercise(); i++) {
             adapter.add(exercise);
         }

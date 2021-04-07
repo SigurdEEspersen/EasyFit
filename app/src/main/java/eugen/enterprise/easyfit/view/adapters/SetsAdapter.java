@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,18 +19,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eugen.enterprise.easyfit.R;
+import eugen.enterprise.easyfit.acquaintance.helpers.Common;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IExercise;
 
 public class SetsAdapter extends ArrayAdapter<IExercise> {
     private List<IExercise> exercises = new ArrayList<>();
     Activity activity;
+    ListView exerciseList;
+    ListView setList;
 
     public SetsAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
 
-    public void injectData(Activity activity) {
+    public void injectData(Activity activity, ListView exerciseList, ListView setList) {
         this.activity = activity;
+        this.exerciseList = exerciseList;
+        this.setList = setList;
     }
 
     static class ViewHolder {
@@ -98,8 +104,12 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
         viewHolder.btn_set_data.setOnClickListener(v -> {
             if (viewHolder.layout_set_result_data.getVisibility() == View.GONE) {
                 viewHolder.layout_set_result_data.setVisibility(View.VISIBLE);
+                Common.updateParentListView(setList, viewHolder.layout_set_result_data, true);
+                Common.updateParentListView(exerciseList, setList, true);
             } else {
                 viewHolder.layout_set_result_data.setVisibility(View.GONE);
+                Common.updateParentListView(setList, viewHolder.layout_set_result_data, false);
+                Common.updateParentListView(exerciseList, setList, false);
             }
         });
 

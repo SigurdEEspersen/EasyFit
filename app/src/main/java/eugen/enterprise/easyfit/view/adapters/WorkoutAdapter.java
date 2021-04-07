@@ -32,6 +32,7 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
     private Context context;
     private Workout workout;
     private Activity activity;
+    private ListView listView;
 
     public WorkoutAdapter(@NonNull Context context, int resource) {
         super(context, resource);
@@ -101,12 +102,13 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
         });
 
         ExercisesAdapter adapter = new ExercisesAdapter(context, R.layout.exercise_card);
-        adapter.injectData(context, activity, workout);
+        adapter.injectData(context, activity, workout, viewHolder.exercisesList);
         for (IExercise exercise : muscleGroup.getExercises()) {
             adapter.add(exercise);
         }
         viewHolder.exercisesList.setAdapter(adapter);
         Common.updateListViewHeight(viewHolder.exercisesList);
+        listView = viewHolder.exercisesList;
 
         return row;
     }
