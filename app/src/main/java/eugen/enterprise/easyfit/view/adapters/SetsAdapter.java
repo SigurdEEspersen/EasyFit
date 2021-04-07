@@ -2,12 +2,14 @@ package eugen.enterprise.easyfit.view.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -104,8 +106,7 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
         viewHolder.btn_set_data.setOnClickListener(v -> {
             if (viewHolder.layout_set_result_data.getVisibility() == View.GONE) {
                 viewHolder.layout_set_result_data.setVisibility(View.VISIBLE);
-                Common.updateParentListView(setList, viewHolder.layout_set_result_data, true);
-                Common.updateParentListView(exerciseList, setList, true);
+                Common.updateParentListView(exerciseList, setList, viewHolder.layout_set_result_data, true);
             } else {
                 viewHolder.layout_set_result_data.setVisibility(View.GONE);
                 Common.updateParentListView(setList, viewHolder.layout_set_result_data, false);

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -56,13 +57,23 @@ public class Common {
         parent.setLayoutParams(params);
     }
 
-    public static void updateParentListView(ListView parent, RelativeLayout child, Boolean add) {
+    public static void updateParentListView(ListView grandparent, ListView parent, RelativeLayout child, Boolean add) {
+        child.measure(0,0);
+        int height = child.getMeasuredHeight();
+
         ViewGroup.LayoutParams params = parent.getLayoutParams();
         if (add) {
-            params.height += child.getMeasuredHeight();
+            params.height += height;
         } else {
-            params.height -= child.getMeasuredHeight();
+            params.height -= height;
         }
         parent.setLayoutParams(params);
+
+        updateParentOfParent(grandparent, parent, add);
+    }
+
+    private static void updateParentOfParent(ListView grandParent, ListView parent, boolean add) {
+        ViewGroup.LayoutParams params_parent = parent.getLayoutParams();
+        ViewGroup.LayoutParams params_grandParent = grandParent.getLayoutParams();
     }
 }
