@@ -61,19 +61,16 @@ public class Common {
         child.measure(0,0);
         int height = child.getMeasuredHeight();
 
-        ViewGroup.LayoutParams params = parent.getLayoutParams();
-        if (add) {
-            params.height += height;
-        } else {
-            params.height -= height;
-        }
-        parent.setLayoutParams(params);
-
-        updateParentOfParent(grandparent, parent, add);
-    }
-
-    private static void updateParentOfParent(ListView grandParent, ListView parent, boolean add) {
+        ViewGroup.LayoutParams params_grandparent = grandparent.getLayoutParams();
         ViewGroup.LayoutParams params_parent = parent.getLayoutParams();
-        ViewGroup.LayoutParams params_grandParent = grandParent.getLayoutParams();
+        if (add) {
+            params_grandparent.height += height;
+            params_parent.height += height;
+        } else {
+            params_grandparent.height -= height;
+            params_parent.height -= height;
+        }
+        grandparent.setLayoutParams(params_grandparent);
+        parent.setLayoutParams(params_parent);
     }
 }

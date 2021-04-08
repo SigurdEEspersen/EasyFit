@@ -109,8 +109,7 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
                 Common.updateParentListView(exerciseList, setList, viewHolder.layout_set_result_data, true);
             } else {
                 viewHolder.layout_set_result_data.setVisibility(View.GONE);
-                Common.updateParentListView(setList, viewHolder.layout_set_result_data, false);
-                Common.updateParentListView(exerciseList, setList, false);
+                Common.updateParentListView(exerciseList, setList, viewHolder.layout_set_result_data, false);
             }
         });
 
