@@ -73,4 +73,17 @@ public class Common {
         grandparent.setLayoutParams(params_grandparent);
         parent.setLayoutParams(params_parent);
     }
+
+    public static void updateParentListView(ListView parent, RelativeLayout child, Boolean add) {
+        child.measure(0,0);
+        int height = child.getMeasuredHeight();
+
+        ViewGroup.LayoutParams params = parent.getLayoutParams();
+        if (add) {
+            params.height += height + 90;
+        } else {
+            params.height -= height + 90;
+        }
+        parent.setLayoutParams(params);
+    }
 }

@@ -274,7 +274,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/layout_muscleGroup"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="50dp">
 
                 <TextView
@@ -283,9 +283,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:fontFamily="@font/bebas_neue_regular"
-                    android:text="Workout Extras"
-                    android:textColor="@color/tron_blue"
-                    android:textSize="42dp" />
+                    android:text="Core &amp; Cardio"
+                    android:textColor="@color/white"
+                    android:textSize="32dp" />
 
                 <LinearLayout
                     android:id="@+id/layout_extrasSettings"
