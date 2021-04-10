@@ -106,10 +106,10 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
         viewHolder.btn_set_data.setOnClickListener(v -> {
             if (viewHolder.layout_set_result_data.getVisibility() == View.GONE) {
                 viewHolder.layout_set_result_data.setVisibility(View.VISIBLE);
-                Common.updateParentListView(exerciseList, setList, viewHolder.layout_set_result_data, true);
+                Common.updateParentListView(setList, viewHolder.layout_set_result_data, true);
             } else {
                 viewHolder.layout_set_result_data.setVisibility(View.GONE);
-                Common.updateParentListView(exerciseList, setList, viewHolder.layout_set_result_data, false);
+                Common.updateParentListView(setList, viewHolder.layout_set_result_data, false);
             }
         });
 
