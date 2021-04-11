@@ -26,21 +26,24 @@ import eugen.enterprise.easyfit.acquaintance.helpers.Common;
 import eugen.enterprise.easyfit.acquaintance.helpers.Workout;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IExercise;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IMuscleGroup;
+import eugen.enterprise.easyfit.view.fragments.WorkoutFragment;
 
 public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
     private List<IMuscleGroup> muscleGroups = new ArrayList<>();
     private Context context;
     private Workout workout;
     private Activity activity;
+    private WorkoutFragment fragment;
 
     public WorkoutAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
 
-    public void injectData(Context context, Activity activity, Workout workout) {
+    public void injectData(Context context, Activity activity, Workout workout, WorkoutFragment fragment) {
         this.context = context;
         this.activity = activity;
         this.workout = workout;
+        this.fragment = fragment;
     }
 
     static class ViewHolder {
@@ -118,7 +121,7 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
         });
 
         ExercisesAdapter adapter = new ExercisesAdapter(context, R.layout.exercise_card);
-        adapter.injectData(context, activity, workout, viewHolder.exercisesList);
+        adapter.injectData(context, activity, workout, viewHolder.exercisesList, fragment);
         for (IExercise exercise : muscleGroup.getExercises()) {
             adapter.add(exercise);
         }

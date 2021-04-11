@@ -12,7 +12,7 @@ import java.util.List;
 import eugen.enterprise.easyfit.acquaintance.enums.EMuscleGroup;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutExtras;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IMuscleGroup;
-import eugen.enterprise.easyfit.model.StringListConverter;
+import eugen.enterprise.easyfit.model.Converters;
 
 @Entity
 public class MuscleGroup implements IMuscleGroup {
@@ -24,7 +24,7 @@ public class MuscleGroup implements IMuscleGroup {
     @ColumnInfo(name = "name")
     protected String name;
 
-    @TypeConverters(StringListConverter.class)
+    @TypeConverters(Converters.class)
     @ColumnInfo(name = "recommended_muscle_groups")
     protected List<String> recommendedMuscleGroups;
 

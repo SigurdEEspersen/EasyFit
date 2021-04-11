@@ -6,10 +6,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.sql.Date;
 import java.util.Collections;
 import java.util.List;
 
-public class StringListConverter {
+public class Converters {
 
     private static Gson gson = new Gson();
 
@@ -27,5 +28,19 @@ public class StringListConverter {
     @TypeConverter
     public static String listToString(List<String> list) {
         return gson.toJson(list);
+    }
+
+    @TypeConverter
+    public Date fromTimestamp(Long value) {
+        return value == null ? null : new Date(value);
+    }
+
+    @TypeConverter
+    public Long dateToTimestamp(Date date) {
+        if (date == null) {
+            return null;
+        } else {
+            return date.getTime();
+        }
     }
 }

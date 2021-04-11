@@ -8,36 +8,47 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import eugen.enterprise.easyfit.R;
 import eugen.enterprise.easyfit.acquaintance.helpers.Common;
+import eugen.enterprise.easyfit.acquaintance.helpers.SetResult;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IExercise;
+import eugen.enterprise.easyfit.view.fragments.WorkoutFragment;
+import eugen.enterprise.easyfit.viewmodel.MacroViewModel;
+import eugen.enterprise.easyfit.viewmodel.WorkoutViewModel;
 
 public class SetsAdapter extends ArrayAdapter<IExercise> {
     private List<IExercise> exercises = new ArrayList<>();
+    Context context;
     Activity activity;
     ListView exerciseList;
     ListView setList;
+    WorkoutFragment fragment;
 
     public SetsAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
 
-    public void injectData(Activity activity, ListView exerciseList, ListView setList) {
+    public void injectData(Context context, Activity activity, ListView exerciseList, ListView setList, WorkoutFragment fragment) {
+        this.context = context;
         this.activity = activity;
         this.exerciseList = exerciseList;
         this.setList = setList;
+        this.fragment = fragment;
     }
 
     static class ViewHolder {
@@ -45,6 +56,9 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
         Button btn_startPause;
         RelativeLayout btn_set_data;
         RelativeLayout layout_set_result_data;
+        EditText txt_set_result_reps;
+        EditText txt_set_result_weight;
+        Button btn_save_set_data;
     }
 
     @Override
@@ -72,6 +86,10 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
             viewHolder.btn_startPause = row.findViewById(R.id.btn_startPause);
             viewHolder.btn_set_data = row.findViewById(R.id.btn_set_data);
             viewHolder.layout_set_result_data = row.findViewById(R.id.layout_set_result_data);
+            viewHolder.txt_set_result_reps = row.findViewById(R.id.txt_set_result_reps);
+            viewHolder.txt_set_result_weight = row.findViewById(R.id.txt_set_result_weight);
+            viewHolder.btn_save_set_data = row.findViewById(R.id.btn_save_set_data);
+
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) row.getTag();
@@ -111,6 +129,24 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
                 viewHolder.layout_set_result_data.setVisibility(View.GONE);
                 Common.updateParentListView(setList, viewHolder.layout_set_result_data, false);
             }
+        });
+
+        viewHolder.btn_save_set_data.setOnClickListener(v -> {
+            if (viewHolder.txt_set_result_reps.getText().toString().isEmpty()) {
+                Toast.makeText(activity, "Specify number of reps you got", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (viewHolder.txt_set_result_weight.getText().toString().isEmpty()) {
+                Toast.makeText(activity, "Specify amount of weight you used", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            WorkoutViewModel viewModel = new ViewModelProvider(fragment).get(WorkoutViewModel.class);
+            SetResult result = new SetResult();
+            result.setExerciseId(exercise.getId());
+            result.setReps(Integer.parseInt(viewHolder.txt_set_result_reps.getText().toString()));
+            result.setWeight(Double.parseDouble(viewHolder.txt_set_result_weight.getText().toString()));
+            viewModel.addSetResult(result, context);
         });
 
         return row;

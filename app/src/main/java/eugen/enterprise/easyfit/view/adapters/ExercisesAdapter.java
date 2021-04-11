@@ -24,6 +24,7 @@ import eugen.enterprise.easyfit.R;
 import eugen.enterprise.easyfit.acquaintance.helpers.Common;
 import eugen.enterprise.easyfit.acquaintance.helpers.Workout;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IExercise;
+import eugen.enterprise.easyfit.view.fragments.WorkoutFragment;
 
 public class ExercisesAdapter extends ArrayAdapter<IExercise> {
     private List<IExercise> exercises = new ArrayList<>();
@@ -31,16 +32,18 @@ public class ExercisesAdapter extends ArrayAdapter<IExercise> {
     private Workout workout;
     private Activity activity;
     private ListView parentList;
+    private WorkoutFragment fragment;
 
     public ExercisesAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
 
-    public void injectData(Context context, Activity activity, Workout workout, ListView parentList) {
+    public void injectData(Context context, Activity activity, Workout workout, ListView parentList, WorkoutFragment fragment) {
         this.context = context;
         this.activity = activity;
         this.workout = workout;
         this.parentList = parentList;
+        this.fragment = fragment;
     }
 
     static class ViewHolder {
@@ -119,7 +122,7 @@ public class ExercisesAdapter extends ArrayAdapter<IExercise> {
         });
 
         SetsAdapter adapter = new SetsAdapter(context, R.layout.exercise_card);
-        adapter.injectData(activity, parentList, viewHolder.workout_list_sets);
+        adapter.injectData(context, activity, parentList, viewHolder.workout_list_sets, fragment);
         for (int i = 0; i < workout.getSetsPrExercise(); i++) {
             adapter.add(exercise);
         }
