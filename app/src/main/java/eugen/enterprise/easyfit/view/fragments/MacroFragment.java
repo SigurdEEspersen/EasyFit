@@ -1,6 +1,7 @@
 package eugen.enterprise.easyfit.view.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,7 +97,38 @@ public class MacroFragment extends Fragment {
                         "Very Active (Active job & exercise 5-7 times/week)",
                         "Super Active (Intense active job & exercise daily)"
                 };
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.custom_spinner, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.custom_spinner, items) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final View row = inflater.inflate(R.layout.custom_spinner, null);
+                final TextView txt = (TextView) row.findViewById(R.id.txt_spinnerText);
+                switch (position) {
+                    case 0:
+                        txt.setText("Idle");
+                        break;
+                    case 1:
+                        txt.setText("Minimal");
+                        break;
+                    case 2:
+                        txt.setText("Light");
+                        break;
+                    case 3:
+                        txt.setText("Moderate");
+                        break;
+                    case 4:
+                        txt.setText("Active");
+                        break;
+                    case 5:
+                        txt.setText("Very Active");
+                        break;
+                    case 6:
+                        txt.setText("Super Active");
+                        break;
+                }
+                return row;
+            }
+        };
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         dropdown_activity.setAdapter(adapter);
 

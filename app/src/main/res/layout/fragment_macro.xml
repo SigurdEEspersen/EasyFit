@@ -256,6 +256,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="5dp"
+                            android:layout_marginRight="20dp"
                             android:layout_weight="1"
                             android:background="@drawable/edit_text">
 
@@ -264,8 +265,8 @@
                                 android:layout_width="0dp"
                                 android:layout_height="35dp"
                                 android:layout_weight="1"
-                                android:paddingRight="20dp"
                                 android:backgroundTint="@color/white"
+                                android:paddingRight="20dp"
                                 android:popupBackground="@color/main_background"
                                 android:spinnerMode="dialog" />
                         </LinearLayout>
