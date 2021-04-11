@@ -10,8 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="25dp">
+        android:layout_alignBottom="@id/layout_bottom"
+        android:layout_marginBottom="30dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -275,7 +275,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/layout_muscleGroup"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="60dp">
+                android:layout_marginBottom="50dp">
 
                 <TextView
                     android:id="@+id/txt_workoutExtras"
@@ -442,11 +442,17 @@
         </RelativeLayout>
     </ScrollView>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/border_bottom" />
 
         <Button
             android:id="@+id/btn_generateWorkout"
@@ -459,5 +465,5 @@
             android:text="Let's do it!"
             android:textColor="@color/main_background"
             android:textSize="24dp" />
-    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
