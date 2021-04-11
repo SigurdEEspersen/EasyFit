@@ -25,8 +25,8 @@ public class PlanViewModel extends ViewModel {
         workout = new MutableLiveData<>();
     }
 
-    public void createWorkout(EWorkoutSplit workoutSplit, EWorkoutDuration workoutDuration, List<EMuscleGroup> muscleGroups, EWorkoutExtras workoutExtras, Context c) {
-        workoutGenerationService.createWorkout(workoutSplit, workoutDuration, muscleGroups, workoutExtras, new Callback() {
+    public void createWorkout(EWorkoutSplit workoutSplit, EWorkoutDuration workoutDuration, List<EMuscleGroup> muscleGroups, EWorkoutExtras workoutExtras, boolean pre_workout, int extras_duration, Context c) {
+        workoutGenerationService.createWorkout(workoutSplit, workoutDuration, muscleGroups, workoutExtras, pre_workout, extras_duration, new Callback() {
             @Override
             public void onResponse(Object o) {
                 workout.postValue((Workout) o);

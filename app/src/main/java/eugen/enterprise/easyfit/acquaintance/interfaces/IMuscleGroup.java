@@ -12,4 +12,8 @@ public interface IMuscleGroup {
     List<String> getRecommendedMuscleGroups();
 
     List<Exercise> getExercises();
+
+    boolean isWorkoutExtra();
+
+    int getWorkoutExtraDuration();
 }

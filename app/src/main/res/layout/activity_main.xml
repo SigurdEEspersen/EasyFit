@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/dark_blue"
+        android:background="@color/main_background"
         app:itemIconTint="@color/selector_bottom_nav_color"
         app:itemTextColor="@color/selector_bottom_nav_color"
         app:menu="@menu/bottom_nav_menu" />

@@ -32,7 +32,6 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
     private Context context;
     private Workout workout;
     private Activity activity;
-    private ListView listView;
 
     public WorkoutAdapter(@NonNull Context context, int resource) {
         super(context, resource);
@@ -51,6 +50,10 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
         RelativeLayout layout_exercises;
         CardView cardView;
         ListView exercisesList;
+        RelativeLayout layout_regularMuscleGroup;
+        RelativeLayout layout_workoutExtra;
+        TextView txt_workout_extras_name;
+        TextView txt_workout_extras_duration;
     }
 
     @Override
@@ -80,11 +83,24 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
             viewHolder.layout_exercises = row.findViewById(R.id.layout_exercises);
             viewHolder.btn_expandExercises = row.findViewById(R.id.btn_expandExercises);
             viewHolder.exercisesList = row.findViewById(R.id.workout_list_exercises);
+            viewHolder.layout_regularMuscleGroup = row.findViewById(R.id.layout_regularMuscleGroup);
+            viewHolder.layout_workoutExtra = row.findViewById(R.id.layout_workoutExtra);
+            viewHolder.txt_workout_extras_name = row.findViewById(R.id.txt_workout_extras_name);
+            viewHolder.txt_workout_extras_duration = row.findViewById(R.id.txt_workout_extras_duration);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) row.getTag();
         }
         final IMuscleGroup muscleGroup = getItem(position);
+
+        if (muscleGroup.isWorkoutExtra()) {
+            viewHolder.layout_regularMuscleGroup.setVisibility(View.GONE);
+            viewHolder.layout_workoutExtra.setVisibility(View.VISIBLE);
+            viewHolder.txt_workout_extras_name.setText(muscleGroup.getName());
+            viewHolder.txt_workout_extras_duration.setText(muscleGroup.getWorkoutExtraDuration() + "min");
+            return row;
+        }
+
         viewHolder.txt_workout_muscleGroup.setText(muscleGroup.getName());
 
         viewHolder.btn_expandExercises.setOnClickListener(v -> {
@@ -108,7 +124,6 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
         }
         viewHolder.exercisesList.setAdapter(adapter);
         Common.updateListViewHeight(viewHolder.exercisesList);
-        listView = viewHolder.exercisesList;
 
         return row;
     }

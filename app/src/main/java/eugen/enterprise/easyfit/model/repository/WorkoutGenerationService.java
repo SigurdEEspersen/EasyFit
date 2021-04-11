@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 import eugen.enterprise.easyfit.acquaintance.enums.EExerciseType;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutLoad;
@@ -16,7 +15,6 @@ import eugen.enterprise.easyfit.acquaintance.enums.EMuscleGroup;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutDuration;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutExtras;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutSplit;
-import eugen.enterprise.easyfit.acquaintance.interfaces.IExercise;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IMuscleGroup;
 import eugen.enterprise.easyfit.model.DatabaseAccess;
 import eugen.enterprise.easyfit.model.data_objects.Exercise;
@@ -26,7 +24,7 @@ import eugen.enterprise.easyfit.model.data_objects.MuscleGroupDao;
 
 public class WorkoutGenerationService {
 
-    public void createWorkout(EWorkoutSplit workoutSplit, EWorkoutDuration workoutDuration, List<EMuscleGroup> muscleGroups, EWorkoutExtras workoutExtras, Callback callback, Context c) {
+    public void createWorkout(EWorkoutSplit workoutSplit, EWorkoutDuration workoutDuration, List<EMuscleGroup> muscleGroups, EWorkoutExtras workoutExtras, boolean pre_workout, int extras_duration, Callback callback, Context c) {
         Runnable runnable = () -> {
             VerifyDatabaseData(c);
 
@@ -36,7 +34,7 @@ public class WorkoutGenerationService {
                 muscleGroupsWithExercises.add(getMuscleGroupWithExercises(c, eMuscleGroup));
             }
 
-            Workout workout = generateWorkout(workoutSplit, workoutDuration, muscleGroupsWithExercises, workoutExtras);
+            Workout workout = generateWorkout(workoutSplit, workoutDuration, muscleGroupsWithExercises, workoutExtras, pre_workout, extras_duration);
 
             callback.onResponse(workout);
         };
@@ -61,7 +59,7 @@ public class WorkoutGenerationService {
         return muscleGroup;
     }
 
-    private Workout generateWorkout(EWorkoutSplit workoutSplit, EWorkoutDuration workoutDuration, List<MuscleGroup> muscleGroupsWithExercises, EWorkoutExtras workoutExtras) {
+    private Workout generateWorkout(EWorkoutSplit workoutSplit, EWorkoutDuration workoutDuration, List<MuscleGroup> muscleGroupsWithExercises, EWorkoutExtras workoutExtras, boolean pre_workout, int extras_duration) {
         int setsPrMuscleGroup = 0;
         int avgSecondsPrSet = 0;
         int numberOfExercises = 0;
@@ -307,6 +305,16 @@ public class WorkoutGenerationService {
 
             loadedMuscleGroup.setExercises(finalExercises);
             generatedWorkout.add(loadedMuscleGroup);
+        }
+
+        if (workoutExtras != null) {
+            MuscleGroup extras = new MuscleGroup();
+            extras.workoutExtra(workoutExtras, extras_duration);
+            if (pre_workout) {
+                generatedWorkout.add(0, extras);
+            } else {
+                generatedWorkout.add(extras);
+            }
         }
 
         Workout workout = new Workout();
@@ -708,7 +716,7 @@ public class WorkoutGenerationService {
     }
 
     private static void addLegExercises(List<Exercise> exercises) {
-        
+
     }
 
     private static void addTricepsExercises(List<Exercise> exercises) {

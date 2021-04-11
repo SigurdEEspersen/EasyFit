@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        app:cardBackgroundColor="@color/dark_blue">
+        app:cardBackgroundColor="@color/main_background">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                         android:background="@drawable/btn_primary"
                         android:fontFamily="@font/bebas_neue_regular"
                         android:text="Pause"
-                        android:textColor="@color/dark_blue" />
+                        android:textColor="@color/main_background" />
                 </RelativeLayout>
             </RelativeLayout>
 

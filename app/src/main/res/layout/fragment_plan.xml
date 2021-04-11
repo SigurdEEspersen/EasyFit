@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue"
+    android:background="@color/main_background"
     tools:context=".view.fragments.PlanFragment">
 
     <ScrollView
@@ -287,40 +287,82 @@
                     android:textColor="@color/white"
                     android:textSize="32dp" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/layout_extrasSettings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/txt_workoutExtras">
+                    android:layout_below="@id/txt_workoutExtras"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
-                    <Switch
-                        android:id="@+id/switch_prePostWorkout"
+                    <RadioGroup
+                        android:id="@+id/extas_radiogroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/tron_blue_out_line"
+                        android:checkedButton="@+id/extras_postworkout"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/extras_preworkout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@drawable/selector_radiobutton"
+                            android:button="@null"
+                            android:paddingHorizontal="10dp"
+                            android:text="Pre-Workout"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/extras_postworkout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@drawable/selector_radiobutton"
+                            android:button="@null"
+                            android:paddingHorizontal="10dp"
+                            android:text="Post-Workout"
+                            android:textColor="@color/main_background" />
+                    </RadioGroup>
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="5dp"
-                        android:checked="true"
-                        android:switchMinWidth="56dp"
-                        android:textColor="@color/white"
-                        android:textOff="Pre-Workout"
-                        android:textOn="Post-Workout"
-                        android:thumbTint="@color/tron_blue"
-                        android:trackTint="@color/tron_blue" />
+                        android:layout_toEndOf="@id/extas_radiogroup"
+                        android:orientation="vertical">
 
-                    <SeekBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="5dp"
-                        android:max="30"
-                        android:min="10"
-                        android:minWidth="100dp"
-                        android:progress="5"
-                        android:progressBackgroundTint="@color/tron_blue"
-                        android:progressTint="@color/tron_blue"
-                        android:thumbTint="@color/tron_blue" />
+                        <TextView
+                            android:id="@+id/extras_duration_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="-10dp"
+                            android:fontFamily="@font/rubik"
+                            android:text="10 min"
+                            android:textColor="@color/white"
+                            android:textSize="18dp" />
 
-                </LinearLayout>
+                        <SeekBar
+                            android:id="@+id/extras_duration_seekbar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/extras_duration_txt"
+                            android:layout_margin="5dp"
+                            android:max="4"
+                            android:minWidth="150dp"
+                            android:progressBackgroundTint="@color/tron_blue"
+                            android:progressTint="@color/tron_blue"
+                            android:thumbTint="@color/tron_blue" />
+                    </RelativeLayout>
+                </RelativeLayout>
 
                 <GridLayout
                     android:layout_width="match_parent"
@@ -415,7 +457,7 @@
             android:background="@drawable/btn_primary"
             android:fontFamily="@font/bebas_neue_regular"
             android:text="Let's do it!"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/main_background"
             android:textSize="24dp" />
     </LinearLayout>
 </RelativeLayout>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="tron_blue">#FF7DFDFE</color>
-    <color name="dark_blue">#FF0D1117</color>
+    <color name="dark_tron_blue">#FF4B9798</color>
+    <color name="main_background">#FF0D1117</color>
+    <color name="light_background">#FF324158</color>
     <color name="grey">#FFCCCCCC</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

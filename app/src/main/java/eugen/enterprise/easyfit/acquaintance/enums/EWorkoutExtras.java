@@ -1,7 +1,7 @@
 package eugen.enterprise.easyfit.acquaintance.enums;
 
 public enum EWorkoutExtras {
-    Abs,
+    Core,
     Running,
     Biking,
     Stairs,

@@ -5,7 +5,7 @@
     android:id="@+id/layout_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue"
+    android:background="@color/main_background"
     tools:context=".view.fragments.MacroFragment">
 
     <ScrollView
@@ -266,7 +266,7 @@
                                 android:layout_weight="1"
                                 android:paddingRight="20dp"
                                 android:backgroundTint="@color/white"
-                                android:popupBackground="@color/dark_blue"
+                                android:popupBackground="@color/main_background"
                                 android:spinnerMode="dialog" />
                         </LinearLayout>
                     </LinearLayout>
@@ -416,7 +416,7 @@
                     android:fontFamily="@font/bebas_neue_regular"
                     android:paddingHorizontal="25dp"
                     android:text="Calculate"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@color/main_background"
                     android:textSize="24dp" />
             </RelativeLayout>
 
@@ -564,7 +564,7 @@
                     android:background="@drawable/btn_primary"
                     android:fontFamily="@font/bebas_neue_regular"
                     android:text="Save"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@color/main_background"
                     android:textSize="24dp" />
 
                 <Button
@@ -576,7 +576,7 @@
                     android:background="@drawable/btn_primary"
                     android:fontFamily="@font/bebas_neue_regular"
                     android:text="Load"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@color/main_background"
                     android:textSize="24dp" />
             </GridLayout>
         </RelativeLayout>

@@ -5,12 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
@@ -23,7 +26,6 @@ import eugen.enterprise.easyfit.acquaintance.enums.EMuscleGroup;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutDuration;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutExtras;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutSplit;
-import eugen.enterprise.easyfit.acquaintance.helpers.Workout;
 import eugen.enterprise.easyfit.view.activities.MainActivity;
 import eugen.enterprise.easyfit.viewmodel.PlanViewModel;
 
@@ -41,6 +43,11 @@ public class PlanFragment extends Fragment {
     private List<EMuscleGroup> selectedMuscleGroups;
     private HashMap<EMuscleGroup, Boolean> toggledMuscleGroups;
     private HashMap<EMuscleGroup, Button> muscleGroupButton;
+    private RadioButton btn_preworkout, btn_postworkout;
+    private SeekBar extras_duration_seekbar;
+    private TextView extras_duration_txt;
+    private boolean pre_workout;
+    private int extras_duration;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_plan, container, false);
@@ -82,11 +89,18 @@ public class PlanFragment extends Fragment {
         muscleGroupButton.put(EMuscleGroup.Triceps, btn_muscleGroupTriceps);
         muscleGroupButton.put(EMuscleGroup.Back, btn_muscleGroupBack);
 
+        btn_preworkout = root.findViewById(R.id.extras_preworkout);
+        btn_postworkout = root.findViewById(R.id.extras_postworkout);
+        extras_duration_seekbar = root.findViewById(R.id.extras_duration_seekbar);
+        extras_duration_txt = root.findViewById(R.id.extras_duration_txt);
         btn_extrasAbs = root.findViewById(R.id.btn_extrasAbs);
         btn_extrasRunning = root.findViewById(R.id.btn_extrasRunning);
         btn_extrasBiking = root.findViewById(R.id.btn_extrasBiking);
         btn_extrasStairs = root.findViewById(R.id.btn_extrasStairs);
         btn_extrasRowing = root.findViewById(R.id.btn_extrasRowing);
+
+        pre_workout = false;
+        extras_duration = 10;
 
         return root;
     }
@@ -147,7 +161,7 @@ public class PlanFragment extends Fragment {
         });
 
         btn_extrasAbs.setOnClickListener(v -> {
-            selectedExtras = EWorkoutExtras.Abs;
+            selectedExtras = EWorkoutExtras.Core;
             selectButton(btn_extrasAbs, "extras");
         });
         btn_extrasRunning.setOnClickListener(v -> {
@@ -187,20 +201,70 @@ public class PlanFragment extends Fragment {
                     return;
                 }
             }
-            planViewModel.createWorkout(selectedSplit, selectedDuration, selectedMuscleGroups, selectedExtras, getContext());
+            planViewModel.createWorkout(selectedSplit, selectedDuration, selectedMuscleGroups, selectedExtras, pre_workout, extras_duration, getContext());
         });
 
-        planViewModel.getWorkout().observe(requireActivity(), new Observer<Workout>() {
+        planViewModel.getWorkout().observe(requireActivity(), workout -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("workout", workout);
+            ((MainActivity) getActivity()).swapTab(getView(), R.id.navigation_workout, bundle);
+        });
+
+        btn_preworkout.setOnClickListener(v -> {
+            btn_preworkout.setTextColor(ContextCompat.getColor(getContext(), R.color.main_background));
+            btn_postworkout.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+            pre_workout = true;
+        });
+
+        btn_postworkout.setOnClickListener(v -> {
+            btn_postworkout.setTextColor(ContextCompat.getColor(getContext(), R.color.main_background));
+            btn_preworkout.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+            pre_workout = false;
+        });
+
+        extras_duration_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onChanged(Workout workout) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("workout", workout);
-                ((MainActivity) getActivity()).swapTab(getView(), R.id.navigation_workout, bundle);
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                switch (progress) {
+                    case 0:
+                        extras_duration_txt.setText("10 min");
+                        extras_duration = 10;
+                        break;
+                    case 1:
+                        extras_duration_txt.setText("15 min");
+                        extras_duration = 15;
+                        break;
+                    case 2:
+                        extras_duration_txt.setText("20 min");
+                        extras_duration = 20;
+                        break;
+                    case 3:
+                        extras_duration_txt.setText("25 min");
+                        extras_duration = 25;
+                        break;
+                    case 4:
+                        extras_duration_txt.setText("30 min");
+                        extras_duration = 30;
+                        break;
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
     }
 
     private void selectButton(Button button, String group) {
+        if (group.equals("extras") && muscleGroupAmountMax == 0) {
+            Toast.makeText(getContext(), "Select workout split", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         switch (group) {
             case "split":
                 btn_splitFullBody.setBackgroundResource(R.drawable.btn_border);

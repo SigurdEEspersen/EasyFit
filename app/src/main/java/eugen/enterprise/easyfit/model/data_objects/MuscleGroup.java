@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eugen.enterprise.easyfit.acquaintance.enums.EMuscleGroup;
+import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutExtras;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IMuscleGroup;
 import eugen.enterprise.easyfit.model.StringListConverter;
 
@@ -30,6 +31,12 @@ public class MuscleGroup implements IMuscleGroup {
     @Ignore
     protected List<Exercise> exercises;
 
+    @Ignore
+    protected int workoutExtraDuration;
+
+    @Ignore
+    protected boolean isWorkoutExtra;
+
     @Override
     public int getMuscleGroupId() {
         return muscleGroupId;
@@ -43,6 +50,16 @@ public class MuscleGroup implements IMuscleGroup {
     @Override
     public List<String> getRecommendedMuscleGroups() {
         return recommendedMuscleGroups;
+    }
+
+    @Override
+    public boolean isWorkoutExtra() {
+        return isWorkoutExtra;
+    }
+
+    @Override
+    public int getWorkoutExtraDuration() {
+        return workoutExtraDuration;
     }
 
     public void setName(EMuscleGroup name) {
@@ -66,5 +83,11 @@ public class MuscleGroup implements IMuscleGroup {
             exercises = new ArrayList<>();
         }
         this.exercises = exercisesList;
+    }
+
+    public void workoutExtra(EWorkoutExtras name, int duration) {
+     this.name = name.name();
+     this.workoutExtraDuration = duration;
+     this.isWorkoutExtra = true;
     }
 }
