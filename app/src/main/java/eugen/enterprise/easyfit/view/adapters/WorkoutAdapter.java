@@ -97,7 +97,7 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
             viewHolder.layout_regularMuscleGroup.setVisibility(View.GONE);
             viewHolder.layout_workoutExtra.setVisibility(View.VISIBLE);
             viewHolder.txt_workout_extras_name.setText(muscleGroup.getName());
-            viewHolder.txt_workout_extras_duration.setText(muscleGroup.getWorkoutExtraDuration() + "min");
+            viewHolder.txt_workout_extras_duration.setText(muscleGroup.getWorkoutExtraDuration() + " min");
             return row;
         }
 
