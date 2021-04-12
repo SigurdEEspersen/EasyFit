@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -41,7 +42,7 @@ public class MacroFragment extends Fragment {
     private RelativeLayout layout_parent, layout_macros;
     private GridLayout layout_results;
     private LinearLayout layout_max_deficit, layout_deficit, layout_maintain, layout_surplus,
-            layout_max_surplus, layout_male, layout_female;
+            layout_max_surplus;
     private Boolean male;
     private ECalorieTarget selectedCalorieTarget;
 
@@ -52,9 +53,6 @@ public class MacroFragment extends Fragment {
         layout_parent = root.findViewById(R.id.layout_parent);
         layout_macros = root.findViewById(R.id.layout_macros);
         layout_results = root.findViewById(R.id.layout_results);
-
-        layout_male = root.findViewById(R.id.layout_male);
-        layout_female = root.findViewById(R.id.layout_female);
 
         layout_max_deficit = root.findViewById(R.id.layout_max_deficit);
         layout_deficit = root.findViewById(R.id.layout_deficit);
@@ -165,22 +163,16 @@ public class MacroFragment extends Fragment {
         rbtn_male.setOnCheckedChangeListener((buttonView, isMale) -> {
             if (isMale) {
                 male = true;
-                rbtn_female.setChecked(false);
+                rbtn_male.setTextColor(ContextCompat.getColor(getContext(), R.color.main_background));
+                rbtn_female.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
             }
         });
         rbtn_female.setOnCheckedChangeListener((buttonView, isFemale) -> {
             if (isFemale) {
                 male = false;
-                rbtn_male.setChecked(false);
+                rbtn_female.setTextColor(ContextCompat.getColor(getContext(), R.color.main_background));
+                rbtn_male.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
             }
-        });
-        layout_male.setOnTouchListener((v, event) -> {
-            rbtn_male.setChecked(true);
-            return false;
-        });
-        layout_female.setOnTouchListener((v, event) -> {
-            rbtn_female.setChecked(true);
-            return false;
         });
 
         rbtn_max_deficit.setOnCheckedChangeListener((buttonView, isChecked) -> {

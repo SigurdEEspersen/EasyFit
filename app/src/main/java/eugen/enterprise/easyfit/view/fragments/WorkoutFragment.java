@@ -1,5 +1,6 @@
 package eugen.enterprise.easyfit.view.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import eugen.enterprise.easyfit.R;
+import eugen.enterprise.easyfit.acquaintance.helpers.Common;
 import eugen.enterprise.easyfit.acquaintance.helpers.Workout;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IMuscleGroup;
 import eugen.enterprise.easyfit.view.activities.MainActivity;
@@ -38,6 +40,7 @@ public class WorkoutFragment extends Fragment {
         return root;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -57,6 +60,11 @@ public class WorkoutFragment extends Fragment {
             }
             workoutList.setAdapter(adapter);
         }
+
+        workoutList.setOnTouchListener((v, event) -> {
+            Common.hideKeyboard(getContext(), getView(), getActivity());
+            return false;
+        });
 
         workoutViewModel.getAddedSetResult().observe(requireActivity(), new Observer<Boolean>() {
             @Override

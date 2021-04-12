@@ -1,5 +1,6 @@
 package eugen.enterprise.easyfit.view.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -68,6 +69,7 @@ public class ExercisesAdapter extends ArrayAdapter<IExercise> {
         return this.exercises.get(index);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -119,6 +121,12 @@ public class ExercisesAdapter extends ArrayAdapter<IExercise> {
                 viewHolder.img_expander.setImageResource(R.drawable.ic_baseline_expand_more_24);
                 Common.updateParentListView(parentList, viewHolder.workout_list_sets, false);
             }
+        });
+
+        View finalRow = row;
+        viewHolder.workout_list_sets.setOnTouchListener((v, event) -> {
+            Common.hideKeyboard(context, finalRow, activity);
+            return false;
         });
 
         SetsAdapter adapter = new SetsAdapter(context, R.layout.exercise_card);

@@ -42,66 +42,43 @@
                     android:rowCount="4"
                     android:useDefaultMargins="true">
 
-                    <TableLayout
+                    <RadioGroup
+                        android:id="@+id/extas_radiogroup"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_row="0"
                         android:layout_column="0"
-                        android:layout_columnSpan="3">
+                        android:layout_columnSpan="3"
+                        android:background="@drawable/tron_blue_out_line"
+                        android:checkedButton="@+id/rbtn_male"
+                        android:orientation="horizontal">
 
-                        <TableRow>
+                        <RadioButton
+                            android:id="@+id/rbtn_male"
+                            android:layout_width="65dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@drawable/selector_radiobutton"
+                            android:button="@null"
+                            android:text="Male"
+                            android:textAlignment="center"
+                            android:textColor="@color/main_background" />
 
-                            <LinearLayout
-                                android:id="@+id/layout_male"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="10dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <RadioButton
-                                    android:id="@+id/rbtn_male"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_horizontal"
-                                    android:buttonTint="@color/white" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="-5dp"
-                                    android:fontFamily="@font/rubik"
-                                    android:text="Male"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/white" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_female"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="10dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <RadioButton
-                                    android:id="@+id/rbtn_female"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_horizontal"
-                                    android:buttonTint="@color/white" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="-5dp"
-                                    android:fontFamily="@font/rubik"
-                                    android:text="Female"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/white" />
-                            </LinearLayout>
-                        </TableRow>
-                    </TableLayout>
+                        <RadioButton
+                            android:id="@+id/rbtn_female"
+                            android:layout_width="65dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@drawable/selector_radiobutton"
+                            android:button="@null"
+                            android:text="Female"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </RadioGroup>
 
                     <TextView
                         android:layout_width="wrap_content"
