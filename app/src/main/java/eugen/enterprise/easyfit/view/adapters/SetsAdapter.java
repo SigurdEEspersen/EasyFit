@@ -98,27 +98,30 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
         viewHolder.txt_workout_exercise_set.setText("#" + (position + 1) + " set");
         viewHolder.btn_startPause.setText("Pause " + exercise.getPauseDurationSeconds() + "s");
 
+        Thread thread = new Thread(() -> {
+            int pause = exercise.getPauseDurationSeconds();
+
+            try {
+                while (pause > 0) {
+                    viewHolder.btn_startPause.setText(String.valueOf(pause--));
+                    Thread.sleep(1000);
+                }
+
+                activity.runOnUiThread(() -> {
+                    viewHolder.btn_startPause.setText("0");
+                    viewHolder.btn_startPause.setEnabled(false);
+                    viewHolder.btn_startPause.setBackgroundResource(R.drawable.btn_primary_disabled);
+                });
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
         viewHolder.btn_startPause.setOnClickListener(v -> {
             viewHolder.btn_startPause.setTextSize(24);
-            Thread thread = new Thread(() -> {
-                int pause = exercise.getPauseDurationSeconds();
-
-                try {
-                    while (pause > 0) {
-                        viewHolder.btn_startPause.setText(String.valueOf(pause--));
-                        Thread.sleep(1000);
-                    }
-
-                    activity.runOnUiThread(() -> {
-                        viewHolder.btn_startPause.setText("0");
-                        viewHolder.btn_startPause.setEnabled(false);
-                        viewHolder.btn_startPause.setBackgroundResource(R.drawable.btn_primary_disabled);
-                    });
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-            thread.start();
+            if (!thread.isAlive()) {
+                thread.start();
+            }
         });
 
         viewHolder.btn_set_data.setOnClickListener(v -> {
