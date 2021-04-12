@@ -39,6 +39,12 @@ public class MacroService {
         Runnable runnable = () -> {
             MacrosDao macrosDao = DatabaseAccess.getInstance().getDatabase(c).macrosDao();
             Macros[] savedMacros = macrosDao.loadSavedMacros();
+
+            if (savedMacros.length == 0) {
+                callback.onResponse(null);
+                return;
+            }
+
             Macros macros = savedMacros[0];
 
             MacroResult loadedMacros = new MacroResult();

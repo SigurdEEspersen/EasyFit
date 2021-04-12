@@ -250,6 +250,11 @@ public class MacroFragment extends Fragment {
         macroViewModel.getSavedMacros().observe(requireActivity(), new Observer<MacroResult>() {
             @Override
             public void onChanged(MacroResult result) {
+                if (result == null) {
+                    Toast.makeText(getContext(), "No macros saved yet", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 male = result.isMale();
                 if (male) {
                     rbtn_male.setChecked(true);
