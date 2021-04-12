@@ -130,6 +130,8 @@ public class MacroFragment extends Fragment {
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         dropdown_activity.setAdapter(adapter);
 
+        male = true;
+
         return root;
     }
 
