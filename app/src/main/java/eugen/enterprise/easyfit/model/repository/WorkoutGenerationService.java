@@ -683,7 +683,7 @@ public class WorkoutGenerationService {
         exercises.add(back6);
 
         Exercise back7 = new Exercise();
-        back7.setName("Cable Row");
+        back7.setName("Seated Cable Row");
         back7.setMuscleGroup(EMuscleGroup.Back);
         back7.setDurationSeconds(60);
         back7.setPauseDurationSeconds(90);
@@ -716,7 +716,85 @@ public class WorkoutGenerationService {
     }
 
     private static void addLegExercises(List<Exercise> exercises) {
+        Exercise legs1 = new Exercise();
+        legs1.setName("Squat");
+        legs1.setMuscleGroup(EMuscleGroup.Legs);
+        legs1.setDurationSeconds(60);
+        legs1.setPauseDurationSeconds(150);
+        legs1.setExerciseType(EExerciseType.Compound);
+        exercises.add(legs1);
 
+        Exercise legs2 = new Exercise();
+        legs2.setName("Lunges");
+        legs2.setMuscleGroup(EMuscleGroup.Legs);
+        legs2.setDurationSeconds(60);
+        legs2.setPauseDurationSeconds(90);
+        legs2.setExerciseType(EExerciseType.Compound);
+        exercises.add(legs2);
+
+        Exercise legs3 = new Exercise();
+        legs3.setName("Leg Press");
+        legs3.setMuscleGroup(EMuscleGroup.Legs);
+        legs3.setDurationSeconds(60);
+        legs3.setPauseDurationSeconds(120);
+        legs3.setExerciseType(EExerciseType.Compound);
+        exercises.add(legs3);
+
+        Exercise legs4 = new Exercise();
+        legs4.setName("Leg Extension");
+        legs4.setMuscleGroup(EMuscleGroup.Legs);
+        legs4.setDurationSeconds(45);
+        legs4.setPauseDurationSeconds(90);
+        legs4.setExerciseType(EExerciseType.Isolation);
+        exercises.add(legs4);
+
+        Exercise legs5 = new Exercise();
+        legs5.setName("Leg Curl");
+        legs5.setMuscleGroup(EMuscleGroup.Legs);
+        legs5.setDurationSeconds(45);
+        legs5.setPauseDurationSeconds(90);
+        legs5.setExerciseType(EExerciseType.Isolation);
+        exercises.add(legs5);
+
+        Exercise legs6 = new Exercise();
+        legs6.setName("Seated Calf Raise");
+        legs6.setMuscleGroup(EMuscleGroup.Legs);
+        legs6.setDurationSeconds(45);
+        legs6.setPauseDurationSeconds(60);
+        legs6.setExerciseType(EExerciseType.Isolation);
+        exercises.add(legs6);
+
+        Exercise legs7 = new Exercise();
+        legs7.setName("Barbell Hip Thrust");
+        legs7.setMuscleGroup(EMuscleGroup.Legs);
+        legs7.setDurationSeconds(45);
+        legs7.setPauseDurationSeconds(90);
+        legs7.setExerciseType(EExerciseType.Isolation);
+        exercises.add(legs7);
+
+        Exercise legs8 = new Exercise();
+        legs8.setName("Standing Dumbbell Calf Raise");
+        legs8.setMuscleGroup(EMuscleGroup.Legs);
+        legs8.setDurationSeconds(45);
+        legs8.setPauseDurationSeconds(60);
+        legs8.setExerciseType(EExerciseType.Isolation);
+        exercises.add(legs8);
+
+        Exercise legs9 = new Exercise();
+        legs9.setName("Front Squat");
+        legs9.setMuscleGroup(EMuscleGroup.Legs);
+        legs9.setDurationSeconds(60);
+        legs9.setPauseDurationSeconds(150);
+        legs9.setExerciseType(EExerciseType.Compound);
+        exercises.add(legs9);
+
+        Exercise legs10 = new Exercise();
+        legs10.setName("Hack Squat");
+        legs10.setMuscleGroup(EMuscleGroup.Legs);
+        legs10.setDurationSeconds(60);
+        legs10.setPauseDurationSeconds(120);
+        legs10.setExerciseType(EExerciseType.Compound);
+        exercises.add(legs10);
     }
 
     private static void addTricepsExercises(List<Exercise> exercises) {
@@ -802,6 +880,92 @@ public class WorkoutGenerationService {
     }
 
     private static void addBicepsExercises(List<Exercise> exercises) {
+        Exercise biceps1 = new Exercise();
+        biceps1.setName("Dumbbell Curl");
+        biceps1.setMuscleGroup(EMuscleGroup.Biceps);
+        biceps1.setDurationSeconds(45);
+        biceps1.setPauseDurationSeconds(90);
+        biceps1.setExerciseType(EExerciseType.Isolation);
+        exercises.add(biceps1);
 
+        Exercise biceps2 = new Exercise();
+        biceps2.setName("Barbell Curl");
+        biceps2.setMuscleGroup(EMuscleGroup.Biceps);
+        biceps2.setDurationSeconds(45);
+        biceps2.setPauseDurationSeconds(90);
+        biceps2.setExerciseType(EExerciseType.Compound);
+        exercises.add(biceps2);
+
+        Exercise biceps3 = new Exercise();
+        biceps3.setName("Standing Cable Curl");
+        biceps3.setMuscleGroup(EMuscleGroup.Biceps);
+        biceps3.setDurationSeconds(45);
+        biceps3.setPauseDurationSeconds(90);
+        biceps3.setExerciseType(EExerciseType.Isolation);
+        exercises.add(biceps3);
+
+        Exercise biceps4 = new Exercise();
+        biceps4.setName("Hammer Curl");
+        biceps4.setMuscleGroup(EMuscleGroup.Biceps);
+        biceps4.setDurationSeconds(45);
+        biceps4.setPauseDurationSeconds(90);
+        biceps4.setExerciseType(EExerciseType.Isolation);
+        exercises.add(biceps4);
+
+        Exercise biceps5 = new Exercise();
+        biceps5.setName("Incline Dumbbell Curl");
+        biceps5.setMuscleGroup(EMuscleGroup.Biceps);
+        biceps5.setDurationSeconds(45);
+        biceps5.setPauseDurationSeconds(90);
+        biceps5.setExerciseType(EExerciseType.Isolation);
+        exercises.add(biceps5);
+
+        Exercise biceps6 = new Exercise();
+        biceps6.setName("Standing Reverse Barbell Curl");
+        biceps6.setMuscleGroup(EMuscleGroup.Biceps);
+        biceps6.setDurationSeconds(45);
+        biceps6.setPauseDurationSeconds(90);
+        biceps6.setExerciseType(EExerciseType.Compound);
+        exercises.add(biceps6);
+
+        Exercise biceps7 = new Exercise();
+        biceps7.setName("Concentration Curl");
+        biceps7.setMuscleGroup(EMuscleGroup.Biceps);
+        biceps7.setDurationSeconds(45);
+        biceps7.setPauseDurationSeconds(90);
+        biceps7.setExerciseType(EExerciseType.Isolation);
+        exercises.add(biceps7);
+
+        Exercise biceps8 = new Exercise();
+        biceps8.setName("Cable Flex Curl");
+        biceps8.setMuscleGroup(EMuscleGroup.Biceps);
+        biceps8.setDurationSeconds(45);
+        biceps8.setPauseDurationSeconds(90);
+        biceps8.setExerciseType(EExerciseType.Isolation);
+        exercises.add(biceps8);
+
+        Exercise biceps9 = new Exercise();
+        biceps9.setName("Preacher Curl");
+        biceps9.setMuscleGroup(EMuscleGroup.Biceps);
+        biceps9.setDurationSeconds(45);
+        biceps9.setPauseDurationSeconds(90);
+        biceps9.setExerciseType(EExerciseType.Compound);
+        exercises.add(biceps9);
+
+        Exercise biceps10 = new Exercise();
+        biceps10.setName("Incline Dumbbell Hammer Curl");
+        biceps10.setMuscleGroup(EMuscleGroup.Biceps);
+        biceps10.setDurationSeconds(45);
+        biceps10.setPauseDurationSeconds(90);
+        biceps10.setExerciseType(EExerciseType.Isolation);
+        exercises.add(biceps10);
+
+        Exercise biceps11 = new Exercise();
+        biceps11.setName("EZ-Bar Curl");
+        biceps11.setMuscleGroup(EMuscleGroup.Biceps);
+        biceps11.setDurationSeconds(45);
+        biceps11.setPauseDurationSeconds(90);
+        biceps11.setExerciseType(EExerciseType.Compound);
+        exercises.add(biceps11);
     }
 }
