@@ -6,14 +6,17 @@ import androidx.lifecycle.ViewModel;
 
 public class HealthViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private MutableLiveData<Integer> selectedWaterBottle;
 
     public HealthViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is the health fragment");
+        selectedWaterBottle = new MutableLiveData<>();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<Integer> getSelectedWaterBottle() {
+        return selectedWaterBottle;
+    }
+
+    public void setSelectedWaterBottle(Integer button) {
+        selectedWaterBottle.postValue(button);
     }
 }
