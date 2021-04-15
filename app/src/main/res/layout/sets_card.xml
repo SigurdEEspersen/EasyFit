@@ -38,7 +38,7 @@
                         android:id="@+id/btn_set_data"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
+                        android:layout_marginStart="25dp"
                         android:layout_toEndOf="@id/txt_workout_exercise_set">
 
                         <ImageButton
@@ -101,7 +101,7 @@
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"
                         android:textCursorDrawable="@color/white"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/txt_set_result_weight"
@@ -115,12 +115,11 @@
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"
                         android:textCursorDrawable="@color/white"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_marginStart="-2dp"
                         android:text="kg"
                         android:textColor="@color/white" />

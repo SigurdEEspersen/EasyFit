@@ -77,29 +77,41 @@ public class HealthFragment extends Fragment {
             healthViewModel.setSelectedWaterBottle(existingSelection);
         }
 
-        String[] healthyFats = {"Avocado", "Nuts", "Olive Oil"};
-        ArrayAdapter<String> healthyFatsAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, healthyFats);
+        String[] healthyFats = {"Avocados", "Nuts & Seeds", "Olive, canola, peanut, and sesame oils", "Olives", "Peanut Butter", "Fatty fish & fish oil", "Eggs", ""};
+        ArrayAdapter<String> healthyFatsAdapter = new ArrayAdapter<>(requireContext(), R.layout.array_adapter_custom_simple_item, healthyFats);
         list_healthy_fats.setAdapter(healthyFatsAdapter);
+        list_healthy_fats.setDivider(null);
+        Common.updateListViewHeight(list_healthy_fats);
 
-        String[] healthyCarbs = {"Avocado", "Nuts", "Olive Oil"};
-        ArrayAdapter<String> healthyCarbsAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, healthyCarbs);
+        String[] healthyCarbs = {"Oats", "Sweet Potatos", "Fruit (Bananas, Apples, Oranges)", "Berries", "Whole Grains Food", "Nuts & Seeds", "Beans", "Vegetables", ""};
+        ArrayAdapter<String> healthyCarbsAdapter = new ArrayAdapter<>(requireContext(), R.layout.array_adapter_custom_simple_item, healthyCarbs);
         list_healthy_carbs.setAdapter(healthyCarbsAdapter);
+        list_healthy_carbs.setDivider(null);
+        Common.updateListViewHeight(list_healthy_carbs);
 
-        String[] healthyProtein = {"Avocado", "Nuts", "Olive Oil"};
-        ArrayAdapter<String> healthyProteinAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, healthyProtein);
+        String[] healthyProtein = {"High protein foods examples:", "Meat & Fish", "Cheese", "Eggs", "Beans", "Hummus", "Nuts & Seeds"};
+        ArrayAdapter<String> healthyProteinAdapter = new ArrayAdapter<>(requireContext(), R.layout.array_adapter_custom_simple_item, healthyProtein);
         list_healthy_protein.setAdapter(healthyProteinAdapter);
+        list_healthy_protein.setDivider(null);
+        Common.updateListViewHeight(list_healthy_protein);
 
-        String[] unhealthyFats = {"Avocado", "Nuts", "Olive Oil"};
-        ArrayAdapter<String> unhealthyFatsAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, unhealthyFats);
+        String[] unhealthyFats = {"Packaged snack foods", "Stick margarine", "Fried foods", "Pre-baked pastries & doughs", "Chicken skin", "Whole-fat dairy products (milk, cream, cheese)", "Butter", "Ice cream", ""};
+        ArrayAdapter<String> unhealthyFatsAdapter = new ArrayAdapter<>(requireContext(), R.layout.array_adapter_custom_simple_item, unhealthyFats);
         list_unhealthy_fats.setAdapter(unhealthyFatsAdapter);
+        list_unhealthy_fats.setDivider(null);
+        Common.updateListViewHeight(list_unhealthy_fats);
 
-        String[] unhealthyCarbs = {"Avocado", "Nuts", "Olive Oil"};
-        ArrayAdapter<String> unhealthyCarbsAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, unhealthyCarbs);
+        String[] unhealthyCarbs = {"Soda", "White pasta", "White rice", "Sugar", "Sugary drinks/snacks"};
+        ArrayAdapter<String> unhealthyCarbsAdapter = new ArrayAdapter<>(requireContext(), R.layout.array_adapter_custom_simple_item, unhealthyCarbs);
         list_unhealthy_carbs.setAdapter(unhealthyCarbsAdapter);
+        list_unhealthy_carbs.setDivider(null);
+        Common.updateListViewHeight(list_unhealthy_carbs);
 
-        String[] unhealthyProtein = {"Avocado", "Nuts", "Olive Oil"};
-        ArrayAdapter<String> unhealthyProteinAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, unhealthyProtein);
+        String[] unhealthyProtein = {"No protein is bad protein!"};
+        ArrayAdapter<String> unhealthyProteinAdapter = new ArrayAdapter<>(requireContext(), R.layout.array_adapter_custom_simple_item, unhealthyProtein);
         list_unhealthy_protein.setAdapter(unhealthyProteinAdapter);
+        list_unhealthy_protein.setDivider(null);
+        Common.updateListViewHeight(list_unhealthy_protein);
 
         return root;
     }
@@ -196,10 +208,14 @@ public class HealthFragment extends Fragment {
             if (list_healthy_fats.getVisibility() == View.GONE) {
                 TransitionManager.beginDelayedTransition(layout_healthy_fats, new AutoTransition());
                 list_healthy_fats.setVisibility(View.VISIBLE);
+                list_unhealthy_fats.setVisibility(View.VISIBLE);
                 expander_healthy_fats.setImageResource(R.drawable.ic_baseline_expand_less_24);
+                expander_unhealthy_fats.setImageResource(R.drawable.ic_baseline_expand_less_24);
             } else if (list_healthy_fats.getVisibility() == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(layout_healthy_fats, new AutoTransition());
+                list_unhealthy_fats.setVisibility(View.GONE);
                 list_healthy_fats.setVisibility(View.GONE);
+                expander_unhealthy_fats.setImageResource(R.drawable.ic_baseline_expand_more_24);
                 expander_healthy_fats.setImageResource(R.drawable.ic_baseline_expand_more_24);
             }
         });
@@ -209,10 +225,14 @@ public class HealthFragment extends Fragment {
                 TransitionManager.beginDelayedTransition(layout_healthy_carbs, new AutoTransition());
                 list_healthy_carbs.setVisibility(View.VISIBLE);
                 expander_healthy_carbs.setImageResource(R.drawable.ic_baseline_expand_less_24);
+                list_unhealthy_carbs.setVisibility(View.VISIBLE);
+                expander_unhealthy_carbs.setImageResource(R.drawable.ic_baseline_expand_less_24);
             } else if (list_healthy_carbs.getVisibility() == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(layout_healthy_carbs, new AutoTransition());
                 list_healthy_carbs.setVisibility(View.GONE);
                 expander_healthy_carbs.setImageResource(R.drawable.ic_baseline_expand_more_24);
+                list_unhealthy_carbs.setVisibility(View.GONE);
+                expander_unhealthy_carbs.setImageResource(R.drawable.ic_baseline_expand_more_24);
             }
         });
 
@@ -221,22 +241,30 @@ public class HealthFragment extends Fragment {
                 TransitionManager.beginDelayedTransition(layout_healthy_protein, new AutoTransition());
                 list_healthy_protein.setVisibility(View.VISIBLE);
                 expander_healthy_protein.setImageResource(R.drawable.ic_baseline_expand_less_24);
+                list_unhealthy_protein.setVisibility(View.VISIBLE);
+                expander_unhealthy_protein.setImageResource(R.drawable.ic_baseline_expand_less_24);
             } else if (list_healthy_protein.getVisibility() == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(layout_healthy_protein, new AutoTransition());
                 list_healthy_protein.setVisibility(View.GONE);
                 expander_healthy_protein.setImageResource(R.drawable.ic_baseline_expand_more_24);
+                list_unhealthy_protein.setVisibility(View.GONE);
+                expander_unhealthy_protein.setImageResource(R.drawable.ic_baseline_expand_more_24);
             }
         });
 
         layout_unhealthy_fats.setOnClickListener(v -> {
             if (list_unhealthy_fats.getVisibility() == View.GONE) {
                 TransitionManager.beginDelayedTransition(layout_unhealthy_fats, new AutoTransition());
+                list_healthy_fats.setVisibility(View.VISIBLE);
                 list_unhealthy_fats.setVisibility(View.VISIBLE);
+                expander_healthy_fats.setImageResource(R.drawable.ic_baseline_expand_less_24);
                 expander_unhealthy_fats.setImageResource(R.drawable.ic_baseline_expand_less_24);
             } else if (list_unhealthy_fats.getVisibility() == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(layout_unhealthy_fats, new AutoTransition());
                 list_unhealthy_fats.setVisibility(View.GONE);
+                list_healthy_fats.setVisibility(View.GONE);
                 expander_unhealthy_fats.setImageResource(R.drawable.ic_baseline_expand_more_24);
+                expander_healthy_fats.setImageResource(R.drawable.ic_baseline_expand_more_24);
             }
         });
 
@@ -245,10 +273,14 @@ public class HealthFragment extends Fragment {
                 TransitionManager.beginDelayedTransition(layout_unhealthy_carbs, new AutoTransition());
                 list_unhealthy_carbs.setVisibility(View.VISIBLE);
                 expander_unhealthy_carbs.setImageResource(R.drawable.ic_baseline_expand_less_24);
+                list_healthy_carbs.setVisibility(View.VISIBLE);
+                expander_healthy_carbs.setImageResource(R.drawable.ic_baseline_expand_less_24);
             } else if (list_unhealthy_carbs.getVisibility() == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(layout_unhealthy_carbs, new AutoTransition());
                 list_unhealthy_carbs.setVisibility(View.GONE);
                 expander_unhealthy_carbs.setImageResource(R.drawable.ic_baseline_expand_more_24);
+                list_healthy_carbs.setVisibility(View.GONE);
+                expander_healthy_carbs.setImageResource(R.drawable.ic_baseline_expand_more_24);
             }
         });
 
@@ -257,10 +289,14 @@ public class HealthFragment extends Fragment {
                 TransitionManager.beginDelayedTransition(layout_unhealthy_protein, new AutoTransition());
                 list_unhealthy_protein.setVisibility(View.VISIBLE);
                 expander_unhealthy_protein.setImageResource(R.drawable.ic_baseline_expand_less_24);
+                list_healthy_protein.setVisibility(View.VISIBLE);
+                expander_healthy_protein.setImageResource(R.drawable.ic_baseline_expand_less_24);
             } else if (list_unhealthy_protein.getVisibility() == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(layout_unhealthy_protein, new AutoTransition());
                 list_unhealthy_protein.setVisibility(View.GONE);
                 expander_unhealthy_protein.setImageResource(R.drawable.ic_baseline_expand_more_24);
+                list_healthy_protein.setVisibility(View.GONE);
+                expander_healthy_protein.setImageResource(R.drawable.ic_baseline_expand_more_24);
             }
         });
     }

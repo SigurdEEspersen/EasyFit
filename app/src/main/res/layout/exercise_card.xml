@@ -38,7 +38,7 @@
                             android:id="@+id/txt_workout_exercise"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:text="Name"
                             android:textColor="@color/white" />
                     </LinearLayout>
@@ -46,7 +46,6 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/layout_exerciseName"
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp">
 
@@ -54,7 +53,7 @@
                             android:id="@+id/txt_workout_exercise_info"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:text="Info"
                             android:textColor="@color/white" />
                     </LinearLayout>

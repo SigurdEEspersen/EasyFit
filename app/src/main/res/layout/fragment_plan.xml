@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,7 +31,7 @@
                     android:fontFamily="@font/bebas_neue_regular"
                     android:text="Workout Split"
                     android:textColor="@color/tron_blue"
-                    android:textSize="42dp" />
+                    android:textSize="42sp" />
 
                 <GridLayout
                     android:layout_width="match_parent"
@@ -102,7 +101,7 @@
                     android:fontFamily="@font/bebas_neue_regular"
                     android:text="Workout Duration"
                     android:textColor="@color/tron_blue"
-                    android:textSize="42dp" />
+                    android:textSize="42sp" />
 
                 <GridLayout
                     android:layout_width="match_parent"
@@ -171,7 +170,7 @@
                     android:fontFamily="@font/bebas_neue_regular"
                     android:text="Muscle Groups"
                     android:textColor="@color/tron_blue"
-                    android:textSize="42dp" />
+                    android:textSize="42sp" />
 
                 <GridLayout
                     android:layout_width="wrap_content"
@@ -202,7 +201,6 @@
                         android:layout_row="0"
                         android:layout_column="1"
                         android:layout_margin="5dp"
-                        android:layout_toEndOf="@id/btn_muscleGroupLegs"
                         android:background="@drawable/btn_border"
                         android:fontFamily="@font/rubik"
                         android:text="Shoulders"
@@ -215,9 +213,7 @@
                         android:layout_height="wrap_content"
                         android:layout_row="0"
                         android:layout_column="2"
-                        android:layout_below="@id/btn_muscleGroupChest"
                         android:layout_margin="5dp"
-                        android:layout_toEndOf="@id/btn_muscleGroupTriceps"
                         android:background="@drawable/btn_border"
                         android:fontFamily="@font/rubik"
                         android:text="Back"
@@ -231,7 +227,6 @@
                         android:layout_row="0"
                         android:layout_column="3"
                         android:layout_margin="5dp"
-                        android:layout_toEndOf="@id/btn_muscleGroupChest"
                         android:background="@drawable/btn_border"
                         android:fontFamily="@font/rubik"
                         android:text="Legs"
@@ -244,9 +239,7 @@
                         android:layout_height="wrap_content"
                         android:layout_row="1"
                         android:layout_column="0"
-                        android:layout_below="@id/btn_muscleGroupChest"
                         android:layout_margin="5dp"
-                        android:layout_toEndOf="@id/btn_muscleGroupBiceps"
                         android:background="@drawable/btn_border"
                         android:fontFamily="@font/rubik"
                         android:text="Triceps"
@@ -259,7 +252,6 @@
                         android:layout_height="wrap_content"
                         android:layout_row="1"
                         android:layout_column="1"
-                        android:layout_below="@id/btn_muscleGroupChest"
                         android:layout_margin="5dp"
                         android:background="@drawable/btn_border"
                         android:fontFamily="@font/rubik"
@@ -285,7 +277,7 @@
                     android:fontFamily="@font/bebas_neue_regular"
                     android:text="Core &amp; Cardio"
                     android:textColor="@color/white"
-                    android:textSize="32dp" />
+                    android:textSize="32sp" />
 
                 <RelativeLayout
                     android:id="@+id/layout_extrasSettings"
@@ -348,7 +340,7 @@
                             android:fontFamily="@font/rubik"
                             android:text="10 min"
                             android:textColor="@color/white"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
 
                         <SeekBar
                             android:id="@+id/extras_duration_seekbar"
@@ -464,6 +456,6 @@
             android:fontFamily="@font/bebas_neue_regular"
             android:text="Let's do it!"
             android:textColor="@color/main_background"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
     </RelativeLayout>
 </RelativeLayout>

@@ -35,16 +35,16 @@
                         android:layout_height="wrap_content"
                         android:text="Muscle Group:"
                         android:textColor="@color/white"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/txt_workout_muscleGroup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginEnd="10dp"
                         android:text="Name"
                         android:textColor="@color/tron_blue"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:text="Exercises"
                         android:textColor="@color/white"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                     <ImageButton
                         android:id="@+id/img_expander"
@@ -115,16 +115,16 @@
                         android:layout_height="wrap_content"
                         android:text="Core &amp; Cardio:"
                         android:textColor="@color/white"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/txt_workout_extras_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:text="Name"
                         android:textColor="@color/tron_blue"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -138,16 +138,16 @@
                         android:layout_height="wrap_content"
                         android:text="Duration:"
                         android:textColor="@color/white"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/txt_workout_extras_duration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:text="xx min"
                         android:textColor="@color/tron_blue"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
