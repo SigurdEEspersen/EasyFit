@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +17,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
+
+import java.util.ArrayList;
 
 import eugen.enterprise.easyfit.R;
 import eugen.enterprise.easyfit.acquaintance.enums.ECalorieTarget;
@@ -25,6 +32,12 @@ public class HealthFragment extends Fragment {
 
     private HealthViewModel healthViewModel;
     private ImageButton water_bottle_1, water_bottle_2, water_bottle_3, water_bottle_4;
+    private ImageButton expander_healthy_fats, expander_healthy_carbs, expander_healthy_protein,
+            expander_unhealthy_fats, expander_unhealthy_carbs, expander_unhealthy_protein;
+    private LinearLayout layout_healthy_fats, layout_healthy_carbs, layout_healthy_protein,
+            layout_unhealthy_fats, layout_unhealthy_carbs, layout_unhealthy_protein;
+    private ListView list_healthy_fats, list_healthy_carbs, list_healthy_protein,
+            list_unhealthy_fats, list_unhealthy_carbs, list_unhealthy_protein;
     private TextView txt_remaining_water;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,10 +51,55 @@ public class HealthFragment extends Fragment {
         water_bottle_4 = root.findViewById(R.id.water_bottle_4);
         txt_remaining_water = root.findViewById(R.id.txt_remaining_water);
 
+        expander_healthy_fats = root.findViewById(R.id.expander_healthy_fats);
+        expander_healthy_carbs = root.findViewById(R.id.expander_healthy_carbs);
+        expander_healthy_protein = root.findViewById(R.id.expander_healthy_protein);
+        expander_unhealthy_fats = root.findViewById(R.id.expander_unhealthy_fats);
+        expander_unhealthy_carbs = root.findViewById(R.id.expander_unhealthy_carbs);
+        expander_unhealthy_protein = root.findViewById(R.id.expander_unhealthy_protein);
+
+        layout_healthy_fats = root.findViewById(R.id.layout_healthy_fats);
+        layout_healthy_carbs = root.findViewById(R.id.layout_healthy_carbs);
+        layout_healthy_protein = root.findViewById(R.id.layout_healthy_protein);
+        layout_unhealthy_fats = root.findViewById(R.id.layout_unhealthy_fats);
+        layout_unhealthy_carbs = root.findViewById(R.id.layout_unhealthy_carbs);
+        layout_unhealthy_protein = root.findViewById(R.id.layout_unhealthy_protein);
+
+        list_healthy_fats = root.findViewById(R.id.list_healthy_fats);
+        list_healthy_carbs = root.findViewById(R.id.list_healthy_carbs);
+        list_healthy_protein = root.findViewById(R.id.list_healthy_protein);
+        list_unhealthy_fats = root.findViewById(R.id.list_unhealthy_fats);
+        list_unhealthy_carbs = root.findViewById(R.id.list_unhealthy_carbs);
+        list_unhealthy_protein = root.findViewById(R.id.list_unhealthy_protein);
+
         Integer existingSelection = healthViewModel.getSelectedWaterBottle().getValue();
         if (existingSelection != null) {
             healthViewModel.setSelectedWaterBottle(existingSelection);
         }
+
+        String[] healthyFats = {"Avocado", "Nuts", "Olive Oil"};
+        ArrayAdapter<String> healthyFatsAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, healthyFats);
+        list_healthy_fats.setAdapter(healthyFatsAdapter);
+
+        String[] healthyCarbs = {"Avocado", "Nuts", "Olive Oil"};
+        ArrayAdapter<String> healthyCarbsAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, healthyCarbs);
+        list_healthy_carbs.setAdapter(healthyCarbsAdapter);
+
+        String[] healthyProtein = {"Avocado", "Nuts", "Olive Oil"};
+        ArrayAdapter<String> healthyProteinAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, healthyProtein);
+        list_healthy_protein.setAdapter(healthyProteinAdapter);
+
+        String[] unhealthyFats = {"Avocado", "Nuts", "Olive Oil"};
+        ArrayAdapter<String> unhealthyFatsAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, unhealthyFats);
+        list_unhealthy_fats.setAdapter(unhealthyFatsAdapter);
+
+        String[] unhealthyCarbs = {"Avocado", "Nuts", "Olive Oil"};
+        ArrayAdapter<String> unhealthyCarbsAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, unhealthyCarbs);
+        list_unhealthy_carbs.setAdapter(unhealthyCarbsAdapter);
+
+        String[] unhealthyProtein = {"Avocado", "Nuts", "Olive Oil"};
+        ArrayAdapter<String> unhealthyProteinAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, unhealthyProtein);
+        list_unhealthy_protein.setAdapter(unhealthyProteinAdapter);
 
         return root;
     }
@@ -131,6 +189,78 @@ public class HealthFragment extends Fragment {
                     water_bottle_4.setImageResource(R.drawable.icon_bottle_empty);
                     txt_remaining_water.setText("Remaining Water - 2l");
                 }
+            }
+        });
+
+        layout_healthy_fats.setOnClickListener(v -> {
+            if (list_healthy_fats.getVisibility() == View.GONE) {
+                TransitionManager.beginDelayedTransition(layout_healthy_fats, new AutoTransition());
+                list_healthy_fats.setVisibility(View.VISIBLE);
+                expander_healthy_fats.setImageResource(R.drawable.ic_baseline_expand_less_24);
+            } else if (list_healthy_fats.getVisibility() == View.VISIBLE) {
+                TransitionManager.beginDelayedTransition(layout_healthy_fats, new AutoTransition());
+                list_healthy_fats.setVisibility(View.GONE);
+                expander_healthy_fats.setImageResource(R.drawable.ic_baseline_expand_more_24);
+            }
+        });
+
+        layout_healthy_carbs.setOnClickListener(v -> {
+            if (list_healthy_carbs.getVisibility() == View.GONE) {
+                TransitionManager.beginDelayedTransition(layout_healthy_carbs, new AutoTransition());
+                list_healthy_carbs.setVisibility(View.VISIBLE);
+                expander_healthy_carbs.setImageResource(R.drawable.ic_baseline_expand_less_24);
+            } else if (list_healthy_carbs.getVisibility() == View.VISIBLE) {
+                TransitionManager.beginDelayedTransition(layout_healthy_carbs, new AutoTransition());
+                list_healthy_carbs.setVisibility(View.GONE);
+                expander_healthy_carbs.setImageResource(R.drawable.ic_baseline_expand_more_24);
+            }
+        });
+
+        layout_healthy_protein.setOnClickListener(v -> {
+            if (list_healthy_protein.getVisibility() == View.GONE) {
+                TransitionManager.beginDelayedTransition(layout_healthy_protein, new AutoTransition());
+                list_healthy_protein.setVisibility(View.VISIBLE);
+                expander_healthy_protein.setImageResource(R.drawable.ic_baseline_expand_less_24);
+            } else if (list_healthy_protein.getVisibility() == View.VISIBLE) {
+                TransitionManager.beginDelayedTransition(layout_healthy_protein, new AutoTransition());
+                list_healthy_protein.setVisibility(View.GONE);
+                expander_healthy_protein.setImageResource(R.drawable.ic_baseline_expand_more_24);
+            }
+        });
+
+        layout_unhealthy_fats.setOnClickListener(v -> {
+            if (list_unhealthy_fats.getVisibility() == View.GONE) {
+                TransitionManager.beginDelayedTransition(layout_unhealthy_fats, new AutoTransition());
+                list_unhealthy_fats.setVisibility(View.VISIBLE);
+                expander_unhealthy_fats.setImageResource(R.drawable.ic_baseline_expand_less_24);
+            } else if (list_unhealthy_fats.getVisibility() == View.VISIBLE) {
+                TransitionManager.beginDelayedTransition(layout_unhealthy_fats, new AutoTransition());
+                list_unhealthy_fats.setVisibility(View.GONE);
+                expander_unhealthy_fats.setImageResource(R.drawable.ic_baseline_expand_more_24);
+            }
+        });
+
+        layout_unhealthy_carbs.setOnClickListener(v -> {
+            if (list_unhealthy_carbs.getVisibility() == View.GONE) {
+                TransitionManager.beginDelayedTransition(layout_unhealthy_carbs, new AutoTransition());
+                list_unhealthy_carbs.setVisibility(View.VISIBLE);
+                expander_unhealthy_carbs.setImageResource(R.drawable.ic_baseline_expand_less_24);
+            } else if (list_unhealthy_carbs.getVisibility() == View.VISIBLE) {
+                TransitionManager.beginDelayedTransition(layout_unhealthy_carbs, new AutoTransition());
+                list_unhealthy_carbs.setVisibility(View.GONE);
+                expander_unhealthy_carbs.setImageResource(R.drawable.ic_baseline_expand_more_24);
+            }
+        });
+
+        layout_unhealthy_protein.setOnClickListener(v -> {
+            if (list_unhealthy_protein.getVisibility() == View.GONE) {
+                TransitionManager.beginDelayedTransition(layout_unhealthy_protein, new AutoTransition());
+                list_unhealthy_protein.setVisibility(View.VISIBLE);
+                expander_unhealthy_protein.setImageResource(R.drawable.ic_baseline_expand_less_24);
+            } else if (list_unhealthy_protein.getVisibility() == View.VISIBLE) {
+                TransitionManager.beginDelayedTransition(layout_unhealthy_protein, new AutoTransition());
+                list_unhealthy_protein.setVisibility(View.GONE);
+                expander_unhealthy_protein.setImageResource(R.drawable.ic_baseline_expand_more_24);
             }
         });
     }

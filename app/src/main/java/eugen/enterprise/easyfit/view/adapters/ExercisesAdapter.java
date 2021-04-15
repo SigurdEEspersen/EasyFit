@@ -109,14 +109,12 @@ public class ExercisesAdapter extends ArrayAdapter<IExercise> {
 
         viewHolder.btn_expandSets.setOnClickListener(v -> {
             if (viewHolder.layout_sets.getVisibility() == View.GONE) {
-                TransitionManager.beginDelayedTransition(viewHolder.cardView,
-                        new AutoTransition());
+                TransitionManager.beginDelayedTransition(viewHolder.cardView, new AutoTransition());
                 viewHolder.layout_sets.setVisibility(View.VISIBLE);
                 viewHolder.img_expander.setImageResource(R.drawable.ic_baseline_expand_less_24);
                 Common.updateParentListView(parentList, viewHolder.workout_list_sets, true);
             } else if (viewHolder.layout_sets.getVisibility() == View.VISIBLE) {
-                TransitionManager.beginDelayedTransition(viewHolder.cardView,
-                        new AutoTransition());
+                TransitionManager.beginDelayedTransition(viewHolder.cardView, new AutoTransition());
                 viewHolder.layout_sets.setVisibility(View.GONE);
                 viewHolder.img_expander.setImageResource(R.drawable.ic_baseline_expand_more_24);
                 Common.updateParentListView(parentList, viewHolder.workout_list_sets, false);
