@@ -89,7 +89,7 @@ public class HealthFragment extends Fragment {
         list_healthy_carbs.setDivider(null);
         Common.updateListViewHeight(list_healthy_carbs);
 
-        String[] healthyProtein = {"High protein foods examples:", "Meat & Fish", "Cheese", "Eggs", "Beans", "Hummus", "Nuts & Seeds"};
+        String[] healthyProtein = {"High protein foods:", "Meat & Fish", "Cheese", "Eggs", "Beans", "Hummus", "Nuts & Seeds"};
         ArrayAdapter<String> healthyProteinAdapter = new ArrayAdapter<>(requireContext(), R.layout.array_adapter_custom_simple_item, healthyProtein);
         list_healthy_protein.setAdapter(healthyProteinAdapter);
         list_healthy_protein.setDivider(null);

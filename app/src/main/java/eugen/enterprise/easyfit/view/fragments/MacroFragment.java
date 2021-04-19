@@ -48,7 +48,7 @@ public class MacroFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_macro, container, false);
-        macroViewModel = new ViewModelProvider(this).get(MacroViewModel.class);
+        macroViewModel = new ViewModelProvider(requireActivity()).get(MacroViewModel.class);
 
         layout_parent = root.findViewById(R.id.layout_parent);
         layout_macros = root.findViewById(R.id.layout_macros);
@@ -100,7 +100,7 @@ public class MacroFragment extends Fragment {
             public View getView(int position, View convertView, ViewGroup parent) {
                 LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View row = inflater.inflate(R.layout.custom_spinner, null);
-                final TextView txt = (TextView) row.findViewById(R.id.txt_spinnerText);
+                final TextView txt = row.findViewById(R.id.txt_spinnerText);
                 switch (position) {
                     case 0:
                         txt.setText("Idle");

@@ -21,6 +21,7 @@ import eugen.enterprise.easyfit.acquaintance.helpers.Workout;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IMuscleGroup;
 import eugen.enterprise.easyfit.view.activities.MainActivity;
 import eugen.enterprise.easyfit.view.adapters.WorkoutAdapter;
+import eugen.enterprise.easyfit.viewmodel.PlanViewModel;
 import eugen.enterprise.easyfit.viewmodel.WorkoutViewModel;
 
 public class WorkoutFragment extends Fragment {
@@ -28,14 +29,29 @@ public class WorkoutFragment extends Fragment {
     private Button btn_planWorkout;
     private ListView workoutList;
     private WorkoutViewModel workoutViewModel;
+    private PlanViewModel planViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_workout, container, false);
 
-        workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
+        workoutViewModel = new ViewModelProvider(requireActivity()).get(WorkoutViewModel.class);
+        planViewModel = new ViewModelProvider(requireActivity()).get(PlanViewModel.class);
 
         btn_planWorkout = root.findViewById(R.id.btn_planWorkout);
         workoutList = root.findViewById(R.id.workout_listview);
+
+        Workout workout = planViewModel.getWorkout().getValue();
+        if (workout != null) {
+            btn_planWorkout.setVisibility(View.GONE);
+            WorkoutAdapter adapter = new WorkoutAdapter(requireContext(), R.layout.workout_card);
+            adapter.injectData(requireContext(), getActivity(), workout, this);
+            for (IMuscleGroup muscleGroup : workout.getMuscleGroups()) {
+                adapter.add(muscleGroup);
+            }
+            workoutList.setAdapter(adapter);
+        } else {
+            btn_planWorkout.setVisibility(View.VISIBLE);
+        }
 
         return root;
     }
@@ -48,18 +64,6 @@ public class WorkoutFragment extends Fragment {
         btn_planWorkout.setOnClickListener(v -> {
             ((MainActivity) getActivity()).swapTab(getView(), R.id.navigation_plan, null);
         });
-
-        Bundle b = this.getArguments();
-        if (b != null) {
-            btn_planWorkout.setVisibility(View.GONE);
-            Workout workout = (Workout) b.getSerializable("workout");
-            WorkoutAdapter adapter = new WorkoutAdapter(requireContext(), R.layout.workout_card);
-            adapter.injectData(requireContext(), getActivity(), workout, this);
-            for (IMuscleGroup muscleGroup : workout.getMuscleGroups()) {
-                adapter.add(muscleGroup);
-            }
-            workoutList.setAdapter(adapter);
-        }
 
         workoutList.setOnTouchListener((v, event) -> {
             Common.hideKeyboard(getContext(), getView(), getActivity());

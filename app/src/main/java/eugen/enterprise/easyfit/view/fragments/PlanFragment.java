@@ -48,11 +48,12 @@ public class PlanFragment extends Fragment {
     private TextView extras_duration_txt;
     private boolean pre_workout;
     private int extras_duration;
+    private boolean newlyCreatedWorkout;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_plan, container, false);
 
-        planViewModel = new ViewModelProvider(this).get(PlanViewModel.class);
+        planViewModel = new ViewModelProvider(requireActivity()).get(PlanViewModel.class);
 
         btn_generateWorkout = root.findViewById(R.id.btn_generateWorkout);
 
@@ -201,13 +202,15 @@ public class PlanFragment extends Fragment {
                     return;
                 }
             }
+            newlyCreatedWorkout = true;
             planViewModel.createWorkout(selectedSplit, selectedDuration, selectedMuscleGroups, selectedExtras, pre_workout, extras_duration, getContext());
         });
 
         planViewModel.getWorkout().observe(requireActivity(), workout -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("workout", workout);
-            ((MainActivity) getActivity()).swapTab(getView(), R.id.navigation_workout, bundle);
+            if (newlyCreatedWorkout) {
+                ((MainActivity) getActivity()).swapTab(getView(), R.id.navigation_workout, null);
+                newlyCreatedWorkout = false;
+            }
         });
 
         btn_preworkout.setOnClickListener(v -> {
