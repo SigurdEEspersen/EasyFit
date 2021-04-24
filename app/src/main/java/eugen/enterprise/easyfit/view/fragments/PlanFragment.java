@@ -1,5 +1,6 @@
 package eugen.enterprise.easyfit.view.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
@@ -36,18 +38,12 @@ public class PlanFragment extends Fragment {
             btn_muscleGroupChest, btn_muscleGroupLegs, btn_muscleGroupShoulders, btn_muscleGroupBiceps,
             btn_muscleGroupTriceps, btn_muscleGroupBack, btn_generateWorkout, btn_extrasAbs, btn_extrasRunning,
             btn_extrasBiking, btn_extrasStairs, btn_extrasRowing;
-    private EWorkoutSplit selectedSplit;
-    private EWorkoutDuration selectedDuration;
-    private EWorkoutExtras selectedExtras;
     private int muscleGroupAmountSelected, muscleGroupAmountMax;
-    private List<EMuscleGroup> selectedMuscleGroups;
     private HashMap<EMuscleGroup, Boolean> toggledMuscleGroups;
     private HashMap<EMuscleGroup, Button> muscleGroupButton;
     private RadioButton btn_preworkout, btn_postworkout;
     private SeekBar extras_duration_seekbar;
     private TextView extras_duration_txt;
-    private boolean pre_workout;
-    private int extras_duration;
     private boolean newlyCreatedWorkout;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,8 +52,6 @@ public class PlanFragment extends Fragment {
         planViewModel = new ViewModelProvider(requireActivity()).get(PlanViewModel.class);
 
         btn_generateWorkout = root.findViewById(R.id.btn_generateWorkout);
-
-        selectedMuscleGroups = new ArrayList<>();
 
         btn_splitFullBody = root.findViewById(R.id.btn_splitFullBody);
         btn_split2Split = root.findViewById(R.id.btn_split2Split);
@@ -100,8 +94,10 @@ public class PlanFragment extends Fragment {
         btn_extrasStairs = root.findViewById(R.id.btn_extrasStairs);
         btn_extrasRowing = root.findViewById(R.id.btn_extrasRowing);
 
-        pre_workout = false;
-        extras_duration = 10;
+        List<EMuscleGroup> selectedMuscleGroups = planViewModel.getSelectedMuscleGroups().getValue();
+        if (selectedMuscleGroups == null) {
+            planViewModel.setSelectedMuscleGroups(new ArrayList<>());
+        }
 
         return root;
     }
@@ -112,34 +108,28 @@ public class PlanFragment extends Fragment {
 
         btn_splitFullBody.setOnClickListener(v -> {
             muscleGroupAmountMax = 6;
-            selectedSplit = EWorkoutSplit.FullBody;
-            selectButton(btn_splitFullBody, "split");
             toggleAllMuscleGroups(true);
+            planViewModel.setSelectedSplit(EWorkoutSplit.FullBody);
         });
         btn_split2Split.setOnClickListener(v -> {
             muscleGroupAmountMax = 3;
-            selectedSplit = EWorkoutSplit.TwoSplit;
-            selectButton(btn_split2Split, "split");
             toggleAllMuscleGroups(false);
+            planViewModel.setSelectedSplit(EWorkoutSplit.TwoSplit);
         });
         btn_split3Split.setOnClickListener(v -> {
             muscleGroupAmountMax = 2;
-            selectedSplit = EWorkoutSplit.ThreeSplit;
-            selectButton(btn_split3Split, "split");
             toggleAllMuscleGroups(false);
+            planViewModel.setSelectedSplit(EWorkoutSplit.ThreeSplit);
         });
 
         btn_duration1.setOnClickListener(v -> {
-            selectedDuration = EWorkoutDuration.OneHour;
-            selectButton(btn_duration1, "duration");
+            planViewModel.setSelectedDuration(EWorkoutDuration.OneHour);
         });
         btn_duration2.setOnClickListener(v -> {
-            selectedDuration = EWorkoutDuration.OneHalfHour;
-            selectButton(btn_duration2, "duration");
+            planViewModel.setSelectedDuration(EWorkoutDuration.OneHalfHour);
         });
         btn_duration3.setOnClickListener(v -> {
-            selectedDuration = EWorkoutDuration.TwoHours;
-            selectButton(btn_duration3, "duration");
+            planViewModel.setSelectedDuration(EWorkoutDuration.TwoHours);
         });
 
         btn_muscleGroupChest.setOnClickListener(v -> {
@@ -162,32 +152,27 @@ public class PlanFragment extends Fragment {
         });
 
         btn_extrasAbs.setOnClickListener(v -> {
-            selectedExtras = EWorkoutExtras.Core;
-            selectButton(btn_extrasAbs, "extras");
+            planViewModel.setSelectedExtras(EWorkoutExtras.Core);
         });
         btn_extrasRunning.setOnClickListener(v -> {
-            selectedExtras = EWorkoutExtras.Running;
-            selectButton(btn_extrasRunning, "extras");
+            planViewModel.setSelectedExtras(EWorkoutExtras.Running);
         });
         btn_extrasBiking.setOnClickListener(v -> {
-            selectedExtras = EWorkoutExtras.Biking;
-            selectButton(btn_extrasBiking, "extras");
+            planViewModel.setSelectedExtras(EWorkoutExtras.Biking);
         });
         btn_extrasStairs.setOnClickListener(v -> {
-            selectedExtras = EWorkoutExtras.Stairs;
-            selectButton(btn_extrasStairs, "extras");
+            planViewModel.setSelectedExtras(EWorkoutExtras.Stairs);
         });
         btn_extrasRowing.setOnClickListener(v -> {
-            selectedExtras = EWorkoutExtras.Rowing;
-            selectButton(btn_extrasRowing, "extras");
+            planViewModel.setSelectedExtras(EWorkoutExtras.Rowing);
         });
 
         btn_generateWorkout.setOnClickListener(v -> {
-            if (selectedSplit == null) {
+            if (planViewModel.getSelectedSplit().getValue() == null) {
                 Toast.makeText(getContext(), "Select workout split", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (selectedDuration == null) {
+            if (planViewModel.getSelectedDuration().getValue() == null) {
                 Toast.makeText(getContext(), "Select workout duration", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -203,7 +188,7 @@ public class PlanFragment extends Fragment {
                 }
             }
             newlyCreatedWorkout = true;
-            planViewModel.createWorkout(selectedSplit, selectedDuration, selectedMuscleGroups, selectedExtras, pre_workout, extras_duration, getContext());
+            planViewModel.createWorkout(getContext());
         });
 
         planViewModel.getWorkout().observe(requireActivity(), workout -> {
@@ -214,15 +199,11 @@ public class PlanFragment extends Fragment {
         });
 
         btn_preworkout.setOnClickListener(v -> {
-            btn_preworkout.setTextColor(ContextCompat.getColor(getContext(), R.color.main_background));
-            btn_postworkout.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
-            pre_workout = true;
+            planViewModel.setPreWorkout(true);
         });
 
         btn_postworkout.setOnClickListener(v -> {
-            btn_postworkout.setTextColor(ContextCompat.getColor(getContext(), R.color.main_background));
-            btn_preworkout.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
-            pre_workout = false;
+            planViewModel.setPreWorkout(false);
         });
 
         extras_duration_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -230,24 +211,19 @@ public class PlanFragment extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 switch (progress) {
                     case 0:
-                        extras_duration_txt.setText("10 min");
-                        extras_duration = 10;
+                        planViewModel.setExtrasDuration(10);
                         break;
                     case 1:
-                        extras_duration_txt.setText("15 min");
-                        extras_duration = 15;
+                        planViewModel.setExtrasDuration(15);
                         break;
                     case 2:
-                        extras_duration_txt.setText("20 min");
-                        extras_duration = 20;
+                        planViewModel.setExtrasDuration(20);
                         break;
                     case 3:
-                        extras_duration_txt.setText("25 min");
-                        extras_duration = 25;
+                        planViewModel.setExtrasDuration(25);
                         break;
                     case 4:
-                        extras_duration_txt.setText("30 min");
-                        extras_duration = 30;
+                        planViewModel.setExtrasDuration(30);
                         break;
                 }
             }
@@ -258,6 +234,123 @@ public class PlanFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        planViewModel.getSelectedSplit().observe(requireActivity(), new Observer<EWorkoutSplit>() {
+            @Override
+            public void onChanged(EWorkoutSplit eWorkoutSplit) {
+                switch (eWorkoutSplit) {
+                    case FullBody:
+                        muscleGroupAmountMax = 6;
+                        selectButton(btn_splitFullBody, "split");
+                        break;
+                    case TwoSplit:
+                        muscleGroupAmountMax = 3;
+                        selectButton(btn_split2Split, "split");
+                        break;
+                    case ThreeSplit:
+                        muscleGroupAmountMax = 2;
+                        selectButton(btn_split3Split, "split");
+                        break;
+                }
+            }
+        });
+
+        planViewModel.getSelectedDuration().observe(requireActivity(), new Observer<EWorkoutDuration>() {
+            @Override
+            public void onChanged(EWorkoutDuration eWorkoutDuration) {
+                switch (eWorkoutDuration) {
+                    case OneHour:
+                        selectButton(btn_duration1, "duration");
+                        break;
+                    case OneHalfHour:
+                        selectButton(btn_duration2, "duration");
+                        break;
+                    case TwoHours:
+                        selectButton(btn_duration3, "duration");
+                        break;
+                }
+            }
+        });
+
+        planViewModel.getSelectedMuscleGroups().observe(requireActivity(), new Observer<List<EMuscleGroup>>() {
+            @Override
+            public void onChanged(List<EMuscleGroup> eMuscleGroups) {
+                muscleGroupAmountSelected = 0;
+                for (EMuscleGroup muscleGroup : eMuscleGroups) {
+                    Button button = muscleGroupButton.get(muscleGroup);
+                    button.setBackgroundResource(R.drawable.btn_border_selected);
+                    muscleGroupAmountSelected++;
+                    toggledMuscleGroups.replace(muscleGroup, true);
+                }
+                updateRecommendedMuscleGroups();
+            }
+        });
+
+        planViewModel.getSelectedExtras().observe(requireActivity(), new Observer<EWorkoutExtras>() {
+            @Override
+            public void onChanged(EWorkoutExtras eWorkoutExtras) {
+                switch (eWorkoutExtras) {
+                    case Core:
+                        selectButton(btn_extrasAbs, "extras");
+                        break;
+                    case Running:
+                        selectButton(btn_extrasRunning, "extras");
+                        break;
+                    case Biking:
+                        selectButton(btn_extrasBiking, "extras");
+                        break;
+                    case Stairs:
+                        selectButton(btn_extrasStairs, "extras");
+                        break;
+                    case Rowing:
+                        selectButton(btn_extrasRowing, "extras");
+                        break;
+                }
+            }
+        });
+
+        planViewModel.getPreWorkout().observe(requireActivity(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean preworkout) {
+                if (preworkout) {
+                    btn_preworkout.setChecked(true);
+                    btn_preworkout.setTextColor(Color.parseColor("#FF0D1117"));
+                    btn_postworkout.setTextColor(Color.parseColor("#FFFFFFFF"));
+                } else {
+                    btn_postworkout.setChecked(true);
+                    btn_postworkout.setTextColor(Color.parseColor("#FF0D1117"));
+                    btn_preworkout.setTextColor(Color.parseColor("#FFFFFFFF"));
+                }
+            }
+        });
+
+        planViewModel.getExtrasDuration().observe(requireActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer durationMinutes) {
+                switch (durationMinutes) {
+                    case 10:
+                        extras_duration_seekbar.setProgress(0);
+                        extras_duration_txt.setText("10 min");
+                        break;
+                    case 15:
+                        extras_duration_seekbar.setProgress(1);
+                        extras_duration_txt.setText("15 min");
+                        break;
+                    case 20:
+                        extras_duration_seekbar.setProgress(2);
+                        extras_duration_txt.setText("20 min");
+                        break;
+                    case 25:
+                        extras_duration_seekbar.setProgress(3);
+                        extras_duration_txt.setText("25 min");
+                        break;
+                    case 30:
+                        extras_duration_seekbar.setProgress(4);
+                        extras_duration_txt.setText("30 min");
+                        break;
+                }
             }
         });
     }
@@ -323,30 +416,28 @@ public class PlanFragment extends Fragment {
         }
     }
 
-    private void toggleMuscleGroup(EMuscleGroup muscleGroup, boolean toggled) {
+    private void toggleMuscleGroup(EMuscleGroup muscleGroup, boolean alreadyToggled) {
         if (muscleGroupAmountMax == 0) {
             Toast.makeText(getContext(), "Select workout split", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Button button = muscleGroupButton.get(muscleGroup);
-        if (toggled) {
-            if (selectedSplit == EWorkoutSplit.FullBody && muscleGroupAmountSelected < 6) {
+        List<EMuscleGroup> selectedMuscleGroups = planViewModel.getSelectedMuscleGroups().getValue();
+        if (alreadyToggled) {
+            if (planViewModel.getSelectedSplit().getValue() == EWorkoutSplit.FullBody && muscleGroupAmountSelected < 6) {
                 Toast.makeText(getContext(), "Minimum of 5 muscle groups when training full body", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             button.setBackgroundResource(R.drawable.btn_border);
-            selectedMuscleGroups.remove(muscleGroup);
-            muscleGroupAmountSelected--;
             toggledMuscleGroups.replace(muscleGroup, false);
+            selectedMuscleGroups.remove(muscleGroup);
+            planViewModel.setSelectedMuscleGroups(selectedMuscleGroups);
         } else {
             if (muscleGroupAmountSelected < muscleGroupAmountMax) {
-                button.setBackgroundResource(R.drawable.btn_border_selected);
                 selectedMuscleGroups.add(muscleGroup);
-                muscleGroupAmountSelected++;
-                toggledMuscleGroups.replace(muscleGroup, true);
-                updateRecommendedMuscleGroups();
+                planViewModel.setSelectedMuscleGroups(selectedMuscleGroups);
             }
         }
 
