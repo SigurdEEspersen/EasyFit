@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -32,6 +33,7 @@ import eugen.enterprise.easyfit.R;
 import eugen.enterprise.easyfit.acquaintance.enums.ECalorieTarget;
 import eugen.enterprise.easyfit.acquaintance.helpers.Common;
 import eugen.enterprise.easyfit.acquaintance.helpers.MacroResult;
+import eugen.enterprise.easyfit.view.activities.MainActivity;
 import eugen.enterprise.easyfit.viewmodel.MacroViewModel;
 
 public class MacroFragment extends Fragment {
@@ -132,6 +134,17 @@ public class MacroFragment extends Fragment {
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         dropdown_activity.setAdapter(adapter);
 
+        dropdown_activity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                macroViewModel.setActivityLevel(parent.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         macroViewModel.setIsMale(true);
 
         return root;
@@ -179,9 +192,11 @@ public class MacroFragment extends Fragment {
             @Override
             public void onChanged(Boolean isMale) {
                 if (isMale) {
+                    rbtn_male.setChecked(true);
                     rbtn_male.setTextColor(Color.parseColor("#FF0D1117"));
                     rbtn_female.setTextColor(Color.parseColor("#FFFFFFFF"));
                 } else {
+                    rbtn_female.setChecked(true);
                     rbtn_female.setTextColor(Color.parseColor("#FF0D1117"));
                     rbtn_male.setTextColor(Color.parseColor("#FFFFFFFF"));
                 }
@@ -278,21 +293,24 @@ public class MacroFragment extends Fragment {
             }
         });
 
-        dropdown_activity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                macroViewModel.setActivityLevel(parent.getSelectedItem().toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
         macroViewModel.getActivityLevel().observe(requireActivity(), new Observer<String>() {
             @Override
-            public void onChanged(String s) {
-                ;
+            public void onChanged(String activityLevel) {
+                if (activityLevel.contains("Minimal")) {
+                    dropdown_activity.setSelection(1);
+                } else if (activityLevel.contains("Light")) {
+                    dropdown_activity.setSelection(2);
+                } else if (activityLevel.contains("Moderate")) {
+                    dropdown_activity.setSelection(3);
+                } else if (activityLevel.contains("3-4")) {
+                    dropdown_activity.setSelection(4);
+                } else if (activityLevel.contains("Very Active")) {
+                    dropdown_activity.setSelection(5);
+                } else if (activityLevel.contains("Super Active")) {
+                    dropdown_activity.setSelection(6);
+                } else {
+                    dropdown_activity.setSelection(0);
+                }
             }
         });
 
@@ -388,7 +406,8 @@ public class MacroFragment extends Fragment {
         macroViewModel.getSaveStatus().observe(requireActivity(), new Observer<String>() {
             @Override
             public void onChanged(String message) {
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.getAppContext(), message, Toast.LENGTH_SHORT).show();
+                macroViewModel.setSaveStatus(new MutableLiveData<>());
             }
         });
 
@@ -417,6 +436,8 @@ public class MacroFragment extends Fragment {
                 macroViewModel.setCalculatedProtein(result.getProteins());
                 macroViewModel.setCalculatedCarbs(result.getCarbs());
                 macroViewModel.setCalculatedFat(result.getFat());
+
+                macroViewModel.setSavedMacros(new MutableLiveData<>());
             }
         });
 

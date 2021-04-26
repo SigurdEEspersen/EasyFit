@@ -84,6 +84,10 @@ public class PlanViewModel extends ViewModel {
         this.selectedExtras.postValue(selectedExtras);
     }
 
+    public void setSelectedExtras(MutableLiveData<EWorkoutExtras> selectedExtras) {
+        this.selectedExtras = selectedExtras;
+    }
+
     public MutableLiveData<Boolean> getPreWorkout() {
         return preWorkout;
     }

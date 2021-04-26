@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -357,7 +358,8 @@ public class PlanFragment extends Fragment {
 
     private void selectButton(Button button, String group) {
         if (group.equals("extras") && muscleGroupAmountMax == 0) {
-            Toast.makeText(getContext(), "Select workout split", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.getAppContext(), "Select workout split", Toast.LENGTH_SHORT).show();
+            planViewModel.setSelectedExtras(new MutableLiveData<>());
             return;
         }
 

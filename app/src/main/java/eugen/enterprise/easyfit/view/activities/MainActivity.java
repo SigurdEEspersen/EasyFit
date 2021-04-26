@@ -1,5 +1,6 @@
 package eugen.enterprise.easyfit.view.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,9 +16,12 @@ import eugen.enterprise.easyfit.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getApplicationContext();
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -36,5 +40,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Navigation.findNavController(view).navigate(id);
         }
+    }
+
+    public static Context getAppContext() {
+        return context;
     }
 }
