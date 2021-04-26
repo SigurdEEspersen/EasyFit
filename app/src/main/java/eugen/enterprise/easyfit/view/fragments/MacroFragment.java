@@ -391,6 +391,10 @@ public class MacroFragment extends Fragment {
 
         btn_calculate.setOnClickListener(v -> {
             if (calculateMacros()) {
+                Common.hideKeyboard(getContext(), getView(), getActivity());
+                txt_weight.clearFocus();
+                txt_height.clearFocus();
+                txt_age.clearFocus();
                 btn_save.setEnabled(true);
                 btn_save.setAlpha(1);
             }
