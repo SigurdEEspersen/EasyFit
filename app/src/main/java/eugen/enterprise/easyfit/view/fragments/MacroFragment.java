@@ -2,10 +2,14 @@ package eugen.enterprise.easyfit.view.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,8 +47,6 @@ public class MacroFragment extends Fragment {
     private GridLayout layout_results;
     private LinearLayout layout_max_deficit, layout_deficit, layout_maintain, layout_surplus,
             layout_max_surplus;
-    private Boolean male;
-    private ECalorieTarget selectedCalorieTarget;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_macro, container, false);
@@ -130,7 +132,7 @@ public class MacroFragment extends Fragment {
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         dropdown_activity.setAdapter(adapter);
 
-        male = true;
+        macroViewModel.setIsMale(true);
 
         return root;
     }
@@ -164,49 +166,190 @@ public class MacroFragment extends Fragment {
 
         rbtn_male.setOnCheckedChangeListener((buttonView, isMale) -> {
             if (isMale) {
-                male = true;
-                rbtn_male.setTextColor(ContextCompat.getColor(getContext(), R.color.main_background));
-                rbtn_female.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+                macroViewModel.setIsMale(true);
             }
         });
         rbtn_female.setOnCheckedChangeListener((buttonView, isFemale) -> {
             if (isFemale) {
-                male = false;
-                rbtn_female.setTextColor(ContextCompat.getColor(getContext(), R.color.main_background));
-                rbtn_male.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+                macroViewModel.setIsMale(false);
+            }
+        });
+
+        macroViewModel.getIsMale().observe(requireActivity(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isMale) {
+                if (isMale) {
+                    rbtn_male.setTextColor(Color.parseColor("#FF0D1117"));
+                    rbtn_female.setTextColor(Color.parseColor("#FFFFFFFF"));
+                } else {
+                    rbtn_female.setTextColor(Color.parseColor("#FF0D1117"));
+                    rbtn_male.setTextColor(Color.parseColor("#FFFFFFFF"));
+                }
+                rbtn_male.setChecked(isMale);
+            }
+        });
+
+        txt_weight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().isEmpty()) {
+                    macroViewModel.setWeight(Double.parseDouble(s.toString()));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        txt_height.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().isEmpty()) {
+                    macroViewModel.setHeight(Double.parseDouble(s.toString()));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        txt_age.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().isEmpty()) {
+                    macroViewModel.setAge(Integer.parseInt(s.toString()));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        macroViewModel.getWeight().observe(requireActivity(), new Observer<Double>() {
+            @Override
+            public void onChanged(Double weight) {
+                String value = String.valueOf(weight);
+                if (value.endsWith(".0")) {
+                    value = value.substring(0, value.length() - 2);
+                }
+
+                if (!txt_weight.getText().toString().equals(value)) {
+                    txt_weight.setText(value);
+                }
+            }
+        });
+
+        macroViewModel.getHeight().observe(requireActivity(), new Observer<Double>() {
+            @Override
+            public void onChanged(Double height) {
+                String value = String.valueOf(height);
+                if (value.endsWith(".0")) {
+                    value = value.substring(0, value.length() - 2);
+                }
+
+                if (!txt_height.getText().toString().equals(value)) {
+                    txt_height.setText(value);
+                }
+            }
+        });
+
+        macroViewModel.getAge().observe(requireActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer age) {
+                String value = String.valueOf(age);
+                if (!txt_age.getText().toString().equals(value)) {
+                    txt_age.setText(value);
+                }
+            }
+        });
+
+        dropdown_activity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                macroViewModel.setActivityLevel(parent.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        macroViewModel.getActivityLevel().observe(requireActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                ;
             }
         });
 
         rbtn_max_deficit.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 setCalorieTarget(rbtn_max_deficit);
-                selectedCalorieTarget = ECalorieTarget.MaxCalorieDeficit;
+                macroViewModel.setCalorieTarget(ECalorieTarget.MaxCalorieDeficit);
             }
         });
         rbtn_deficit.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 setCalorieTarget(rbtn_deficit);
-                selectedCalorieTarget = ECalorieTarget.CalorieDeficit;
+                macroViewModel.setCalorieTarget(ECalorieTarget.CalorieDeficit);
             }
         });
         rbtn_maintain.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 setCalorieTarget(rbtn_maintain);
-                selectedCalorieTarget = ECalorieTarget.Maintain;
+                macroViewModel.setCalorieTarget(ECalorieTarget.Maintain);
             }
         });
         rbtn_surplus.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 setCalorieTarget(rbtn_surplus);
-                selectedCalorieTarget = ECalorieTarget.CalorieSurplus;
+                macroViewModel.setCalorieTarget(ECalorieTarget.CalorieSurplus);
             }
         });
         rbtn_max_surplus.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 setCalorieTarget(rbtn_max_surplus);
-                selectedCalorieTarget = ECalorieTarget.MaxCalorieSurplus;
+                macroViewModel.setCalorieTarget(ECalorieTarget.MaxCalorieSurplus);
             }
         });
+
+        macroViewModel.getCalorieTarget().observe(requireActivity(), new Observer<ECalorieTarget>() {
+            @Override
+            public void onChanged(ECalorieTarget selectedCalorieTarget) {
+                switch (selectedCalorieTarget) {
+                    case MaxCalorieDeficit:
+                        rbtn_max_deficit.setChecked(true);
+                        break;
+                    case CalorieDeficit:
+                        rbtn_deficit.setChecked(true);
+                        break;
+                    case Maintain:
+                        rbtn_maintain.setChecked(true);
+                        break;
+                    case CalorieSurplus:
+                        rbtn_surplus.setChecked(true);
+                        break;
+                    case MaxCalorieSurplus:
+                        rbtn_max_surplus.setChecked(true);
+                        break;
+                }
+            }
+        });
+
         layout_max_deficit.setOnTouchListener((v, event) -> {
             rbtn_max_deficit.setChecked(true);
             return false;
@@ -257,31 +400,8 @@ public class MacroFragment extends Fragment {
                     return;
                 }
 
-                male = result.isMale();
-                if (male) {
-                    rbtn_male.setChecked(true);
-                } else {
-                    rbtn_female.setChecked(true);
-                }
-
-                selectedCalorieTarget = result.getCalorieTarget();
-                switch (selectedCalorieTarget) {
-                    case MaxCalorieDeficit:
-                        rbtn_max_deficit.setChecked(true);
-                        break;
-                    case CalorieDeficit:
-                        rbtn_deficit.setChecked(true);
-                        break;
-                    case Maintain:
-                        rbtn_maintain.setChecked(true);
-                        break;
-                    case CalorieSurplus:
-                        rbtn_surplus.setChecked(true);
-                        break;
-                    case MaxCalorieSurplus:
-                        rbtn_max_surplus.setChecked(true);
-                        break;
-                }
+                macroViewModel.setIsMale(result.isMale());
+                macroViewModel.setCalorieTarget(result.getCalorieTarget());
 
                 txt_weight.setText(String.valueOf(Math.round(result.getWeight())));
                 txt_height.setText(String.valueOf(Math.round(result.getHeight())));
@@ -293,10 +413,38 @@ public class MacroFragment extends Fragment {
                     }
                 }
 
-                txt_calories.setText(String.valueOf(result.getCalories()));
-                txt_protein.setText(String.valueOf(result.getProteins()));
-                txt_carbs.setText(String.valueOf(result.getCarbs()));
-                txt_fat.setText(String.valueOf(result.getFat()));
+                macroViewModel.setCalculatedCalories(result.getCalories());
+                macroViewModel.setCalculatedProtein(result.getProteins());
+                macroViewModel.setCalculatedCarbs(result.getCarbs());
+                macroViewModel.setCalculatedFat(result.getFat());
+            }
+        });
+
+        macroViewModel.getCalculatedCalories().observe(requireActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer dailyCalories) {
+                txt_calories.setText(String.valueOf(Math.round(dailyCalories)));
+            }
+        });
+
+        macroViewModel.getCalculatedProtein().observe(requireActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer proteinGram) {
+                txt_protein.setText(String.valueOf(Math.round(proteinGram)));
+            }
+        });
+
+        macroViewModel.getCalculatedCarbs().observe(requireActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer carbsGram) {
+                txt_carbs.setText(String.valueOf(Math.round(carbsGram)));
+            }
+        });
+
+        macroViewModel.getCalculatedFat().observe(requireActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer fatGram) {
+                txt_fat.setText(String.valueOf(Math.round(fatGram)));
             }
         });
     }
@@ -306,9 +454,10 @@ public class MacroFragment extends Fragment {
             return false;
         }
 
-        double weight = Double.parseDouble(txt_weight.getText().toString());
-        double height = Double.parseDouble(txt_height.getText().toString());
-        int age = Integer.parseInt(txt_age.getText().toString());
+        double weight = macroViewModel.getWeight().getValue();
+        double height = macroViewModel.getHeight().getValue();
+        int age = macroViewModel.getAge().getValue();
+        boolean male = macroViewModel.getIsMale().getValue();
 
         double dailyCalories = (10 * weight) + (6.25 * height) - (5 * age);
         dailyCalories = male ? dailyCalories + 5 : dailyCalories - 161;
@@ -328,7 +477,7 @@ public class MacroFragment extends Fragment {
             dailyCalories = dailyCalories * 1.95;
         }
 
-        switch (selectedCalorieTarget) {
+        switch (macroViewModel.getCalorieTarget().getValue()) {
             case MaxCalorieDeficit:
                 dailyCalories = dailyCalories * 0.8;
                 break;
@@ -354,37 +503,37 @@ public class MacroFragment extends Fragment {
         double carbsCalories = dailyCalories - proteinCalories - fatCalories;
         double carbsGram = carbsCalories / 4;
 
-        txt_calories.setText(String.valueOf(Math.round(dailyCalories)));
-        txt_protein.setText(String.valueOf(Math.round(proteinGram)));
-        txt_carbs.setText(String.valueOf(Math.round(carbsGram)));
-        txt_fat.setText(String.valueOf(Math.round(fatGram)));
+        macroViewModel.setCalculatedCalories((int) Math.round(dailyCalories));
+        macroViewModel.setCalculatedProtein((int) Math.round(proteinGram));
+        macroViewModel.setCalculatedCarbs((int) Math.round(carbsGram));
+        macroViewModel.setCalculatedFat((int) Math.round(fatGram));
 
         return true;
     }
 
     private boolean checkData() {
         //TODO marker felter med rød i stedet for toast
-        if (male == null) {
+        if (macroViewModel.getIsMale().getValue() == null) {
             Toast.makeText(getContext(), "Select gender", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if (selectedCalorieTarget == null) {
+        if (macroViewModel.getCalorieTarget().getValue() == null) {
             Toast.makeText(getContext(), "Select calorie target", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if (txt_weight.getText().toString().isEmpty()) {
+        if (macroViewModel.getWeight().getValue() == null) {
             Toast.makeText(getContext(), "Weight missing", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if (txt_height.getText().toString().isEmpty()) {
+        if (macroViewModel.getHeight().getValue() == null) {
             Toast.makeText(getContext(), "Height missing", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if (txt_age.getText().toString().isEmpty()) {
+        if (macroViewModel.getAge().getValue() == null) {
             Toast.makeText(getContext(), "Age missing", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -393,16 +542,16 @@ public class MacroFragment extends Fragment {
 
     private MacroResult createMacroResult() {
         MacroResult result = new MacroResult();
-        result.setMale(male);
-        result.setCalorieTarget(selectedCalorieTarget);
-        result.setWeight(Double.parseDouble(txt_weight.getText().toString()));
-        result.setHeight(Double.parseDouble(txt_height.getText().toString()));
-        result.setAge(Integer.parseInt(txt_age.getText().toString()));
-        result.setActivity(dropdown_activity.getSelectedItem().toString());
-        result.setCalories(Integer.parseInt(txt_calories.getText().toString()));
-        result.setProteins(Integer.parseInt(txt_protein.getText().toString()));
-        result.setCarbs(Integer.parseInt(txt_carbs.getText().toString()));
-        result.setFat(Integer.parseInt(txt_fat.getText().toString()));
+        result.setMale(macroViewModel.getIsMale().getValue());
+        result.setCalorieTarget(macroViewModel.getCalorieTarget().getValue());
+        result.setWeight(macroViewModel.getWeight().getValue());
+        result.setHeight(macroViewModel.getHeight().getValue());
+        result.setAge(macroViewModel.getAge().getValue());
+        result.setActivity(macroViewModel.getActivityLevel().getValue());
+        result.setCalories(macroViewModel.getCalculatedCalories().getValue());
+        result.setProteins(macroViewModel.getCalculatedProtein().getValue());
+        result.setCarbs(macroViewModel.getCalculatedCarbs().getValue());
+        result.setFat(macroViewModel.getCalculatedFat().getValue());
         return result;
     }
 
