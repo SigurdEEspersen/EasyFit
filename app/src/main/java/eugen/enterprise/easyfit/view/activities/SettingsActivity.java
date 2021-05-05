@@ -32,9 +32,9 @@ public class SettingsActivity extends AppCompatActivity {
         SettingsViewModel viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
         viewModel.LoadExercises(getApplicationContext());
 
-        viewModel.getExercises().observe(this, new Observer<List<IExercise>>() {
+        viewModel.getExercises().observe(this, new Observer<IExercise[]>() {
             @Override
-            public void onChanged(List<IExercise> exercises) {
+            public void onChanged(IExercise[] exercises) {
                 ArrayList<String> chestExercises = new ArrayList<>();
                 ArrayList<String> shoulderExercises = new ArrayList<>();
                 ArrayList<String> backExercises = new ArrayList<>();
@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
 
                 Spinner spinner_chest = findViewById(R.id.spinner_chest);
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getParent(), R.layout.custom_spinner, chestExercises);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplication(), R.layout.custom_spinner, chestExercises);
                 adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_border);
                 spinner_chest.setAdapter(adapter);
 
@@ -85,7 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
                 });
 
                 Spinner spinner_shoulders = findViewById(R.id.spinner_shoulders);
-                adapter = new ArrayAdapter<>(getParent(), R.layout.custom_spinner, shoulderExercises);
+                adapter = new ArrayAdapter<>(getApplication(), R.layout.custom_spinner, shoulderExercises);
                 adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_border);
                 spinner_shoulders.setAdapter(adapter);
 
@@ -101,7 +101,7 @@ public class SettingsActivity extends AppCompatActivity {
                 });
 
                 Spinner spinner_back = findViewById(R.id.spinner_back);
-                adapter = new ArrayAdapter<>(getParent(), R.layout.custom_spinner, backExercises);
+                adapter = new ArrayAdapter<>(getApplication(), R.layout.custom_spinner, backExercises);
                 adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_border);
                 spinner_back.setAdapter(adapter);
 
@@ -117,7 +117,7 @@ public class SettingsActivity extends AppCompatActivity {
                 });
 
                 Spinner spinner_legs = findViewById(R.id.spinner_legs);
-                adapter = new ArrayAdapter<>(getParent(), R.layout.custom_spinner, legExercises);
+                adapter = new ArrayAdapter<>(getApplication(), R.layout.custom_spinner, legExercises);
                 adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_border);
                 spinner_legs.setAdapter(adapter);
 
@@ -133,7 +133,7 @@ public class SettingsActivity extends AppCompatActivity {
                 });
 
                 Spinner spinner_triceps = findViewById(R.id.spinner_triceps);
-                adapter = new ArrayAdapter<>(getParent(), R.layout.custom_spinner, tricepExercises);
+                adapter = new ArrayAdapter<>(getApplication(), R.layout.custom_spinner, tricepExercises);
                 adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_border);
                 spinner_triceps.setAdapter(adapter);
 
@@ -149,7 +149,7 @@ public class SettingsActivity extends AppCompatActivity {
                 });
 
                 Spinner spinner_biceps = findViewById(R.id.spinner_biceps);
-                adapter = new ArrayAdapter<>(getParent(), R.layout.custom_spinner, bicepExercises);
+                adapter = new ArrayAdapter<>(getApplication(), R.layout.custom_spinner, bicepExercises);
                 adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_border);
                 spinner_biceps.setAdapter(adapter);
 

@@ -5,15 +5,13 @@ import android.content.Context;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.List;
-
 import eugen.enterprise.easyfit.acquaintance.interfaces.Callback;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IExercise;
 import eugen.enterprise.easyfit.model.repository.SettingsService;
 
 public class SettingsViewModel extends ViewModel {
     private SettingsService settingsService;
-    private MutableLiveData<List<IExercise>> exercises;
+    private MutableLiveData<IExercise[]> exercises;
 
     public SettingsViewModel() {
         settingsService = new SettingsService();
@@ -24,12 +22,12 @@ public class SettingsViewModel extends ViewModel {
         settingsService.loadExercises(new Callback() {
             @Override
             public void onResponse(Object o) {
-                //TODO
+                exercises.postValue((IExercise[]) o);
             }
         }, c);
     }
 
-    public MutableLiveData<List<IExercise>> getExercises() {
+    public MutableLiveData<IExercise[]> getExercises() {
         return exercises;
     }
 }
