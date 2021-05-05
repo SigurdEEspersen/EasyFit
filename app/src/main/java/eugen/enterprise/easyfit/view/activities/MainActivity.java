@@ -3,6 +3,7 @@ package eugen.enterprise.easyfit.view.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        ImageButton settings = findViewById(R.id.btn_settings);
+        settings.setOnClickListener(v -> {
+            //TODO
+        });
     }
 
     public void swapTab(View view, int id, Bundle bundle) {
