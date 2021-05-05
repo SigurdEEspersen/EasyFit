@@ -36,7 +36,7 @@ public class Exercise implements IExercise {
     }
 
     @Override
-    public String getMuscleGroupId() {
+    public String getMuscleGroup() {
         return muscleGroup;
     }
 

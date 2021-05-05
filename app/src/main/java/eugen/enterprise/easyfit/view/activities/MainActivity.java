@@ -1,6 +1,7 @@
 package eugen.enterprise.easyfit.view.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -22,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = getApplicationContext();
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton settings = findViewById(R.id.btn_settings);
         settings.setOnClickListener(v -> {
-            //TODO
+            Intent switchActivityIntent = new Intent(this, SettingsActivity.class);
+            startActivity(switchActivityIntent);
         });
     }
 

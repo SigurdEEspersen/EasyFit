@@ -3,7 +3,7 @@ package eugen.enterprise.easyfit.acquaintance.interfaces;
 public interface IExercise {
     int getId();
 
-    String getMuscleGroupId();
+    String getMuscleGroup();
 
     String getName();
 

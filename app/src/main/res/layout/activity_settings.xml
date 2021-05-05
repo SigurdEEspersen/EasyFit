@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background">
+
+    <ImageButton
+        android:id="@+id/btn_return"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/btn_return_selector"
+        android:padding="5dp"
+        android:scaleX="0.5"
+        android:scaleY="0.5" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_return"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp">
+
+        <TextView
+            android:id="@+id/txt_prefferedExercises"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preferred Exercises"
+            android:textColor="@color/tron_blue"
+            android:textSize="22sp" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_prefferedExercises"
+            android:columnCount="2"
+            android:rowCount="6"
+            android:useDefaultMargins="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/rubik"
+                android:text="Chest"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_text">
+
+                <Spinner
+                    android:id="@+id/spinner_chest"
+                    android:layout_width="200dp"
+                    android:layout_height="35dp"
+                    android:backgroundTint="@color/white"
+                    android:paddingEnd="20dp"
+                    android:popupBackground="@color/main_background"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/rubik"
+                android:text="Shoulders"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_text">
+
+                <Spinner
+                    android:id="@+id/spinner_shoulders"
+                    android:layout_width="200dp"
+                    android:layout_height="35dp"
+                    android:backgroundTint="@color/white"
+                    android:paddingEnd="20dp"
+                    android:popupBackground="@color/main_background"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/rubik"
+                android:text="Back"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_text">
+
+                <Spinner
+                    android:id="@+id/spinner_back"
+                    android:layout_width="200dp"
+                    android:layout_height="35dp"
+                    android:backgroundTint="@color/white"
+                    android:paddingEnd="20dp"
+                    android:popupBackground="@color/main_background"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/rubik"
+                android:text="Legs"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_text">
+
+                <Spinner
+                    android:id="@+id/spinner_legs"
+                    android:layout_width="200dp"
+                    android:layout_height="35dp"
+                    android:backgroundTint="@color/white"
+                    android:paddingEnd="20dp"
+                    android:popupBackground="@color/main_background"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="4"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/rubik"
+                android:text="Triceps"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="4"
+                android:layout_column="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_text">
+
+                <Spinner
+                    android:id="@+id/spinner_triceps"
+                    android:layout_width="200dp"
+                    android:layout_height="35dp"
+                    android:backgroundTint="@color/white"
+                    android:paddingEnd="20dp"
+                    android:popupBackground="@color/main_background"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="5"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/rubik"
+                android:text="Biceps"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="5"
+                android:layout_column="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_text">
+
+                <Spinner
+                    android:id="@+id/spinner_biceps"
+                    android:layout_width="200dp"
+                    android:layout_height="35dp"
+                    android:backgroundTint="@color/white"
+                    android:paddingEnd="20dp"
+                    android:popupBackground="@color/main_background"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+        </GridLayout>
+    </RelativeLayout>
+</RelativeLayout>
