@@ -8,4 +8,5 @@
     android:ellipsize="marquee"
     android:fontFamily="@font/rubik"
     android:singleLine="true"
+    android:gravity="center_vertical"
     android:textColor="@color/white" />
