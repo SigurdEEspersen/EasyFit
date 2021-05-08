@@ -35,7 +35,7 @@ public class SettingsService {
             try {
                 PrefferedExerciseDao prefferedExerciseDao = DatabaseAccess.getInstance().getDatabase(c).prefferedExerciseDao();
                 PrefferedExercise[] savedPreferredExercise = prefferedExerciseDao.getMuscleGroupPreferredExercises(muscleGroup.name());
-                if (savedPreferredExercise != null && savedPreferredExercise[0].getName().equals(exerciseName)) {
+                if (savedPreferredExercise != null && savedPreferredExercise.length > 0 && savedPreferredExercise[0].getName().equals(exerciseName)) {
                     return;
                 }
 
