@@ -34,6 +34,12 @@ public class SettingsService {
         Runnable runnable = () -> {
             try {
                 PrefferedExerciseDao prefferedExerciseDao = DatabaseAccess.getInstance().getDatabase(c).prefferedExerciseDao();
+                if (exerciseName.equals("None")) {
+                    prefferedExerciseDao.deleteMuscleGroupPreferredExercise(muscleGroup.name());
+                    callback.onResponse(true);
+                    return;
+                }
+
                 PrefferedExercise[] savedPreferredExercise = prefferedExerciseDao.getMuscleGroupPreferredExercises(muscleGroup.name());
                 if (savedPreferredExercise != null && savedPreferredExercise.length > 0 && savedPreferredExercise[0].getName().equals(exerciseName)) {
                     return;

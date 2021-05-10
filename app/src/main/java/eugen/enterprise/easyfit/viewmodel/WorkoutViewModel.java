@@ -24,6 +24,10 @@ public class WorkoutViewModel extends ViewModel {
         return addedSetResult;
     }
 
+    public void setAddedSetResult(MutableLiveData<Boolean> addedSetResult) {
+        this.addedSetResult = addedSetResult;
+    }
+
     public void addSetResult(SetResult result, Context c) {
         workoutService.saveSetResult(result, new Callback() {
             @Override

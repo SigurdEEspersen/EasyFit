@@ -226,6 +226,8 @@ public class SettingsActivity extends AppCompatActivity {
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
+
+                viewModel.loadSavedPrefferedExercises(getApplicationContext());
             }
         });
 
@@ -239,8 +241,6 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
-
-        viewModel.loadSavedPrefferedExercises(getApplicationContext());
 
         viewModel.getSavedPrefferedExercises().observe(this, new Observer<IPreferredExercise[]>() {
             @Override

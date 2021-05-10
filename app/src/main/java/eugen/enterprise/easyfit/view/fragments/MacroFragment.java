@@ -420,6 +420,7 @@ public class MacroFragment extends Fragment {
             public void onChanged(MacroResult result) {
                 if (result == null) {
                     Toast.makeText(getContext(), "No macros saved yet", Toast.LENGTH_SHORT).show();
+                    macroViewModel.setSavedMacros(new MutableLiveData<>());
                     return;
                 }
 

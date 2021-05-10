@@ -134,6 +134,7 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
             }
         });
 
+        View finalRow = row;
         viewHolder.btn_save_set_data.setOnClickListener(v -> {
             if (viewHolder.txt_set_result_reps.getText().toString().isEmpty()) {
                 Toast.makeText(activity, "Specify number of reps you got", Toast.LENGTH_SHORT).show();
@@ -144,7 +145,8 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
                 return;
             }
 
-            WorkoutViewModel viewModel = new ViewModelProvider(fragment).get(WorkoutViewModel.class);
+            Common.hideKeyboard(context, finalRow, activity);
+            WorkoutViewModel viewModel = new ViewModelProvider(fragment.requireActivity()).get(WorkoutViewModel.class);
             SetResult result = new SetResult();
             result.setExerciseId(exercise.getId());
             result.setReps(Integer.parseInt(viewHolder.txt_set_result_reps.getText().toString()));
