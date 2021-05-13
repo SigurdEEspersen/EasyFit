@@ -75,8 +75,7 @@ public class WorkoutFragment extends Fragment {
             public void onChanged(Boolean success) {
                 if (success) {
                     Toast.makeText(MainActivity.getAppContext(), "Results saved", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.getAppContext(), "Problem saving results. Try again", Toast.LENGTH_SHORT).show();
+                    workoutViewModel.setAddedSetResult(false);
                 }
             }
         });
