@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/txt_sets"
                         android:background="@android:color/transparent"
-                        android:src="@drawable/ic_baseline_expand_more_24" />
+                        android:src="@drawable/ic_baseline_expand_less_24" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -91,8 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/workout_card_exercise"
-                android:layout_marginBottom="10dp"
-                android:visibility="gone">
+                android:layout_marginBottom="10dp">
 
                 <ListView
                     android:id="@+id/workout_list_sets"
