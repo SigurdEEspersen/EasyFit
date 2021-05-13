@@ -42,6 +42,13 @@
                             android:layout_marginStart="10dp"
                             android:text="Name"
                             android:textColor="@color/white" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="top"
+                            android:layout_marginHorizontal="5dp"
+                            android:src="@drawable/icon_link" />
                     </LinearLayout>
 
                     <LinearLayout
