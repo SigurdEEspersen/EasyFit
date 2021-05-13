@@ -69,7 +69,7 @@
                     android:layout_height="35dp"
                     android:backgroundTint="@color/white"
                     android:paddingStart="10dp"
-                    android:paddingEnd="20dp"
+                    android:paddingEnd="30dp"
                     android:popupBackground="@color/main_background"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
@@ -102,7 +102,7 @@
                     android:layout_height="35dp"
                     android:backgroundTint="@color/white"
                     android:paddingStart="10dp"
-                    android:paddingEnd="20dp"
+                    android:paddingEnd="30dp"
                     android:popupBackground="@color/main_background"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
@@ -135,7 +135,7 @@
                     android:layout_height="35dp"
                     android:backgroundTint="@color/white"
                     android:paddingStart="10dp"
-                    android:paddingEnd="20dp"
+                    android:paddingEnd="30dp"
                     android:popupBackground="@color/main_background"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
@@ -168,7 +168,7 @@
                     android:layout_height="35dp"
                     android:backgroundTint="@color/white"
                     android:paddingStart="10dp"
-                    android:paddingEnd="20dp"
+                    android:paddingEnd="30dp"
                     android:popupBackground="@color/main_background"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
@@ -201,7 +201,7 @@
                     android:layout_height="35dp"
                     android:backgroundTint="@color/white"
                     android:paddingStart="10dp"
-                    android:paddingEnd="20dp"
+                    android:paddingEnd="30dp"
                     android:popupBackground="@color/main_background"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
@@ -234,7 +234,7 @@
                     android:layout_height="35dp"
                     android:backgroundTint="@color/white"
                     android:paddingStart="10dp"
-                    android:paddingEnd="20dp"
+                    android:paddingEnd="30dp"
                     android:popupBackground="@color/main_background"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
