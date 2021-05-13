@@ -29,6 +29,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import javax.crypto.Mac;
+
 import eugen.enterprise.easyfit.R;
 import eugen.enterprise.easyfit.acquaintance.enums.ECalorieTarget;
 import eugen.enterprise.easyfit.acquaintance.helpers.Common;
@@ -410,17 +412,26 @@ public class MacroFragment extends Fragment {
         macroViewModel.getSaveStatus().observe(requireActivity(), new Observer<String>() {
             @Override
             public void onChanged(String message) {
-                Toast.makeText(MainActivity.getAppContext(), message, Toast.LENGTH_SHORT).show();
-                macroViewModel.setSaveStatus(new MutableLiveData<>());
+                if (!message.isEmpty()) {
+                    Toast.makeText(MainActivity.getAppContext(), message, Toast.LENGTH_SHORT).show();
+                }
+                macroViewModel.setSaveStatus("");
             }
         });
 
         macroViewModel.getSavedMacros().observe(requireActivity(), new Observer<MacroResult>() {
             @Override
             public void onChanged(MacroResult result) {
+                MacroResult handled = new MacroResult();
+                handled.setActivity("handled");
+
+                if (result.getActivity().equals("handled")) {
+                    return;
+                }
+
                 if (result == null) {
                     Toast.makeText(getContext(), "No macros saved yet", Toast.LENGTH_SHORT).show();
-                    macroViewModel.setSavedMacros(new MutableLiveData<>());
+                    macroViewModel.setSavedMacros(handled);
                     return;
                 }
 
@@ -442,7 +453,7 @@ public class MacroFragment extends Fragment {
                 macroViewModel.setCalculatedCarbs(result.getCarbs());
                 macroViewModel.setCalculatedFat(result.getFat());
 
-                macroViewModel.setSavedMacros(new MutableLiveData<>());
+                macroViewModel.setSavedMacros(handled);
             }
         });
 

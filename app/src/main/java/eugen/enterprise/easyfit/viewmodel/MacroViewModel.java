@@ -47,16 +47,16 @@ public class MacroViewModel extends ViewModel {
         return saveStatus;
     }
 
-    public void setSaveStatus(MutableLiveData<String> saveStatus) {
-        this.saveStatus = saveStatus;
+    public void setSaveStatus(String saveStatus) {
+        this.saveStatus.postValue(saveStatus);
     }
 
     public MutableLiveData<MacroResult> getSavedMacros() {
         return savedMacros;
     }
 
-    public void setSavedMacros(MutableLiveData<MacroResult> savedMacros) {
-        this.savedMacros = savedMacros;
+    public void setSavedMacros(MacroResult savedMacros) {
+        this.savedMacros.postValue(savedMacros);
     }
 
     public void saveMacros(MacroResult result, Context c) {
