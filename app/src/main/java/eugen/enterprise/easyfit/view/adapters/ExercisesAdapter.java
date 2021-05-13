@@ -3,11 +3,14 @@ package eugen.enterprise.easyfit.view.adapters;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -55,6 +58,7 @@ public class ExercisesAdapter extends ArrayAdapter<IExercise> {
         RelativeLayout layout_sets;
         CardView cardView;
         ListView workout_list_sets;
+        LinearLayout layout_exerciseInfo;
     }
 
     @Override
@@ -86,6 +90,7 @@ public class ExercisesAdapter extends ArrayAdapter<IExercise> {
             viewHolder.layout_sets = row.findViewById(R.id.layout_sets);
             viewHolder.btn_expandSets = row.findViewById(R.id.btn_expandSets);
             viewHolder.workout_list_sets = row.findViewById(R.id.workout_list_sets);
+            viewHolder.layout_exerciseInfo = row.findViewById(R.id.layout_exerciseInfo);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) row.getTag();
@@ -106,6 +111,12 @@ public class ExercisesAdapter extends ArrayAdapter<IExercise> {
                 break;
         }
         viewHolder.txt_workout_exercise_info.setText(workout.getSetsPrExercise() + " sets of " + workoutLoad);
+
+        viewHolder.layout_exerciseInfo.setOnClickListener(v -> {
+            Uri uri = Uri.parse(exercise.getExerciseLink());
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            activity.startActivity(intent);
+        });
 
         viewHolder.btn_expandSets.setOnClickListener(v -> {
             if (viewHolder.layout_sets.getVisibility() == View.GONE) {

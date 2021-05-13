@@ -12,4 +12,6 @@ public interface IExercise {
     int getPauseDurationSeconds();
 
     String getExerciseType();
+
+    String getExerciseLink();
 }

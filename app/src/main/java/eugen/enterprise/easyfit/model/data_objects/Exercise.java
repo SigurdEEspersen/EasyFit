@@ -30,6 +30,9 @@ public class Exercise implements IExercise {
     @ColumnInfo(name = "exercise_type")
     protected String exerciseType;
 
+    @ColumnInfo(name = "exercise_link")
+    protected String exerciseLink;
+
     @Override
     public int getId() {
         return id;
@@ -60,6 +63,11 @@ public class Exercise implements IExercise {
         return exerciseType;
     }
 
+    @Override
+    public String getExerciseLink() {
+        return exerciseLink;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -78,5 +86,9 @@ public class Exercise implements IExercise {
 
     public void setMuscleGroup(EMuscleGroup muscleGroup) {
         this.muscleGroup = muscleGroup.name();
+    }
+
+    public void setExerciseLink(String link) {
+        this.exerciseLink = link;
     }
 }

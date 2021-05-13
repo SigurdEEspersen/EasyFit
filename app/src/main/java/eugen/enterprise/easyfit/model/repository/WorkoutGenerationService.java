@@ -542,6 +542,7 @@ public class WorkoutGenerationService {
         chest1.setDurationSeconds(60);
         chest1.setPauseDurationSeconds(150);
         chest1.setExerciseType(EExerciseType.Compound);
+        chest1.setExerciseLink("https://www.coachmag.co.uk/exercises/chest-exercises/186/bench-press-technique-tips");
         exercises.add(chest1);
 
         Exercise chest2 = new Exercise();
@@ -550,6 +551,7 @@ public class WorkoutGenerationService {
         chest2.setDurationSeconds(60);
         chest2.setPauseDurationSeconds(150);
         chest2.setExerciseType(EExerciseType.Compound);
+        chest2.setExerciseLink("https://www.coachmag.co.uk/chest-exercises/8686/incline-bench-press");
         exercises.add(chest2);
 
         Exercise chest3 = new Exercise();
@@ -558,6 +560,7 @@ public class WorkoutGenerationService {
         chest3.setDurationSeconds(45);
         chest3.setPauseDurationSeconds(90);
         chest3.setExerciseType(EExerciseType.Isolation);
+        chest3.setExerciseLink("https://www.coachmag.co.uk/dumbbell-exercises/6709/how-to-do-the-chest-building-dumbbell-flye");
         exercises.add(chest3);
 
         Exercise chest4 = new Exercise();
@@ -566,6 +569,7 @@ public class WorkoutGenerationService {
         chest4.setDurationSeconds(45);
         chest4.setPauseDurationSeconds(90);
         chest4.setExerciseType(EExerciseType.Isolation);
+        chest4.setExerciseLink("https://www.coachmag.co.uk/chest-exercises/6623/the-cable-flye-is-our-go-to-chest-building-move");
         exercises.add(chest4);
 
         Exercise chest5 = new Exercise();
@@ -574,6 +578,7 @@ public class WorkoutGenerationService {
         chest5.setDurationSeconds(60);
         chest5.setPauseDurationSeconds(150);
         chest5.setExerciseType(EExerciseType.Compound);
+        chest5.setExerciseLink("https://www.verywellfit.com/how-to-do-incline-dumbbell-press-4588212");
         exercises.add(chest5);
 
         Exercise chest6 = new Exercise();
@@ -582,6 +587,7 @@ public class WorkoutGenerationService {
         chest6.setDurationSeconds(60);
         chest6.setPauseDurationSeconds(150);
         chest6.setExerciseType(EExerciseType.Compound);
+        chest6.setExerciseLink("https://www.myprotein.com/thezone/training/decline-bench-press/");
         exercises.add(chest6);
 
         Exercise chest7 = new Exercise();
@@ -590,6 +596,7 @@ public class WorkoutGenerationService {
         chest7.setDurationSeconds(45);
         chest7.setPauseDurationSeconds(150);
         chest7.setExerciseType(EExerciseType.Isolation);
+        chest7.setExerciseLink("https://www.healthline.com/health/exercise-fitness/dumbbell-chest-fly#safety");
         exercises.add(chest7);
 
         Exercise chest8 = new Exercise();
@@ -598,6 +605,7 @@ public class WorkoutGenerationService {
         chest8.setDurationSeconds(45);
         chest8.setPauseDurationSeconds(90);
         chest8.setExerciseType(EExerciseType.Isolation);
+        chest8.setExerciseLink("https://fitnessvolt.com/23961/low-cable-cross-over/");
         exercises.add(chest8);
 
         Exercise chest9 = new Exercise();
@@ -606,6 +614,7 @@ public class WorkoutGenerationService {
         chest9.setDurationSeconds(45);
         chest9.setPauseDurationSeconds(90);
         chest9.setExerciseType(EExerciseType.Isolation);
+        chest9.setExerciseLink("https://www.youtube.com/watch?v=yTtoMu4tz_I");
         exercises.add(chest9);
 
         Exercise chest10 = new Exercise();
@@ -614,6 +623,7 @@ public class WorkoutGenerationService {
         chest10.setDurationSeconds(60);
         chest10.setPauseDurationSeconds(150);
         chest10.setExerciseType(EExerciseType.Compound);
+        chest10.setExerciseLink("https://www.coachmag.co.uk/chest-exercises/7391/how-to-do-the-dumbbell-bench-press");
         exercises.add(chest10);
 
         Exercise chest11 = new Exercise();
@@ -622,6 +632,7 @@ public class WorkoutGenerationService {
         chest11.setDurationSeconds(45);
         chest11.setPauseDurationSeconds(90);
         chest11.setExerciseType(EExerciseType.Isolation);
+        chest11.setExerciseLink("https://www.jefit.com/exercises/179/machine-decline-chest-press");
         exercises.add(chest11);
 
         Exercise chest12 = new Exercise();
@@ -630,6 +641,7 @@ public class WorkoutGenerationService {
         chest12.setDurationSeconds(45);
         chest12.setPauseDurationSeconds(90);
         chest12.setExerciseType(EExerciseType.Isolation);
+        chest12.setExerciseLink("https://www.americangrit.com/2017/09/04/incline-cable-flyes-wider-chest/");
         exercises.add(chest12);
 
         Exercise chest13 = new Exercise();
@@ -638,6 +650,7 @@ public class WorkoutGenerationService {
         chest13.setDurationSeconds(45);
         chest13.setPauseDurationSeconds(90);
         chest13.setExerciseType(EExerciseType.Isolation);
+        chest13.setExerciseLink("https://www.verywellfit.com/how-to-use-a-chest-fly-machine-4589757");
         exercises.add(chest13);
 
         Exercise chest14 = new Exercise();
@@ -646,6 +659,7 @@ public class WorkoutGenerationService {
         chest14.setDurationSeconds(60);
         chest14.setPauseDurationSeconds(150);
         chest14.setExerciseType(EExerciseType.Compound);
+        chest14.setExerciseLink("https://weighttraining.guide/exercises/decline-dumbbell-bench-press/");
         exercises.add(chest14);
     }
 
@@ -656,6 +670,7 @@ public class WorkoutGenerationService {
         shoulder1.setDurationSeconds(60);
         shoulder1.setPauseDurationSeconds(120);
         shoulder1.setExerciseType(EExerciseType.Compound);
+        shoulder1.setExerciseLink("https://www.coachmag.co.uk/shoulder-exercises/6134/how-to-do-a-dumbbell-shoulder-press");
         exercises.add(shoulder1);
 
         Exercise shoulder2 = new Exercise();
@@ -664,80 +679,81 @@ public class WorkoutGenerationService {
         shoulder2.setDurationSeconds(45);
         shoulder2.setPauseDurationSeconds(90);
         shoulder2.setExerciseType(EExerciseType.Compound);
+        shoulder2.setExerciseLink("https://www.coachmag.co.uk/exercises/shoulder-exercises/203/perfect-the-shoulder-press");
         exercises.add(shoulder2);
 
         Exercise shoulder3 = new Exercise();
-        shoulder3.setName("Standing Dumbbell Fly");
+        shoulder3.setName("Face Pulls");
         shoulder3.setMuscleGroup(EMuscleGroup.Shoulders);
-        shoulder3.setDurationSeconds(45);
+        shoulder3.setDurationSeconds(60);
         shoulder3.setPauseDurationSeconds(90);
-        shoulder3.setExerciseType(EExerciseType.Isolation);
+        shoulder3.setExerciseType(EExerciseType.Compound);
+        shoulder3.setExerciseLink("https://www.coachmag.co.uk/exercises/shoulder-exercises/3274/move-week-face-pull");
         exercises.add(shoulder3);
 
         Exercise shoulder4 = new Exercise();
-        shoulder4.setName("Face Pulls");
+        shoulder4.setName("High Pulls");
         shoulder4.setMuscleGroup(EMuscleGroup.Shoulders);
         shoulder4.setDurationSeconds(60);
         shoulder4.setPauseDurationSeconds(90);
-        shoulder4.setExerciseType(EExerciseType.Compound);
+        shoulder4.setExerciseType(EExerciseType.Isolation);
+        shoulder4.setExerciseLink("https://www.coachmag.co.uk/shoulder-exercises/6736/how-to-master-the-high-pull");
         exercises.add(shoulder4);
 
         Exercise shoulder5 = new Exercise();
-        shoulder5.setName("High Pulls");
+        shoulder5.setName("Incline Trap Raise");
         shoulder5.setMuscleGroup(EMuscleGroup.Shoulders);
-        shoulder5.setDurationSeconds(60);
+        shoulder5.setDurationSeconds(45);
         shoulder5.setPauseDurationSeconds(90);
         shoulder5.setExerciseType(EExerciseType.Isolation);
+        shoulder5.setExerciseLink("https://www.msn.com/en-us/health/exercise/strength/incline-y-raise/ss-BBtOa6U");
         exercises.add(shoulder5);
 
         Exercise shoulder6 = new Exercise();
-        shoulder6.setName("Incline Trap Raise");
+        shoulder6.setName("Machine Shoulder Press");
         shoulder6.setMuscleGroup(EMuscleGroup.Shoulders);
-        shoulder6.setDurationSeconds(45);
-        shoulder6.setPauseDurationSeconds(90);
-        shoulder6.setExerciseType(EExerciseType.Isolation);
+        shoulder6.setDurationSeconds(60);
+        shoulder6.setPauseDurationSeconds(120);
+        shoulder6.setExerciseType(EExerciseType.Compound);
+        shoulder6.setExerciseLink("https://www.muscleandstrength.com/exercises/machine-shoulder-press");
         exercises.add(shoulder6);
 
         Exercise shoulder7 = new Exercise();
-        shoulder7.setName("Machine Shoulder Press");
+        shoulder7.setName("Bend-Over Reverse Fly");
         shoulder7.setMuscleGroup(EMuscleGroup.Shoulders);
-        shoulder7.setDurationSeconds(60);
+        shoulder7.setDurationSeconds(45);
         shoulder7.setPauseDurationSeconds(120);
-        shoulder7.setExerciseType(EExerciseType.Compound);
+        shoulder7.setExerciseType(EExerciseType.Isolation);
+        shoulder7.setExerciseLink("https://www.muscleandstrength.com/exercises/bent-over-dumbbell-reverse-fly.html");
         exercises.add(shoulder7);
 
         Exercise shoulder8 = new Exercise();
-        shoulder8.setName("Bend-Over Reverse Fly");
+        shoulder8.setName("Arnold Press");
         shoulder8.setMuscleGroup(EMuscleGroup.Shoulders);
-        shoulder8.setDurationSeconds(45);
-        shoulder8.setPauseDurationSeconds(120);
-        shoulder8.setExerciseType(EExerciseType.Isolation);
+        shoulder8.setDurationSeconds(60);
+        shoulder8.setPauseDurationSeconds(90);
+        shoulder8.setExerciseType(EExerciseType.Compound);
+        shoulder8.setExerciseLink("https://www.coachmag.co.uk/exercises/arm-exercises/2987/6-standing-dumb-bell-curl-arnold-press");
         exercises.add(shoulder8);
 
         Exercise shoulder9 = new Exercise();
-        shoulder9.setName("Arnold Press");
+        shoulder9.setName("Lateral Raise");
         shoulder9.setMuscleGroup(EMuscleGroup.Shoulders);
-        shoulder9.setDurationSeconds(60);
+        shoulder9.setDurationSeconds(45);
         shoulder9.setPauseDurationSeconds(90);
-        shoulder9.setExerciseType(EExerciseType.Compound);
+        shoulder9.setExerciseType(EExerciseType.Isolation);
+        shoulder9.setExerciseLink("https://www.coachmag.co.uk/exercises/shoulder-exercises/206/lateral-raises-%E2%80%93-how-do-them-and-why-you-should");
         exercises.add(shoulder9);
-
-        Exercise shoulder10 = new Exercise();
-        shoulder10.setName("Lateral Raise");
-        shoulder10.setMuscleGroup(EMuscleGroup.Shoulders);
-        shoulder10.setDurationSeconds(45);
-        shoulder10.setPauseDurationSeconds(90);
-        shoulder10.setExerciseType(EExerciseType.Isolation);
-        exercises.add(shoulder10);
     }
 
     private static void addBackExercises(List<Exercise> exercises) {
         Exercise back1 = new Exercise();
-        back1.setName("Deadlifts");
+        back1.setName("Deadlift");
         back1.setMuscleGroup(EMuscleGroup.Back);
         back1.setDurationSeconds(120);
         back1.setPauseDurationSeconds(90);
         back1.setExerciseType(EExerciseType.Compound);
+        back1.setExerciseLink("https://www.coachmag.co.uk/barbell-exercises/3725/how-to-deadlift");
         exercises.add(back1);
 
         Exercise back2 = new Exercise();
@@ -746,6 +762,7 @@ public class WorkoutGenerationService {
         back2.setDurationSeconds(60);
         back2.setPauseDurationSeconds(90);
         back2.setExerciseType(EExerciseType.Compound);
+        back2.setExerciseLink("https://www.coachmag.co.uk/exercises/full-body-workouts/2534/10-pull-variations");
         exercises.add(back2);
 
         Exercise back3 = new Exercise();
@@ -754,6 +771,7 @@ public class WorkoutGenerationService {
         back3.setDurationSeconds(60);
         back3.setPauseDurationSeconds(90);
         back3.setExerciseType(EExerciseType.Compound);
+        back3.setExerciseLink("https://www.muscleandstrength.com/exercises/machine-row.html");
         exercises.add(back3);
 
         Exercise back4 = new Exercise();
@@ -762,14 +780,16 @@ public class WorkoutGenerationService {
         back4.setDurationSeconds(60);
         back4.setPauseDurationSeconds(90);
         back4.setExerciseType(EExerciseType.Compound);
+        back4.setExerciseLink("https://www.muscleandstrength.com/exercises/close-grip-pull-up.html");
         exercises.add(back4);
 
         Exercise back5 = new Exercise();
-        back5.setName("Dumbbell Rows");
+        back5.setName("One-Arm Dumbbell Rows");
         back5.setMuscleGroup(EMuscleGroup.Back);
         back5.setDurationSeconds(45);
         back5.setPauseDurationSeconds(90);
         back5.setExerciseType(EExerciseType.Compound);
+        back5.setExerciseLink("https://www.coachmag.co.uk/dumbbell-exercises/7380/how-to-do-the-one-arm-dumbbell-row");
         exercises.add(back5);
 
         Exercise back6 = new Exercise();
@@ -778,6 +798,7 @@ public class WorkoutGenerationService {
         back6.setDurationSeconds(60);
         back6.setPauseDurationSeconds(90);
         back6.setExerciseType(EExerciseType.Compound);
+        back6.setExerciseLink("https://www.healthline.com/health/back-extension-exercise#on-a-bench");
         exercises.add(back6);
 
         Exercise back7 = new Exercise();
@@ -786,6 +807,7 @@ public class WorkoutGenerationService {
         back7.setDurationSeconds(60);
         back7.setPauseDurationSeconds(90);
         back7.setExerciseType(EExerciseType.Compound);
+        back7.setExerciseLink("https://www.coachmag.co.uk/exercises/6917/how-to-do-the-cable-row");
         exercises.add(back7);
 
         Exercise back8 = new Exercise();
@@ -794,6 +816,7 @@ public class WorkoutGenerationService {
         back8.setDurationSeconds(120);
         back8.setPauseDurationSeconds(90);
         back8.setExerciseType(EExerciseType.Compound);
+        back8.setExerciseLink("https://www.muscleandfitness.com/workouts/back-exercises/how-t-bar-row/");
         exercises.add(back8);
 
         Exercise back9 = new Exercise();
@@ -802,6 +825,7 @@ public class WorkoutGenerationService {
         back9.setDurationSeconds(45);
         back9.setPauseDurationSeconds(90);
         back9.setExerciseType(EExerciseType.Isolation);
+        back9.setExerciseLink("https://www.verywellfit.com/how-to-dumbbell-pullover-techniques-benefits-variations-4781595");
         exercises.add(back9);
 
         Exercise back10 = new Exercise();
@@ -810,6 +834,7 @@ public class WorkoutGenerationService {
         back10.setDurationSeconds(60);
         back10.setPauseDurationSeconds(90);
         back10.setExerciseType(EExerciseType.Isolation);
+        back10.setExerciseLink("https://www.coachmag.co.uk/chest-exercises/182/how-to-do-the-lat-pull-down");
         exercises.add(back10);
     }
 
@@ -820,6 +845,7 @@ public class WorkoutGenerationService {
         legs1.setDurationSeconds(60);
         legs1.setPauseDurationSeconds(150);
         legs1.setExerciseType(EExerciseType.Compound);
+        legs1.setExerciseLink("https://www.coachmag.co.uk/exercises/leg-exercises/193/squat-tips-for-perfect-form");
         exercises.add(legs1);
 
         Exercise legs2 = new Exercise();
@@ -828,6 +854,7 @@ public class WorkoutGenerationService {
         legs2.setDurationSeconds(60);
         legs2.setPauseDurationSeconds(90);
         legs2.setExerciseType(EExerciseType.Compound);
+        legs2.setExerciseLink("https://www.coachmag.co.uk/exercises/leg-exercises/197/lunge");
         exercises.add(legs2);
 
         Exercise legs3 = new Exercise();
@@ -836,6 +863,7 @@ public class WorkoutGenerationService {
         legs3.setDurationSeconds(60);
         legs3.setPauseDurationSeconds(120);
         legs3.setExerciseType(EExerciseType.Compound);
+        legs3.setExerciseLink("https://www.coachmag.co.uk/exercises/leg-exercises/3500/leg-press-versus-squats-which-should-you-do");
         exercises.add(legs3);
 
         Exercise legs4 = new Exercise();
@@ -844,6 +872,7 @@ public class WorkoutGenerationService {
         legs4.setDurationSeconds(45);
         legs4.setPauseDurationSeconds(90);
         legs4.setExerciseType(EExerciseType.Isolation);
+        legs4.setExerciseLink("https://www.coachmag.co.uk/leg-exercises/7523/how-to-do-the-leg-extension");
         exercises.add(legs4);
 
         Exercise legs5 = new Exercise();
@@ -852,6 +881,7 @@ public class WorkoutGenerationService {
         legs5.setDurationSeconds(45);
         legs5.setPauseDurationSeconds(90);
         legs5.setExerciseType(EExerciseType.Isolation);
+        legs5.setExerciseLink("https://www.coachmag.co.uk/leg-exercises/7455/how-to-do-the-leg-curl");
         exercises.add(legs5);
 
         Exercise legs6 = new Exercise();
@@ -860,6 +890,7 @@ public class WorkoutGenerationService {
         legs6.setDurationSeconds(45);
         legs6.setPauseDurationSeconds(60);
         legs6.setExerciseType(EExerciseType.Isolation);
+        legs6.setExerciseLink("https://www.muscleandstrength.com/exercises/seated-calf-raise.html");
         exercises.add(legs6);
 
         Exercise legs7 = new Exercise();
@@ -868,6 +899,7 @@ public class WorkoutGenerationService {
         legs7.setDurationSeconds(45);
         legs7.setPauseDurationSeconds(90);
         legs7.setExerciseType(EExerciseType.Isolation);
+        legs7.setExerciseLink("https://www.coachmag.co.uk/glute-exercises/8004/how-to-do-the-hip-thrust");
         exercises.add(legs7);
 
         Exercise legs8 = new Exercise();
@@ -876,6 +908,7 @@ public class WorkoutGenerationService {
         legs8.setDurationSeconds(45);
         legs8.setPauseDurationSeconds(60);
         legs8.setExerciseType(EExerciseType.Isolation);
+        legs8.setExerciseLink("https://www.menshealth.com/uk/fitness/a735436/dumbbell-calf-raise/");
         exercises.add(legs8);
 
         Exercise legs9 = new Exercise();
@@ -884,6 +917,7 @@ public class WorkoutGenerationService {
         legs9.setDurationSeconds(60);
         legs9.setPauseDurationSeconds(150);
         legs9.setExerciseType(EExerciseType.Compound);
+        legs9.setExerciseLink("https://www.coachmag.co.uk/leg-exercises/3501/front-squat-the-best-exercise-you-aren-t-doing");
         exercises.add(legs9);
 
         Exercise legs10 = new Exercise();
@@ -892,6 +926,7 @@ public class WorkoutGenerationService {
         legs10.setDurationSeconds(60);
         legs10.setPauseDurationSeconds(120);
         legs10.setExerciseType(EExerciseType.Compound);
+        legs10.setExerciseLink("https://www.muscleandstrength.com/exercises/hack-squat.html");
         exercises.add(legs10);
     }
 
@@ -902,6 +937,7 @@ public class WorkoutGenerationService {
         triceps1.setDurationSeconds(60);
         triceps1.setPauseDurationSeconds(90);
         triceps1.setExerciseType(EExerciseType.Compound);
+        triceps1.setExerciseLink("https://www.menshealth.com/fitness/a25410119/skull-crushers/");
         exercises.add(triceps1);
 
         Exercise triceps2 = new Exercise();
@@ -910,6 +946,7 @@ public class WorkoutGenerationService {
         triceps2.setDurationSeconds(45);
         triceps2.setPauseDurationSeconds(90);
         triceps2.setExerciseType(EExerciseType.Isolation);
+        triceps2.setExerciseLink("https://www.coachmag.co.uk/exercises/arm-exercises/162/triceps-press-down");
         exercises.add(triceps2);
 
         Exercise triceps3 = new Exercise();
@@ -918,6 +955,7 @@ public class WorkoutGenerationService {
         triceps3.setDurationSeconds(60);
         triceps3.setPauseDurationSeconds(90);
         triceps3.setExerciseType(EExerciseType.Compound);
+        triceps3.setExerciseLink("https://www.coachmag.co.uk/exercises/arm-exercises/156/bench-dip");
         exercises.add(triceps3);
 
         Exercise triceps4 = new Exercise();
@@ -926,6 +964,7 @@ public class WorkoutGenerationService {
         triceps4.setDurationSeconds(90);
         triceps4.setPauseDurationSeconds(90);
         triceps4.setExerciseType(EExerciseType.Isolation);
+        triceps4.setExerciseLink("https://www.coachmag.co.uk/tricep-exercises/6053/how-to-do-an-overhead-dumbbell-tricep-extension");
         exercises.add(triceps4);
 
         Exercise triceps5 = new Exercise();
@@ -934,6 +973,7 @@ public class WorkoutGenerationService {
         triceps5.setDurationSeconds(45);
         triceps5.setPauseDurationSeconds(90);
         triceps5.setExerciseType(EExerciseType.Isolation);
+        triceps5.setExerciseLink("https://www.anabolicaliens.com/blog/reverse-grip-tricep-pushdown");
         exercises.add(triceps5);
 
         Exercise triceps6 = new Exercise();
@@ -942,6 +982,7 @@ public class WorkoutGenerationService {
         triceps6.setDurationSeconds(45);
         triceps6.setPauseDurationSeconds(90);
         triceps6.setExerciseType(EExerciseType.Isolation);
+        triceps6.setExerciseLink("https://www.healthline.com/health/tricep-kickbacks#how-to");
         exercises.add(triceps6);
 
         Exercise triceps7 = new Exercise();
@@ -950,6 +991,7 @@ public class WorkoutGenerationService {
         triceps7.setDurationSeconds(45);
         triceps7.setPauseDurationSeconds(90);
         triceps7.setExerciseType(EExerciseType.Isolation);
+        triceps7.setExerciseLink("https://www.coachmag.co.uk/exercises/arm-exercises/162/triceps-press-down");
         exercises.add(triceps7);
 
         Exercise triceps8 = new Exercise();
@@ -958,6 +1000,7 @@ public class WorkoutGenerationService {
         triceps8.setDurationSeconds(60);
         triceps8.setPauseDurationSeconds(90);
         triceps8.setExerciseType(EExerciseType.Compound);
+        triceps8.setExerciseLink("https://www.coachmag.co.uk/triceps-exercises/7483/how-to-do-the-close-grip-bench-press");
         exercises.add(triceps8);
 
         Exercise triceps9 = new Exercise();
@@ -966,6 +1009,7 @@ public class WorkoutGenerationService {
         triceps9.setDurationSeconds(45);
         triceps9.setPauseDurationSeconds(90);
         triceps9.setExerciseType(EExerciseType.Isolation);
+        triceps9.setExerciseLink("https://www.coachmag.co.uk/tricep-exercises/6053/how-to-do-an-overhead-dumbbell-tricep-extension");
         exercises.add(triceps9);
 
         Exercise triceps10 = new Exercise();
@@ -974,6 +1018,7 @@ public class WorkoutGenerationService {
         triceps10.setDurationSeconds(45);
         triceps10.setPauseDurationSeconds(90);
         triceps10.setExerciseType(EExerciseType.Isolation);
+        triceps10.setExerciseLink("https://weighttraining.guide/exercises/tate-press/");
         exercises.add(triceps10);
     }
 
@@ -984,6 +1029,7 @@ public class WorkoutGenerationService {
         biceps1.setDurationSeconds(45);
         biceps1.setPauseDurationSeconds(90);
         biceps1.setExerciseType(EExerciseType.Isolation);
+        biceps1.setExerciseLink("https://www.coachmag.co.uk/biceps-exercises/2282/bulk-up-your-biceps-with-dumbbell-biceps-curls");
         exercises.add(biceps1);
 
         Exercise biceps2 = new Exercise();
@@ -992,6 +1038,7 @@ public class WorkoutGenerationService {
         biceps2.setDurationSeconds(45);
         biceps2.setPauseDurationSeconds(90);
         biceps2.setExerciseType(EExerciseType.Compound);
+        biceps2.setExerciseLink("https://www.coachmag.co.uk/exercises/arm-exercises/151/barbell-curl");
         exercises.add(biceps2);
 
         Exercise biceps3 = new Exercise();
@@ -1000,6 +1047,7 @@ public class WorkoutGenerationService {
         biceps3.setDurationSeconds(45);
         biceps3.setPauseDurationSeconds(90);
         biceps3.setExerciseType(EExerciseType.Isolation);
+        biceps3.setExerciseLink("https://www.verywellfit.com/how-to-do-the-biceps-cable-curl-3498289");
         exercises.add(biceps3);
 
         Exercise biceps4 = new Exercise();
@@ -1008,6 +1056,7 @@ public class WorkoutGenerationService {
         biceps4.setDurationSeconds(45);
         biceps4.setPauseDurationSeconds(90);
         biceps4.setExerciseType(EExerciseType.Isolation);
+        biceps4.setExerciseLink("https://www.coachmag.co.uk/exercises/arm-exercises/154/hammer-curl");
         exercises.add(biceps4);
 
         Exercise biceps5 = new Exercise();
@@ -1016,6 +1065,7 @@ public class WorkoutGenerationService {
         biceps5.setDurationSeconds(45);
         biceps5.setPauseDurationSeconds(90);
         biceps5.setExerciseType(EExerciseType.Isolation);
+        biceps5.setExerciseLink("https://www.muscleandstrength.com/exercises/incline-dumbbell-curl.html");
         exercises.add(biceps5);
 
         Exercise biceps6 = new Exercise();
@@ -1024,6 +1074,7 @@ public class WorkoutGenerationService {
         biceps6.setDurationSeconds(45);
         biceps6.setPauseDurationSeconds(90);
         biceps6.setExerciseType(EExerciseType.Compound);
+        biceps6.setExerciseLink("https://www.coachmag.co.uk/exercises/arm-exercises/3716/the-benefits-of-reverse-curls");
         exercises.add(biceps6);
 
         Exercise biceps7 = new Exercise();
@@ -1032,6 +1083,7 @@ public class WorkoutGenerationService {
         biceps7.setDurationSeconds(45);
         biceps7.setPauseDurationSeconds(90);
         biceps7.setExerciseType(EExerciseType.Isolation);
+        biceps7.setExerciseLink("https://www.coachmag.co.uk/biceps-exercises/8325/concentration-curl");
         exercises.add(biceps7);
 
         Exercise biceps8 = new Exercise();
@@ -1040,6 +1092,7 @@ public class WorkoutGenerationService {
         biceps8.setDurationSeconds(45);
         biceps8.setPauseDurationSeconds(90);
         biceps8.setExerciseType(EExerciseType.Isolation);
+        biceps8.setExerciseLink("https://weighttraining.guide/exercises/overhead-cable-curl/");
         exercises.add(biceps8);
 
         Exercise biceps9 = new Exercise();
@@ -1048,6 +1101,7 @@ public class WorkoutGenerationService {
         biceps9.setDurationSeconds(45);
         biceps9.setPauseDurationSeconds(90);
         biceps9.setExerciseType(EExerciseType.Compound);
+        biceps9.setExerciseLink("https://www.coachmag.co.uk/biceps-exercises/7405/how-to-do-the-preacher-curl");
         exercises.add(biceps9);
 
         Exercise biceps10 = new Exercise();
@@ -1056,6 +1110,7 @@ public class WorkoutGenerationService {
         biceps10.setDurationSeconds(45);
         biceps10.setPauseDurationSeconds(90);
         biceps10.setExerciseType(EExerciseType.Isolation);
+        biceps10.setExerciseLink("https://www.menshealth.com/uk/fitness/a753032/incline-hammer-curl/");
         exercises.add(biceps10);
 
         Exercise biceps11 = new Exercise();
@@ -1064,6 +1119,16 @@ public class WorkoutGenerationService {
         biceps11.setDurationSeconds(45);
         biceps11.setPauseDurationSeconds(90);
         biceps11.setExerciseType(EExerciseType.Compound);
+        biceps11.setExerciseLink("https://www.coachmag.co.uk/biceps-exercises/7123/how-to-master-the-ez-bar-curl");
         exercises.add(biceps11);
+
+        Exercise biceps12 = new Exercise();
+        biceps12.setName("Spider curl");
+        biceps12.setMuscleGroup(EMuscleGroup.Biceps);
+        biceps12.setDurationSeconds(45);
+        biceps12.setPauseDurationSeconds(90);
+        biceps12.setExerciseType(EExerciseType.Isolation);
+        biceps12.setExerciseLink("https://www.coachmag.co.uk/biceps-exercises/8357/how-to-do-the-spider-curl");
+        exercises.add(biceps12);
     }
 }
