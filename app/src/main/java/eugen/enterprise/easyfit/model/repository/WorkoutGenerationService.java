@@ -162,6 +162,10 @@ public class WorkoutGenerationService {
             }
         }
 
+        if (workoutSplit == EWorkoutSplit.FullBody) {
+            Collections.shuffle(muscleGroupsWithExercises);
+        }
+
         int numberOfExercisesToUse = numberOfExercises;
         List<IMuscleGroup> generatedWorkout = new ArrayList<>();
         int durationBuffer = 0; //Set to 0 for now. Can increase if needed
