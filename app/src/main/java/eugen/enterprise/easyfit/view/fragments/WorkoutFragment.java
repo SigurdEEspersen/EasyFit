@@ -1,7 +1,9 @@
 package eugen.enterprise.easyfit.view.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import eugen.enterprise.easyfit.acquaintance.helpers.Common;
 import eugen.enterprise.easyfit.acquaintance.helpers.Workout;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IMuscleGroup;
 import eugen.enterprise.easyfit.view.activities.MainActivity;
+import eugen.enterprise.easyfit.view.activities.SplashScreenActivity;
 import eugen.enterprise.easyfit.view.adapters.WorkoutAdapter;
 import eugen.enterprise.easyfit.viewmodel.PlanViewModel;
 import eugen.enterprise.easyfit.viewmodel.WorkoutViewModel;
@@ -79,7 +82,6 @@ public class WorkoutFragment extends Fragment {
                 } else {
                     Toast.makeText(getContext(), "Problem saving results. Try again", Toast.LENGTH_SHORT).show();
                 }
-                workoutViewModel.setAddedSetResult(new MutableLiveData<>());
             }
         });
     }

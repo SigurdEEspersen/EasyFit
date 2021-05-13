@@ -24,8 +24,8 @@ public class WorkoutViewModel extends ViewModel {
         return addedSetResult;
     }
 
-    public void setAddedSetResult(MutableLiveData<Boolean> addedSetResult) {
-        this.addedSetResult = addedSetResult;
+    public void setAddedSetResult(Boolean bool) {
+        addedSetResult.postValue(bool);
     }
 
     public void addSetResult(SetResult result, Context c) {
