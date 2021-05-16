@@ -127,7 +127,7 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
         });
 
         ExercisesAdapter adapter = new ExercisesAdapter(context, R.layout.exercise_card);
-        adapter.injectData(context, activity, workout, viewHolder.exercisesList, fragment);
+        adapter.injectData(context, activity, workout, viewHolder.exercisesList, fragment, position);
         for (IExercise exercise : muscleGroup.getExercises()) {
             adapter.add(exercise);
         }

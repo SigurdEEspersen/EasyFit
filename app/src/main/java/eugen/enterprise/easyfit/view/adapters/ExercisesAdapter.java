@@ -37,17 +37,19 @@ public class ExercisesAdapter extends ArrayAdapter<IExercise> {
     private Activity activity;
     private ListView parentList;
     private WorkoutFragment fragment;
+    private int muscleGroupIndex;
 
     public ExercisesAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
 
-    public void injectData(Context context, Activity activity, Workout workout, ListView parentList, WorkoutFragment fragment) {
+    public void injectData(Context context, Activity activity, Workout workout, ListView parentList, WorkoutFragment fragment, int muscleGroupIndex) {
         this.context = context;
         this.activity = activity;
         this.workout = workout;
         this.parentList = parentList;
         this.fragment = fragment;
+        this.muscleGroupIndex = muscleGroupIndex;
     }
 
     static class ViewHolder {
@@ -139,7 +141,7 @@ public class ExercisesAdapter extends ArrayAdapter<IExercise> {
         });
 
         SetsAdapter adapter = new SetsAdapter(context, R.layout.exercise_card);
-        adapter.injectData(context, activity, parentList, viewHolder.workout_list_sets, fragment);
+        adapter.injectData(context, activity, viewHolder.workout_list_sets, fragment, muscleGroupIndex, position);
         for (int i = 0; i < workout.getSetsPrExercise(); i++) {
             adapter.add(exercise);
         }

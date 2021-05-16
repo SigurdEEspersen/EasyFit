@@ -25,6 +25,7 @@ import java.util.List;
 
 import eugen.enterprise.easyfit.R;
 import eugen.enterprise.easyfit.acquaintance.helpers.Common;
+import eugen.enterprise.easyfit.acquaintance.helpers.NotificationIndex;
 import eugen.enterprise.easyfit.acquaintance.helpers.SetResult;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IExercise;
 import eugen.enterprise.easyfit.view.fragments.WorkoutFragment;
@@ -32,23 +33,25 @@ import eugen.enterprise.easyfit.viewmodel.MacroViewModel;
 import eugen.enterprise.easyfit.viewmodel.WorkoutViewModel;
 
 public class SetsAdapter extends ArrayAdapter<IExercise> {
-    private List<IExercise> exercises = new ArrayList<>();
-    Context context;
-    Activity activity;
-    ListView exerciseList;
-    ListView setList;
-    WorkoutFragment fragment;
+    private final List<IExercise> exercises = new ArrayList<>();
+    private Context context;
+    private Activity activity;
+    private ListView setList;
+    private WorkoutFragment fragment;
+    private int muscleGroupIndex;
+    private int exerciseIndex;
 
     public SetsAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
 
-    public void injectData(Context context, Activity activity, ListView exerciseList, ListView setList, WorkoutFragment fragment) {
+    public void injectData(Context context, Activity activity, ListView setList, WorkoutFragment fragment, int muscleGroupIndex, int exerciseIndex) {
         this.context = context;
         this.activity = activity;
-        this.exerciseList = exerciseList;
         this.setList = setList;
         this.fragment = fragment;
+        this.muscleGroupIndex = muscleGroupIndex;
+        this.exerciseIndex = exerciseIndex;
     }
 
     static class ViewHolder {
@@ -97,6 +100,7 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
         final IExercise exercise = getItem(position);
         viewHolder.txt_workout_exercise_set.setText("#" + (position + 1) + " set");
         viewHolder.btn_startPause.setText("Pause " + exercise.getPauseDurationSeconds() + "s");
+        WorkoutViewModel viewModel = new ViewModelProvider(fragment.requireActivity()).get(WorkoutViewModel.class);
 
         Thread thread = new Thread(() -> {
             int pause = exercise.getPauseDurationSeconds();
@@ -118,11 +122,44 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
         });
 
         viewHolder.btn_startPause.setOnClickListener(v -> {
+            Integer existingPause = viewModel.getPauseCountdown().getValue();
+            if (existingPause != null && existingPause > 0) {
+                Toast.makeText(context, "Ongoing pause", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            viewModel.addNotificationListener(new NotificationIndex(muscleGroupIndex, exerciseIndex, position, exercise.getPauseDurationSeconds()));
             viewHolder.btn_startPause.setTextSize(24);
             if (!thread.isAlive()) {
                 thread.start();
             }
         });
+
+        Integer existingPause = viewModel.getPauseCountdown().getValue();
+        if (existingPause != null && existingPause > 0) {
+            NotificationIndex notificationIndex = viewModel.getNotificationListener().getValue();
+            if (notificationIndex != null && notificationIndex.getMuscleGroupIndex() == muscleGroupIndex
+                    && notificationIndex.getExerciseIndex() == exerciseIndex && notificationIndex.getSetIndex() == position) {
+                Thread existingThread = new Thread(() -> {
+                    int pause = existingPause;
+                    activity.runOnUiThread(() -> viewHolder.btn_startPause.setTextSize(24));
+                    try {
+                        while (pause > 0) {
+                            viewHolder.btn_startPause.setText(String.valueOf(pause--));
+                            Thread.sleep(1000);
+                        }
+
+                        activity.runOnUiThread(() -> {
+                            viewHolder.btn_startPause.setText("0");
+                            viewHolder.btn_startPause.setEnabled(false);
+                            viewHolder.btn_startPause.setBackgroundResource(R.drawable.btn_primary_disabled);
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
+                existingThread.start();
+            }
+        }
 
         viewHolder.btn_set_data.setOnClickListener(v -> {
             if (viewHolder.layout_set_result_data.getVisibility() == View.GONE) {
@@ -146,7 +183,6 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
             }
 
             Common.hideKeyboard(context, finalRow, activity);
-            WorkoutViewModel viewModel = new ViewModelProvider(fragment.requireActivity()).get(WorkoutViewModel.class);
             SetResult result = new SetResult();
             result.setExerciseId(exercise.getId());
             result.setReps(Integer.parseInt(viewHolder.txt_set_result_reps.getText().toString()));
