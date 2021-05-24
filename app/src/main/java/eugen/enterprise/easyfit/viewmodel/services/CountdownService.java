@@ -3,6 +3,8 @@ package eugen.enterprise.easyfit.viewmodel.services;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -36,11 +38,14 @@ public class CountdownService extends Service {
                 Intent notificationIntent = new Intent(MainActivity.getAppContext(), MainActivity.class);
                 notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.getAppContext(), 0, notificationIntent, 0);
+                Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.getAppContext(), "PauseChannel")
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("Pause is over")
                         .setContentText("Let's go!")
+                        .setSound(soundUri)
+                        .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentIntent(pendingIntent)
                         .setAutoCancel(true);
