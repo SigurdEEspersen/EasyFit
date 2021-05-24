@@ -42,9 +42,10 @@ public class WorkoutFragment extends Fragment {
 
         Workout workout = planViewModel.getWorkout().getValue();
         if (workout != null) {
+            Integer index = workoutViewModel.getOpenedMuscleGroup().getValue();
             btn_planWorkout.setVisibility(View.GONE);
             WorkoutAdapter adapter = new WorkoutAdapter(requireContext(), R.layout.workout_card);
-            adapter.injectData(requireContext(), getActivity(), workout, this);
+            adapter.injectData(requireContext(), getActivity(), workout, this, index);
             for (IMuscleGroup muscleGroup : workout.getMuscleGroups()) {
                 adapter.add(muscleGroup);
             }

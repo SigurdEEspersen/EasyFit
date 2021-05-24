@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
@@ -28,6 +29,7 @@ import eugen.enterprise.easyfit.acquaintance.helpers.Workout;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IExercise;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IMuscleGroup;
 import eugen.enterprise.easyfit.view.fragments.WorkoutFragment;
+import eugen.enterprise.easyfit.viewmodel.WorkoutViewModel;
 
 public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
     private List<IMuscleGroup> muscleGroups = new ArrayList<>();
@@ -35,16 +37,18 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
     private Workout workout;
     private Activity activity;
     private WorkoutFragment fragment;
+    private Integer openedMuscleGroup;
 
     public WorkoutAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
 
-    public void injectData(Context context, Activity activity, Workout workout, WorkoutFragment fragment) {
+    public void injectData(Context context, Activity activity, Workout workout, WorkoutFragment fragment, Integer openedMuscleGroup) {
         this.context = context;
         this.activity = activity;
         this.workout = workout;
         this.fragment = fragment;
+        this.openedMuscleGroup = openedMuscleGroup;
     }
 
     static class ViewHolder {
@@ -97,6 +101,7 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
             viewHolder = (ViewHolder) row.getTag();
         }
         final IMuscleGroup muscleGroup = getItem(position);
+        WorkoutViewModel viewModel = new ViewModelProvider(fragment.requireActivity()).get(WorkoutViewModel.class);
 
         if (muscleGroup.isWorkoutExtra()) {
             viewHolder.layout_regularMuscleGroup.setVisibility(View.GONE);
@@ -108,11 +113,17 @@ public class WorkoutAdapter extends ArrayAdapter<IMuscleGroup> {
 
         viewHolder.txt_workout_muscleGroup.setText(muscleGroup.getName());
 
+        if (openedMuscleGroup != null && openedMuscleGroup == position) {
+            viewHolder.layout_exercises.setVisibility(View.VISIBLE);
+            viewHolder.img_expander.setImageResource(R.drawable.ic_baseline_expand_less_24);
+        }
+
         viewHolder.btn_expandExercises.setOnClickListener(v -> {
             if (viewHolder.layout_exercises.getVisibility() == View.GONE) {
                 TransitionManager.beginDelayedTransition(viewHolder.cardView, new AutoTransition());
                 viewHolder.layout_exercises.setVisibility(View.VISIBLE);
                 viewHolder.img_expander.setImageResource(R.drawable.ic_baseline_expand_less_24);
+                viewModel.setOpenedMuscleGroup(position);
             } else if (viewHolder.layout_exercises.getVisibility() == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(viewHolder.cardView, new AutoTransition());
                 viewHolder.layout_exercises.setVisibility(View.GONE);

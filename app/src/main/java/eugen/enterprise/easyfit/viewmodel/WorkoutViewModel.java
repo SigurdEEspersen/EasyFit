@@ -23,12 +23,14 @@ public class WorkoutViewModel extends ViewModel {
     private MutableLiveData<Boolean> addedSetResult;
     private MutableLiveData<NotificationIndex> notificationListener;
     private MutableLiveData<Integer> pauseCountdown;
+    private MutableLiveData<Integer> openedMuscleGroup;
     private WorkoutService workoutService;
 
     public WorkoutViewModel() {
         addedSetResult = new MutableLiveData<>();
         notificationListener = new MutableLiveData<>();
         pauseCountdown = new MutableLiveData<>();
+        openedMuscleGroup = new MutableLiveData<>();
         workoutService = new WorkoutService();
     }
 
@@ -63,5 +65,13 @@ public class WorkoutViewModel extends ViewModel {
 
     public MutableLiveData<Integer> getPauseCountdown() {
         return pauseCountdown;
+    }
+
+    public void setOpenedMuscleGroup(Integer index) {
+        openedMuscleGroup.postValue(index);
+    }
+
+    public MutableLiveData<Integer> getOpenedMuscleGroup() {
+        return openedMuscleGroup;
     }
 }
