@@ -1,5 +1,6 @@
 package eugen.enterprise.easyfit.view.activities;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -22,12 +23,14 @@ import eugen.enterprise.easyfit.R;
 public class MainActivity extends AppCompatActivity {
 
     private static Context context;
+    private static AppCompatActivity mainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
+        mainActivity = this;
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -74,4 +77,5 @@ public class MainActivity extends AppCompatActivity {
     public static Context getAppContext() {
         return context;
     }
+    public static AppCompatActivity getMainActivity() { return mainActivity; }
 }
