@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
@@ -306,6 +307,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
 
                 List<String> availableDates = new ArrayList<>(setResultsDict.keySet());
+                availableDates.sort(Collections.reverseOrder());
                 spinner_result_data = findViewById(R.id.spinner_result_data);
                 ArrayAdapter adapter = new ArrayAdapter<>(getApplication(), R.layout.custom_spinner, availableDates);
                 adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_border);
