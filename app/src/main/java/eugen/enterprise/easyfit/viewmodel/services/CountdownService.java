@@ -24,6 +24,10 @@ public class CountdownService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         thread = new Thread(() -> {
+            if (intent == null) {
+                return;
+            }
+
             int countdown = (int) intent.getExtras().get("duration");
             WorkoutViewModel viewModel = new ViewModelProvider(MainActivity.getMainActivity()).get(WorkoutViewModel.class);
 
@@ -35,9 +39,9 @@ public class CountdownService extends Service {
 
                 viewModel.getPauseCountdown().postValue(0);
 
-                Intent notificationIntent = new Intent(MainActivity.getAppContext(), MainActivity.class);
-                notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.getAppContext(), 0, notificationIntent, 0);
+                Intent notificationIntent = new Intent(this, MainActivity.class);
+                //notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
                 Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.getAppContext(), "PauseChannel")
