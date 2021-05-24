@@ -101,7 +101,7 @@ public class HealthFragment extends Fragment {
         list_unhealthy_fats.setDivider(null);
         Common.updateListViewHeight(list_unhealthy_fats);
 
-        String[] unhealthyCarbs = {"Soda", "White pasta", "White rice", "Sugar", "Sugary drinks/snacks"};
+        String[] unhealthyCarbs = {"White pasta", "White rice", "Sugar", "Sugary drinks/snacks"};
         ArrayAdapter<String> unhealthyCarbsAdapter = new ArrayAdapter<>(requireContext(), R.layout.array_adapter_custom_simple_item, unhealthyCarbs);
         list_unhealthy_carbs.setAdapter(unhealthyCarbsAdapter);
         list_unhealthy_carbs.setDivider(null);

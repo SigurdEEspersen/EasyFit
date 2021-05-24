@@ -31,10 +31,12 @@ import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutExtras;
 import eugen.enterprise.easyfit.acquaintance.enums.EWorkoutSplit;
 import eugen.enterprise.easyfit.view.activities.MainActivity;
 import eugen.enterprise.easyfit.viewmodel.PlanViewModel;
+import eugen.enterprise.easyfit.viewmodel.WorkoutViewModel;
 
 public class PlanFragment extends Fragment {
 
     private PlanViewModel planViewModel;
+    private WorkoutViewModel workoutViewModel;
     private Button btn_splitFullBody, btn_split2Split, btn_split3Split, btn_duration1, btn_duration2, btn_duration3,
             btn_muscleGroupChest, btn_muscleGroupLegs, btn_muscleGroupShoulders, btn_muscleGroupBiceps,
             btn_muscleGroupTriceps, btn_muscleGroupBack, btn_generateWorkout, btn_extrasAbs, btn_extrasRunning,
@@ -51,6 +53,7 @@ public class PlanFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_plan, container, false);
 
         planViewModel = new ViewModelProvider(requireActivity()).get(PlanViewModel.class);
+        workoutViewModel = new ViewModelProvider(requireActivity()).get(WorkoutViewModel.class);
 
         btn_generateWorkout = root.findViewById(R.id.btn_generateWorkout);
 
@@ -189,6 +192,7 @@ public class PlanFragment extends Fragment {
                 }
             }
             newlyCreatedWorkout = true;
+            workoutViewModel.setOpenedMuscleGroup(null);
             planViewModel.createWorkout(getContext());
         });
 
