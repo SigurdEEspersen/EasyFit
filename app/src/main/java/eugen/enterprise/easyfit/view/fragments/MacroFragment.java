@@ -133,7 +133,7 @@ public class MacroFragment extends Fragment {
                 return row;
             }
         };
-        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_border);
         dropdown_activity.setAdapter(adapter);
 
         dropdown_activity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

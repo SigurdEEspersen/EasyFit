@@ -241,7 +241,7 @@
                                 android:backgroundTint="@color/white"
                                 android:paddingEnd="20dp"
                                 android:popupBackground="@color/main_background"
-                                android:spinnerMode="dialog" />
+                                android:spinnerMode="dropdown" />
                         </LinearLayout>
                     </LinearLayout>
 
