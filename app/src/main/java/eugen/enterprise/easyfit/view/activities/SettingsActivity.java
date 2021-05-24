@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -13,11 +14,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.List;
 
 import eugen.enterprise.easyfit.R;
 import eugen.enterprise.easyfit.acquaintance.enums.EMuscleGroup;
+import eugen.enterprise.easyfit.acquaintance.helpers.SetResult;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IExercise;
+import eugen.enterprise.easyfit.acquaintance.interfaces.IMuscleGroup;
 import eugen.enterprise.easyfit.acquaintance.interfaces.IPreferredExercise;
+import eugen.enterprise.easyfit.view.adapters.SetResultDataAdapter;
+import eugen.enterprise.easyfit.view.adapters.WorkoutAdapter;
 import eugen.enterprise.easyfit.viewmodel.SettingsViewModel;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -34,12 +42,16 @@ public class SettingsActivity extends AppCompatActivity {
     private Spinner spinner_legs;
     private Spinner spinner_triceps;
     private Spinner spinner_biceps;
+    private Spinner spinner_result_data;
     private ArrayAdapter<String> adapter_chest;
     private ArrayAdapter<String> adapter_shoulders;
     private ArrayAdapter<String> adapter_back;
     private ArrayAdapter<String> adapter_legs;
     private ArrayAdapter<String> adapter_triceps;
     private ArrayAdapter<String> adapter_biceps;
+    private HashMap<String, List<SetResult>> setResultsDict;
+    private HashMap<Integer, String> availableExercises;
+    private ListView saved_exercise_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +67,11 @@ public class SettingsActivity extends AppCompatActivity {
         viewModel.getExercises().observe(this, new Observer<IExercise[]>() {
             @Override
             public void onChanged(IExercise[] exercises) {
+                availableExercises = new HashMap<>();
+                for (IExercise exercise : exercises) {
+                    availableExercises.put(exercise.getId(), exercise.getName());
+                }
+
                 ArrayList<String> chestExercises = new ArrayList<>();
                 ArrayList<String> shoulderExercises = new ArrayList<>();
                 ArrayList<String> backExercises = new ArrayList<>();
@@ -228,6 +245,7 @@ public class SettingsActivity extends AppCompatActivity {
                 });
 
                 viewModel.loadSavedPrefferedExercises(getApplicationContext());
+                viewModel.loadSetResults(getApplicationContext());
             }
         });
 
@@ -267,6 +285,52 @@ public class SettingsActivity extends AppCompatActivity {
                             break;
                     }
                 }
+            }
+        });
+
+        viewModel.getSetResults().observe(this, new Observer<List<SetResult>>() {
+            @Override
+            public void onChanged(List<SetResult> setResults) {
+                setResultsDict = new HashMap<>();
+                for (SetResult setResult : setResults) {
+                    setResult.setExerciseName(availableExercises.get(setResult.getExerciseId()));
+                    String date = setResult.getDate().toString();
+                    List<SetResult> existing = setResultsDict.get(date);
+                    if (existing == null) {
+                        List<SetResult> list = new ArrayList<>();
+                        list.add(setResult);
+                        setResultsDict.put(date, list);
+                    } else {
+                        existing.add(setResult);
+                    }
+                }
+
+                List<String> availableDates = new ArrayList<>(setResultsDict.keySet());
+                spinner_result_data = findViewById(R.id.spinner_result_data);
+                ArrayAdapter adapter = new ArrayAdapter<>(getApplication(), R.layout.custom_spinner, availableDates);
+                adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_border);
+                spinner_result_data.setAdapter(adapter);
+                saved_exercise_data = findViewById(R.id.saved_exercise_data);
+
+                spinner_result_data.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        String date = (String) parent.getAdapter().getItem(position);
+                        List<SetResult> setResultList = setResultsDict.get(date);
+                        if (setResultList == null) {
+                            return;
+                        }
+                        SetResultDataAdapter adapter = new SetResultDataAdapter(getApplication(), R.layout.set_result_data_card);
+                        for (SetResult setResult : setResultList) {
+                            adapter.add(setResult);
+                        }
+                        saved_exercise_data.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
             }
         });
     }

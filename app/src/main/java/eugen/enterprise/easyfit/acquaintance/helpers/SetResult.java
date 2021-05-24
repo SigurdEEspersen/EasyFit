@@ -1,11 +1,13 @@
 package eugen.enterprise.easyfit.acquaintance.helpers;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class SetResult {
+    private String exerciseName;
     private int exerciseId;
     private int reps;
     private double weight;
+    private Date date;
 
     public int getExerciseId() {
         return exerciseId;
@@ -29,5 +31,21 @@ public class SetResult {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getExerciseName() {
+        return exerciseName;
+    }
+
+    public void setExerciseName(String exerciseName) {
+        this.exerciseName = exerciseName;
     }
 }
