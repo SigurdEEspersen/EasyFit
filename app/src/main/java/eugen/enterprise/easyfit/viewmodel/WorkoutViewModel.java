@@ -10,6 +10,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import eugen.enterprise.easyfit.R;
 import eugen.enterprise.easyfit.acquaintance.helpers.NotificationIndex;
 import eugen.enterprise.easyfit.acquaintance.helpers.SetResult;
@@ -24,6 +27,7 @@ public class WorkoutViewModel extends ViewModel {
     private MutableLiveData<NotificationIndex> notificationListener;
     private MutableLiveData<Integer> pauseCountdown;
     private MutableLiveData<Integer> openedMuscleGroup;
+    private MutableLiveData<List<NotificationIndex>> usedPauses;
     private WorkoutService workoutService;
 
     public WorkoutViewModel() {
@@ -31,6 +35,8 @@ public class WorkoutViewModel extends ViewModel {
         notificationListener = new MutableLiveData<>();
         pauseCountdown = new MutableLiveData<>();
         openedMuscleGroup = new MutableLiveData<>();
+        usedPauses = new MutableLiveData<>();
+        usedPauses.postValue(new ArrayList<>());
         workoutService = new WorkoutService();
     }
 
@@ -55,8 +61,10 @@ public class WorkoutViewModel extends ViewModel {
         notificationListener.postValue(notificationIndex);
         Intent intent = new Intent(MainActivity.getAppContext(), CountdownService.class);
         intent.putExtra("duration", notificationIndex.getPauseDuration());
+        intent.putExtra("muscleGroupIndex", notificationIndex.getMuscleGroupIndex());
+        intent.putExtra("exerciseIndex", notificationIndex.getExerciseIndex());
+        intent.putExtra("setIndex", notificationIndex.getSetIndex());
         MainActivity.getAppContext().startService(intent);
-        //startPauseThread(notificationIndex.getPauseDuration());
     }
 
     public MutableLiveData<NotificationIndex> getNotificationListener() {
@@ -73,5 +81,13 @@ public class WorkoutViewModel extends ViewModel {
 
     public MutableLiveData<Integer> getOpenedMuscleGroup() {
         return openedMuscleGroup;
+    }
+
+    public void addUsedPause(NotificationIndex usedPause) {
+        usedPauses.getValue().add(usedPause);
+    }
+
+    public MutableLiveData<List<NotificationIndex>> getUsedPauses() {
+        return usedPauses;
     }
 }

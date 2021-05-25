@@ -14,6 +14,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import eugen.enterprise.easyfit.R;
+import eugen.enterprise.easyfit.acquaintance.helpers.NotificationIndex;
 import eugen.enterprise.easyfit.view.activities.MainActivity;
 import eugen.enterprise.easyfit.viewmodel.WorkoutViewModel;
 
@@ -29,6 +30,9 @@ public class CountdownService extends Service {
             }
 
             int countdown = (int) intent.getExtras().get("duration");
+            int muscleGroupIndex = (int) intent.getExtras().get("muscleGroupIndex");
+            int exerciseIndex = (int) intent.getExtras().get("exerciseIndex");
+            int setIndex = (int) intent.getExtras().get("setIndex");
             WorkoutViewModel viewModel = new ViewModelProvider(MainActivity.getMainActivity()).get(WorkoutViewModel.class);
 
             try {
@@ -38,6 +42,7 @@ public class CountdownService extends Service {
                 }
 
                 viewModel.getPauseCountdown().postValue(0);
+                viewModel.addUsedPause(new NotificationIndex(muscleGroupIndex, exerciseIndex, setIndex, 0));
 
                 Intent notificationIntent = new Intent(this, MainActivity.class);
                 //notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

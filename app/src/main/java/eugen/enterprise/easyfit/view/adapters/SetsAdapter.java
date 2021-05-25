@@ -190,6 +190,18 @@ public class SetsAdapter extends ArrayAdapter<IExercise> {
             viewModel.addSetResult(result, context);
         });
 
+        List<NotificationIndex> usedPauses = viewModel.getUsedPauses().getValue();
+        for (NotificationIndex usedPause : usedPauses) {
+            if (usedPause.getMuscleGroupIndex() == muscleGroupIndex
+                    && usedPause.getExerciseIndex() == exerciseIndex
+                    && usedPause.getSetIndex() == position) {
+                viewHolder.btn_startPause.setTextSize(24);
+                viewHolder.btn_startPause.setText("0");
+                viewHolder.btn_startPause.setEnabled(false);
+                viewHolder.btn_startPause.setBackgroundResource(R.drawable.btn_primary_disabled);
+            }
+        }
+
         return row;
     }
 }
