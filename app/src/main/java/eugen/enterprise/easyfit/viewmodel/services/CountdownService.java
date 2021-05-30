@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -28,6 +29,11 @@ public class CountdownService extends Service {
             if (intent == null) {
                 return;
             }
+
+            PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                    "MyApp::MyWakelockTag");
+            wakeLock.acquire(10*60*1000L /*10 minutes*/);
 
             int countdown = (int) intent.getExtras().get("duration");
             int muscleGroupIndex = (int) intent.getExtras().get("muscleGroupIndex");
@@ -61,8 +67,10 @@ public class CountdownService extends Service {
 
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MainActivity.getAppContext());
                 notificationManager.notify(1, builder.build());
+                wakeLock.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                wakeLock.release();
             }
         });
 
